@@ -73,6 +73,17 @@ export default function Header() {
         [--total:calc(var(--bump)_+_var(--band))]
       "
     >
+      {/* Top notch background: Clean white/page background above the navbar on mobile only */}
+      <div
+        aria-hidden="true"
+        className="pointer-events-none absolute inset-x-0 top-0 h-[calc(var(--bump)_+_2px)] bg-background lg:hidden"
+        style={{
+          clipPath:
+            "polygon(var(--lw) 0, calc(100% - var(--rw)) 0, calc(100% - var(--rw) - var(--sl)) 100%, calc(var(--lw) + var(--sl)) 100%)",
+          backgroundColor: "var(--background)",
+        }}
+      />
+
       {/* Background shape with soft, subtle blurred white ambient glow */}
       <div
         className="pointer-events-none absolute inset-0"
