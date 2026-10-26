@@ -57,7 +57,7 @@ export default function Hero() {
           playsInline
           preload="auto"
           aria-hidden="true"
-          className="absolute inset-0 z-0 h-full w-full scale-105 object-cover object-center"
+          className="absolute inset-0 z-0 h-full w-full scale-[1.28] sm:scale-[1.3] object-cover object-center transform-gpu"
         />
 
         {/* Full Video Dark Overlay */}
