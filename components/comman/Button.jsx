@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { cn } from "@/lib/utils";
 
 const VARIANTS = {
   primary:
@@ -38,7 +39,7 @@ export default function Button({
     "inline-flex items-center justify-center rounded-full font-bold transition-all duration-200 select-none cursor-pointer focus:outline-none focus-visible:ring-2 focus-visible:ring-button focus-visible:ring-offset-2 disabled:opacity-50 disabled:cursor-not-allowed disabled:pointer-events-none";
   const variantClasses = VARIANTS[variant] || VARIANTS.primary;
   const sizeClasses = SIZES[size] || SIZES.md;
-  const combinedClasses = `${baseClasses} ${variantClasses} ${sizeClasses} ${className}`.trim();
+  const combinedClasses = cn(baseClasses, variantClasses, sizeClasses, className);
 
   if (href) {
     return (

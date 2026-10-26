@@ -78,20 +78,20 @@ export function HeroPlus() {
           </ul>
 
           {/* CTAs */}
-          <div className="mt-8 flex flex-col items-center gap-3.5 sm:flex-row sm:justify-center lg:justify-start">
+          <div className="mt-8 flex flex-row items-center justify-center gap-2 sm:gap-3.5 lg:justify-start">
             <Button
               href="/applyNow"
-              size="lg"
+              size="md"
               variant="primary"
-              className="w-full sm:w-auto shadow-lg shadow-button/25"
+              className="flex-1 sm:flex-initial sm:w-auto text-[11px] min-[380px]:text-xs sm:text-base px-2.5 sm:px-7 py-2.5 sm:py-3 whitespace-nowrap shadow-lg shadow-button/25"
             >
               Apply for Admission
             </Button>
             <Button
               href="/about-institute"
-              size="lg"
+              size="md"
               variant="outline"
-              className="w-full sm:w-auto"
+              className="flex-1 sm:flex-initial sm:w-auto text-[11px] min-[380px]:text-xs sm:text-base px-2.5 sm:px-7 py-2.5 sm:py-3 whitespace-nowrap"
             >
               Book a Campus Visit
             </Button>
