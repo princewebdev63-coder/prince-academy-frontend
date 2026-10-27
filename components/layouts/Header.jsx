@@ -91,6 +91,9 @@ export default function Header() {
       <div
         aria-hidden="true"
         className="pointer-events-none absolute inset-0"
+        style={{
+          filter: "drop-shadow(0 1.5px 2px rgba(255, 255, 255, 0.35))",
+        }}
       >
         {/* Navbar background shape */}
         <div
@@ -98,8 +101,6 @@ export default function Header() {
           style={{
             clipPath: CLIP,
             backgroundColor: "var(--primary)",
-            filter:
-              "drop-shadow(0 4px 12px rgba(0, 0, 0, 0.12))",
           }}
         />
       </div>
