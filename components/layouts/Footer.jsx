@@ -94,11 +94,9 @@ export default function Footer() {
         <div className="grid grid-cols-1 gap-12 sm:grid-cols-2 lg:grid-cols-12 lg:gap-8">
           {/* Col 1: Brand, Bio & Apply Now */}
           <div className="lg:col-span-5">
-            <div className="flex  items-center justify-between gap-5">
+            <div className="flex items-center justify-between gap-5">
               {/* Tagline (above) + Logo */}
               <div className="flex flex-col items-start">
-                
-
                 {/* Logo with glow + sticker outline + shadow */}
                 <Link
                   href="/"
@@ -117,19 +115,42 @@ export default function Footer() {
                 </Link>
               </div>
 
-              <Button href="/applyNow" variant="primary" size="md" className="shrink-0">
+              {/* Desktop Apply Now Button */}
+              <Button
+                href="/applyNow"
+                variant="primary"
+                size="lg"
+                className="hidden lg:inline-flex shrink-0 rounded-xl"
+              >
                 Apply Now
               </Button>
             </div>
 
             <p className="mt-7 text-sm leading-relaxed text-slate-300">
-              Prince Academy Sikar is Rajasthan&apos;s apex CBSE institution. A lush 25-bigha campus blending state-of-the-art smart education, rigorous competitive mentoring (JEE, NEET, NDA), and Olympic-standard sports.
+              Prince Academy Sikar is Rajasthan&apos;s apex CBSE institution. A
+              lush 25-bigha campus blending state-of-the-art smart education,
+              rigorous competitive mentoring (JEE, NEET, IIT), and
+              Olympic-standard sports.
             </p>
 
+            {/* Mobile Apply Now Button */}
+            <Button
+              href="/applyNow"
+              variant="primary"
+              size="lg"
+              className="lg:hidden shrink-0 mt-5 rounded-xl"
+            >
+              Apply Now
+            </Button>
             {/* CBSE Accreditation Pill */}
             <div className="mt-4 rounded-xl border border-white/10 bg-white/[0.04] p-3 text-xs text-slate-300">
-              <span className="font-bold text-button">CBSE Affiliation No: 1730414</span>
-              <p className="mt-0.5 text-slate-400">English Medium Co-educational Day Boarding &amp; Residential School</p>
+              <span className="font-bold text-button">
+                CBSE Affiliation No: 1730414
+              </span>
+              <p className="mt-0.5 text-slate-400">
+                English Medium Co-educational Day Boarding &amp; Residential
+                School
+              </p>
             </div>
 
             {/* Social Icons */}
@@ -159,7 +180,9 @@ export default function Footer() {
                 <li key={link.label}>
                   <Link
                     href={link.href}
-                    {...(link.external ? { target: "_blank", rel: "noopener noreferrer" } : {})}
+                    {...(link.external
+                      ? { target: "_blank", rel: "noopener noreferrer" }
+                      : {})}
                     className="group flex items-center gap-2 text-slate-300 transition-colors duration-200 hover:text-button"
                   >
                     <span className="h-1 w-1 rounded-full bg-slate-500 transition-all duration-200 group-hover:w-2.5 group-hover:bg-button" />
@@ -185,8 +208,18 @@ export default function Footer() {
                   viewBox="0 0 24 24"
                   aria-hidden="true"
                 >
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth="2"
+                    d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"
+                  />
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth="2"
+                    d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"
+                  />
                 </svg>
                 <p className="leading-relaxed">
                   Palwas Road, Sikar (Rajasthan) - 332001
@@ -202,35 +235,59 @@ export default function Footer() {
                   viewBox="0 0 24 24"
                   aria-hidden="true"
                 >
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth="2"
+                    d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"
+                  />
                 </svg>
                 <div className="flex flex-col space-y-1">
-                  <Link href="tel:9610892222" className="transition-colors hover:text-button">
+                  <Link
+                    href="tel:9610892222"
+                    className="transition-colors hover:text-button"
+                  >
                     +91 9610 89 2222
                   </Link>
-                  <Link href="tel:9610992222" className="transition-colors hover:text-button">
+                  <Link
+                    href="tel:9610992222"
+                    className="transition-colors hover:text-button"
+                  >
                     +91 9610 99 2222
                   </Link>
                 </div>
               </div>
 
               {/* Email */}
-              <div className="flex items-center gap-3">
+              <div className="flex items-start gap-3">
                 <svg
-                  className="h-5 w-5 shrink-0 text-button"
+                  className="mt-1 h-5 w-5 shrink-0 text-button"
                   fill="none"
                   stroke="currentColor"
                   viewBox="0 0 24 24"
                   aria-hidden="true"
                 >
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth="2"
+                    d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"
+                  />
                 </svg>
-                <Link
-                  href="mailto:princeacademysikar@gmail.com"
-                  className="break-all transition-colors hover:text-button"
-                >
-                  princeacademysikar@gmail.com
-                </Link>
+                <div className="flex flex-col space-y-1">
+                  <Link
+                    href="mailto:info@princecbse.com"
+                    className="break-all transition-colors hover:text-button"
+                  >
+                    info@princecbse.com
+                  </Link>
+                  <Link
+                    href="mailto:princeacademy31@gmail.com"
+                    className="break-all transition-colors hover:text-button"
+                  >
+                    princeacademy31@gmail.com
+                  </Link>
+                </div>
               </div>
             </div>
           </div>
@@ -268,14 +325,24 @@ export default function Footer() {
       <div className="relative border-t border-white/10 bg-[#070f17] px-6 py-5 text-xs text-slate-400">
         <div className="mx-auto flex max-w-7xl flex-col items-center justify-between gap-3 text-center sm:flex-row sm:text-left">
           <p>
-            &copy; {currentYear} <span className="font-semibold text-slate-200">Prince Academy, Sikar</span>. All Rights Reserved.
+            &copy; {currentYear}{" "}
+            <span className="font-semibold text-slate-200">
+              Prince Academy, Sikar
+            </span>
+            . All Rights Reserved.
           </p>
           <div className="flex items-center gap-4 text-slate-400">
-            <Link href="/about-institute" className="transition-colors hover:text-white">
+            <Link
+              href="/about-institute"
+              className="transition-colors hover:text-white"
+            >
               Privacy Policy
             </Link>
             <span>•</span>
-            <Link href="/applyNow" className="transition-colors hover:text-white">
+            <Link
+              href="/applyNow"
+              className="transition-colors hover:text-white"
+            >
               Term &amp; Condition
             </Link>
           </div>
