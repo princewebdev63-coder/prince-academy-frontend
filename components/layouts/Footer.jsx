@@ -20,12 +20,12 @@ const CURRENT_YEAR = 2026;
   2) uske baad ek bada soft dark shadow = depth / floating effect
 */
 const LOGO_FILTER = [
-  "drop-shadow(2px 0 0 #ffffff)",
-  "drop-shadow(-2px 0 0 #ffffff)",
-  "drop-shadow(0 2px 0 #ffffff)",
-  "drop-shadow(0 -2px 0 #ffffff)",
-  "drop-shadow(0 12px 22px rgba(0,0,0,0.65))",
-  "drop-shadow(0 0 26px rgba(255,255,255,0.18))",
+  "drop-shadow(1px 0 0 rgba(255,255,255,0.65))",
+  "drop-shadow(-1px 0 0 rgba(255,255,255,0.65))",
+  "drop-shadow(0 1px 0 rgba(255,255,255,0.65))",
+  "drop-shadow(0 -1px 0 rgba(255,255,255,0.65))",
+  "drop-shadow(0 10px 20px rgba(0,0,0,0.55))",
+  "drop-shadow(0 0 18px rgba(255,255,255,0.12))",
 ].join(" ");
 
 const QUICK_LINKS = [
