@@ -2,6 +2,7 @@ import Hero from "@/components/home/Hero";
 import StatsStrip from "@/components/home/StatsStrip";
 import { HeroPlus } from "@/components/home/HeroPlus";
 import StickyScrollReveal from "@/components/home/StickyScrollReveal";
+import CampusFacilities from "@/components/home/CampusFacilities";
 
 export default function Home() {
   return (
@@ -10,6 +11,7 @@ export default function Home() {
       <StatsStrip />
       <HeroPlus />
       <StickyScrollReveal />
+      <CampusFacilities/>
     </main>
   );
 }

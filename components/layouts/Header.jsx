@@ -1,6 +1,6 @@
 "use client";
 
-import { memo, useCallback, useState } from "react";
+import { useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import Button from "@/components/comman/Button";
@@ -49,7 +49,7 @@ function isActiveRoute(pathname, href) {
   return pathname === href || pathname.startsWith(`${href}/`);
 }
 
-const NavLink = memo(function NavLink({
+function NavLink({
   item,
   pathname,
   mobile = false,
@@ -69,20 +69,12 @@ const NavLink = memo(function NavLink({
       {item.label}
     </Link>
   );
-});
+}
 
-/**
- * 360 degree campus tour button.
- *
- * Icon geometry (viewBox 0 0 100 100):
- * - The ring, the arrow and the dot are all drawn around the exact center (50, 50),
- *   so the ring sits in the middle of the circle button.
- * - The "360" text is anchored at the same center point:
- *   textAnchor="middle" centers it horizontally, and dy="0.35em" centers the
- *   digits vertically (works the same in every browser, unlike dominantBaseline).
- *   x is 49.3 instead of 50 to cancel the small shift caused by the negative letterSpacing.
- */
-const Tour360Link = memo(function Tour360Link() {
+
+//  360 degree campus tour button.
+
+function Tour360Link() {
   return (
     <Link
       href={TOUR_URL}
@@ -145,15 +137,15 @@ const Tour360Link = memo(function Tour360Link() {
       </div>
     </Link>
   );
-});
+}
 
 export default function Header() {
   const pathname = usePathname();
   const [open, setOpen] = useState(false);
   const [prevPathname, setPrevPathname] = useState(pathname);
 
-  const closeMenu = useCallback(() => setOpen(false), []);
-  const toggleMenu = useCallback(() => setOpen((previous) => !previous), []);
+  const closeMenu = () => setOpen(false);
+  const toggleMenu = () => setOpen((previous) => !previous);
 
   // Close mobile menu when route changes.
   if (prevPathname !== pathname) {
@@ -195,7 +187,7 @@ export default function Header() {
       {/* Header navigation */}
       <div
         className="
-          relative grid h-full
+          relative z-50 grid h-full
           grid-cols-[var(--lw)_1fr_var(--rw)]
           lg:grid-cols-[var(--lw)_1fr_250px_1fr_var(--rw)]
         "
@@ -296,45 +288,55 @@ export default function Header() {
         />
       </Link>
 
-      {/* Mobile Navigation */}
+      {/* Mobile Navigation & Backdrop */}
       {open && (
-        <nav
-          id="mobile-navigation"
-          aria-label="Mobile navigation"
-          className="
-            absolute inset-x-2
-            top-[calc(var(--total)_+_var(--bover)_+_6px)]
-            rounded-2xl
-            border border-white/20
-            bg-primary
-            p-2
-            shadow-2xl
-            lg:hidden
-          "
-        >
-          {LINKS.map((item) => (
-            <NavLink
-              key={item.href}
-              item={item}
-              pathname={pathname}
-              mobile
-              onClick={closeMenu}
-            />
-          ))}
-
-          <Link
-            href="/applyNow"
+        <>
+          {/* Backdrop overlay (subtle opacity to close on outside click) */}
+          <div
             onClick={closeMenu}
+            aria-hidden="true"
+            className="fixed inset-0 z-40 bg-black/15 backdrop-blur-[1px] lg:hidden"
+          />
+
+          <nav
+            id="mobile-navigation"
+            aria-label="Mobile navigation"
             className="
-              mt-2 block rounded-full
-              bg-button py-3 text-center
-              font-bold text-primary
-              transition-colors hover:bg-button-hover
+              absolute inset-x-2
+              top-[calc(var(--total)_+_var(--bover)_+_6px)]
+              z-50
+              rounded-2xl
+              border border-white/20
+              bg-primary
+              p-2
+              shadow-2xl
+              lg:hidden
             "
           >
-            Apply Now
-          </Link>
-        </nav>
+            {LINKS.map((item) => (
+              <NavLink
+                key={item.href}
+                item={item}
+                pathname={pathname}
+                mobile
+                onClick={closeMenu}
+              />
+            ))}
+
+            <Link
+              href="/applyNow"
+              onClick={closeMenu}
+              className="
+                mt-2 block rounded-full
+                bg-button py-3 text-center
+                font-bold text-primary
+                transition-colors hover:bg-button-hover
+              "
+            >
+              Apply Now
+            </Link>
+          </nav>
+        </>
       )}
     </header>
   );

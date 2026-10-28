@@ -90,3 +90,52 @@ body {
 .hover\:text-button:hover { color: var(--button) !important; }
 
 
+
+
+
+/* Rotating gradient border: cards only */
+
+.facility-border-rotate {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  padding: 1.5px;
+  background: #dfe6ef;
+  box-shadow: 0 5px 20px rgb(18 38 63 / 6%);
+}
+
+/* Rotating blue and gold light */
+.facility-border-rotate::before {
+  content: "";
+  position: absolute;
+  z-index: -1;
+  width: 200%;
+  height: 200%;
+  top: -50%;
+  left: -50%;
+  background: conic-gradient(
+    from 0deg,
+    #dce8f4 0deg,
+    #dce8f4 55deg,
+    #4f8ead 100deg,
+    #8dc9e6 145deg,
+    #f5c66b 195deg,
+    #fff0ca 225deg,
+    #dce8f4 280deg,
+    #dce8f4 360deg
+  );
+  animation: facilityBorderSpin 4s linear infinite;
+}
+
+@keyframes facilityBorderSpin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* Respect reduced-motion settings */
+@media (prefers-reduced-motion: reduce) {
+  .facility-border-rotate::before {
+    animation: none;
+  }
+}
