@@ -11,7 +11,7 @@ export default function FacilityCard({
 
   return (
     <article
-      className={`facility-card relative h-[390px] w-[280px] shrink-0 overflow-hidden rounded-[20px] border border-white bg-[#DCE5EF] shadow-[0_12px_30px_rgba(23,43,64,0.12)] sm:h-[420px] sm:w-[310px] ${className}`}
+      className={`facility-card relative h-[390px] w-[280px] shrink-0 overflow-hidden rounded-[20px] border border-white bg-border shadow-[0_12px_30px_rgba(6,27,58,0.12)] sm:h-[420px] sm:w-[310px] ${className}`}
     >
       <Image
         src={facility.image}
@@ -22,7 +22,13 @@ export default function FacilityCard({
       />
 
       {/* Static image overlay */}
-      <div className="absolute inset-0 bg-gradient-to-b from-[#10243A]/40 via-transparent to-[#0e1e30]/95" />
+      <div className="absolute inset-0 bg-gradient-to-b from-[#0A3D91]/30 via-transparent to-[#061B3A]/95" />
+
+      {/* Subtle bottom-right orange glow */}
+      <div
+        aria-hidden="true"
+        className="pointer-events-none absolute -bottom-10 -right-10 h-36 w-36 rounded-full bg-[#FF8A3D]/25 blur-2xl"
+      />
 
       {/* Card information */}
       <div className="absolute inset-x-0 bottom-0 p-4 text-white sm:p-5">
@@ -41,7 +47,7 @@ export default function FacilityCard({
 
           <Link
             href={facility.href || "/facilities"}
-            className="inline-flex min-h-10 shrink-0 items-center gap-2 rounded-full bg-[#F5C66B] px-4 text-xs font-extrabold text-[#172B40] shadow-md transition-colors hover:bg-amber-300"
+            className="inline-flex min-h-10 shrink-0 items-center gap-2 rounded-full bg-button px-4 text-xs font-extrabold text-[#061B3A] shadow-md transition-colors hover:bg-button-hover"
           >
             Learn More
             <ArrowUpRight size={16} />

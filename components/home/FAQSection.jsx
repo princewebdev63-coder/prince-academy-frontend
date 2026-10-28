@@ -2,8 +2,7 @@
 "use client";
 
 import { useState } from "react";
-import Link from "next/link";
-import { Plus, Minus, ArrowUpRight, MessageCircle } from "lucide-react";
+import { Plus, Minus } from "lucide-react";
 
 const faqs = [
   {
@@ -34,103 +33,121 @@ const faqs = [
 ];
 
 export default function FAQSection() {
-  const [openIndex, setOpenIndex] = useState(0);
+  const [openIndex, setOpenIndex] = useState(-1);
 
   return (
     <section
       aria-labelledby="faq-heading"
-      className="relative overflow-hidden bg-[#101D2B] px-4 py-16 sm:px-6 sm:py-20 lg:px-8"
+      className="relative overflow-hidden bg-[#F8FAFF] px-4 py-10 sm:px-6 sm:py-12 lg:px-8 lg:py-14"
     >
-      {/* Subtle static decorative accents */}
-      <div
-        aria-hidden="true"
-        className="pointer-events-none absolute -right-24 -top-24 h-72 w-72 rounded-full bg-[#4F8EAD]/10 blur-3xl"
-      />
-      <div
-        aria-hidden="true"
-        className="pointer-events-none absolute -bottom-32 -left-24 h-72 w-72 rounded-full bg-[#F5C66B]/5 blur-3xl"
-      />
-
-      <div className="relative mx-auto max-w-4xl">
-        {/* Heading */}
-        <div className="mb-10 text-center sm:mb-12">
-         
+      <div className="mx-auto max-w-4xl">
+        {/* Compact heading */}
+        <div className="mb-6 text-center sm:mb-8">
+          <div className="mb-2 inline-flex items-center gap-2">
+            <span className="h-px w-6 bg-[#FF8A3D]" />
+            <span className="text-[10px] font-bold uppercase tracking-[0.22em] text-[#508AA8] sm:text-xs">
+              Need to know
+            </span>
+            <span className="h-px w-6 bg-[#FF8A3D]" />
+          </div>
 
           <h2
             id="faq-heading"
-            className="text-3xl font-bold tracking-tight text-white sm:text-4xl lg:text-5xl"
+            className="text-2xl font-bold tracking-tight text-[#061B3A] sm:text-3xl lg:text-4xl"
           >
             Frequently Asked{" "}
-            <span className="text-[#91B9D0]">Questions</span>
+            <span className="text-[#0A3D91]">Questions</span>
           </h2>
 
-          <p className="mx-auto mt-4 max-w-xl text-sm leading-7 text-[#B5C3D1] sm:text-base">
-            Everything you need to know about our courses, admissions
-            and campus facilities.
+          <p className="mx-auto mt-2 max-w-lg text-sm leading-6 text-[#64748B]">
+            Quick answers about courses, admissions and campus facilities.
           </p>
         </div>
 
-        {/* Accordion */}
-        <div className="space-y-3">
+        {/* Compact accordion */}
+        <div className="space-y-2.5">
           {faqs.map((faq, index) => {
             const isOpen = openIndex === index;
+            const answerId = `faq-answer-${index}`;
 
             return (
-              <div
+              <article
                 key={faq.question}
-                className={`overflow-hidden rounded-xl border transition-colors duration-200 ${
+                className={`relative overflow-hidden rounded-xl border transition-colors duration-200 ${
                   isOpen
-                    ? "border-[#4F8EAD] bg-[#1D3042]"
-                    : "border-[#2A3A49] bg-[#162534] hover:border-[#496477]"
+                    ? "border-[#508AA8]/50 bg-white shadow-[0_6px_22px_rgba(10,61,145,0.08)]"
+                    : "border-[#D9E2F0] bg-white hover:border-[#508AA8]/50"
                 }`}
               >
+                {/* Active gold accent */}
+                <span
+                  aria-hidden="true"
+                  className={`absolute bottom-3 left-0 top-3 w-[3px] rounded-r-full bg-[#FFC107] transition-opacity duration-200 ${
+                    isOpen ? "opacity-100" : "opacity-0"
+                  }`}
+                />
+
                 <button
                   type="button"
                   aria-expanded={isOpen}
-                  aria-controls={`faq-answer-${index}`}
+                  aria-controls={answerId}
                   onClick={() =>
                     setOpenIndex(isOpen ? -1 : index)
                   }
-                  className="flex w-full items-center gap-3 p-4 text-left sm:gap-4 sm:p-5"
+                  className="flex w-full items-center gap-3 px-3.5 py-3 text-left sm:gap-4 sm:px-5 sm:py-3.5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-[#508AA8]"
                 >
                   <span
-                    className={`flex h-9 w-9 shrink-0 items-center justify-center rounded-lg text-xs font-bold ${
-                      isOpen
-                        ? "bg-[#F5C66B] text-[#172B40]"
-                        : "bg-[#25394A] text-[#91B9D0]"
+                    aria-hidden="true"
+                    className={`w-6 shrink-0 text-xs font-bold tabular-nums ${
+                      isOpen ? "text-[#0A3D91]" : "text-[#94A3B8]"
                     }`}
                   >
                     {String(index + 1).padStart(2, "0")}
                   </span>
 
-                  <span className="flex-1 text-sm font-semibold leading-6 text-white sm:text-base">
+                  <span
+                    className={`min-w-0 flex-1 text-[13px] font-semibold leading-5 sm:text-sm sm:leading-6 ${
+                      isOpen ? "text-[#0A3D91]" : "text-[#102A56]"
+                    }`}
+                  >
                     {faq.question}
                   </span>
 
-                  <span className="shrink-0 text-[#F5C66B]">
+                  <span
+                    className={`flex h-7 w-7 shrink-0 items-center justify-center rounded-full transition-colors duration-200 ${
+                      isOpen
+                        ? "bg-[#FFC107] text-[#061B3A]"
+                        : "border border-[#D9E2F0] bg-[#F8FAFF] text-[#508AA8]"
+                    }`}
+                  >
                     {isOpen ? (
-                      <Minus size={20} aria-hidden="true" />
+                      <Minus size={15} strokeWidth={2.2} />
                     ) : (
-                      <Plus size={20} aria-hidden="true" />
+                      <Plus size={15} strokeWidth={2.2} />
                     )}
                   </span>
                 </button>
 
-                {isOpen && (
-                  <div
-                    id={`faq-answer-${index}`}
-                    className="px-4 pb-5 pl-16 sm:pl-[4.75rem]"
-                  >
-                    <p className="text-sm leading-7 text-[#B8C6D3]">
-                      {faq.answer}
-                    </p>
+                {/* Smooth answer transition */}
+                <div
+                  id={answerId}
+                  aria-hidden={!isOpen}
+                  className={`grid transition-[grid-template-rows] duration-300 ease-in-out ${
+                    isOpen ? "grid-rows-[1fr]" : "grid-rows-[0fr]"
+                  }`}
+                >
+                  <div className="min-h-0 overflow-hidden">
+                    <div className="ml-[3.25rem] border-t border-[#E8EEF6] pb-3.5 pr-4 pt-2.5 sm:ml-[4.25rem] sm:pb-4 sm:pr-5 sm:pt-3">
+                      <p className="text-[13px] leading-[1.7] text-[#586B82] sm:text-sm">
+                        {faq.answer}
+                      </p>
+                    </div>
                   </div>
-                )}
-              </div>
+                </div>
+              </article>
             );
           })}
         </div>
-
       </div>
     </section>
   );

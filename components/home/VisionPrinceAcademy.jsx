@@ -1,135 +1,217 @@
 
-import Link from "next/link";
-import {
-  ArrowUpRight,
-  BookOpen,
-  BrainCircuit,
-  ShieldCheck,
-} from "lucide-react";
+"use client";
 
-const missionPoints = [
-  {
-    title: "Academic Excellence",
-    description: "Build strong concepts and a lifelong love of learning.",
-    icon: BookOpen,
-  },
-  {
-    title: "Future-Ready Education",
-    description: "Encourage innovation, curiosity and critical thinking.",
-    icon: BrainCircuit,
-  },
-  {
-    title: "Character & Leadership",
-    description: "Develop discipline, integrity and leadership qualities.",
-    icon: ShieldCheck,
-  },
-];
+import { useEffect, useRef } from "react";
+import { Caveat } from "next/font/google";
+
+const visionFont = Caveat({
+  subsets: ["latin"],
+  weight: ["500", "600"],
+  display: "swap",
+});
+
+const VISION_TEXT =
+  "“Making your child tomorrow’s leader. Empowering every child with knowledge, confidence, and values to shape a better future. At Prince Academy, we nurture curious minds and strong character to inspire the leaders of tomorrow.”";
+
+const WORDS = VISION_TEXT.split(" ");
 
 export default function VisionPrinceAcademy() {
+  const containerRef = useRef(null);
+  const wordSpansRef = useRef([]);
+  const progressRef = useRef(null);
+
+  useEffect(() => {
+    const container = containerRef.current;
+    const progressBar = progressRef.current;
+
+    if (!container || !progressBar) return;
+
+    const words = wordSpansRef.current;
+    let frameId = null;
+
+    const updateScroll = () => {
+      frameId = null;
+
+      const rect = container.getBoundingClientRect();
+      const viewportHeight = window.innerHeight;
+
+      // Progress follows the complete section's viewport journey.
+      const totalTravel = viewportHeight + rect.height;
+
+      const rawProgress =
+        (viewportHeight - rect.top) / totalTravel;
+
+      const progress = Math.max(
+        0,
+        Math.min(1, rawProgress)
+      );
+
+      const totalWords = words.length;
+      const spread = 0.95;
+      const transitionSize = 0.09;
+
+      words.forEach((span, index) => {
+        if (!span) return;
+
+        const wordStart =
+          (index / Math.max(totalWords - 1, 1)) * spread;
+
+        const wordProgress = Math.max(
+          0,
+          Math.min(
+            1,
+            (progress - wordStart) / transitionSize
+          )
+        );
+
+        // Gradual, readable word highlighting.
+        const opacity = 0.58 + 0.42 * wordProgress;
+
+        const red = Math.round(213 + 42 * wordProgress);
+        const green = Math.round(228 + 27 * wordProgress);
+        const blue = Math.round(240 + 15 * wordProgress);
+
+        span.style.opacity = opacity.toFixed(3);
+        span.style.color =
+          `rgb(${red}, ${green}, ${blue})`;
+      });
+
+      progressBar.style.transform =
+        `scaleX(${progress})`;
+    };
+
+    const scheduleUpdate = () => {
+      if (frameId !== null) return;
+
+      frameId = window.requestAnimationFrame(updateScroll);
+    };
+
+    // Initial render and responsive layout changes.
+    updateScroll();
+
+    window.addEventListener("scroll", scheduleUpdate, {
+      passive: true,
+    });
+
+    window.addEventListener("resize", scheduleUpdate, {
+      passive: true,
+    });
+
+    // Recalculate if font loading or responsive layout
+    // changes the section height.
+    let resizeObserver;
+
+    if (typeof ResizeObserver !== "undefined") {
+      resizeObserver = new ResizeObserver(scheduleUpdate);
+      resizeObserver.observe(container);
+    }
+
+    return () => {
+      window.removeEventListener("scroll", scheduleUpdate);
+      window.removeEventListener("resize", scheduleUpdate);
+
+      resizeObserver?.disconnect();
+
+      if (frameId !== null) {
+        window.cancelAnimationFrame(frameId);
+      }
+    };
+  }, []);
+
   return (
     <section
+      ref={containerRef}
       aria-labelledby="prince-vision-heading"
-      className="relative overflow-hidden bg-[#508AA8] px-4 py-8 text-white sm:px-6 sm:py-10 lg:px-8"
+      className="relative isolate overflow-hidden bg-gradient-to-br from-[#061B3A] via-[#0A3D91] to-[#061B3A] px-5 py-10 text-white sm:px-8 sm:py-14 lg:px-12 lg:py-16"
     >
-      <div className="mx-auto max-w-7xl">
-        {/* Compact heading */}
-        <div className="mb-6 text-center sm:mb-8">
-          <span className="text-[11px] font-bold uppercase tracking-[0.2em] text-white/85">
-            Our Vision & Mission
-          </span>
+      {/* Steel-blue glow */}
+      <div
+        aria-hidden="true"
+        className="pointer-events-none absolute -right-32 -top-20 -z-10 h-80 w-80 rounded-full bg-secondary/20 blur-[110px]"
+      />
 
+      <div
+        aria-hidden="true"
+        className="pointer-events-none absolute -bottom-36 -left-20 -z-10 h-72 w-72 rounded-full bg-primary/40 blur-[100px]"
+      />
+
+      {/* Subtle gold glow */}
+      <div
+        aria-hidden="true"
+        className="pointer-events-none absolute left-1/2 top-1/2 -z-10 h-48 w-48 -translate-x-1/2 -translate-y-1/2 rounded-full bg-gold/[0.04] blur-[100px]"
+      />
+
+      <div className="relative mx-auto max-w-5xl">
+        {/* Heading */}
+        <div className="mb-5 flex items-center justify-center sm:mb-6">
           <h2
             id="prince-vision-heading"
-            className="mt-2 text-2xl font-bold leading-tight sm:text-3xl"
+            className="text-sm font-bold uppercase tracking-[0.25em] text-gold sm:text-base"
           >
-            School of the Future.
-            <span className="text-[#F5E4B8]"> Leaders of Tomorrow.</span>
+            Our Vision
           </h2>
         </div>
 
-        {/* Compact vision and mission layout */}
-        <div className="grid overflow-hidden rounded-2xl bg-[#F5F8FC] shadow-[0_16px_45px_rgba(8,25,39,0.16)] md:grid-cols-[0.85fr_1.15fr]">
-          {/* Vision */}
-          <div className="relative flex flex-col justify-center overflow-hidden bg-[#102536] p-5 sm:p-7 lg:p-8">
-            <div
-              aria-hidden="true"
-              className="pointer-events-none absolute -right-10 -top-10 h-40 w-40 rounded-full border border-[#8FBBD4]/15"
-            />
+        {/* Accessible text */}
+        <p className="sr-only">{VISION_TEXT}</p>
 
-            <span className="relative text-[11px] font-bold uppercase tracking-[0.2em] text-[#F5C66B]">
-              Our Vision
-            </span>
+        {/* Animated signature text */}
+        <div className="relative mx-auto max-w-4xl">
+          <span
+            aria-hidden="true"
+            className="pointer-events-none absolute -left-1 -top-6 font-serif text-5xl leading-none text-gold/35 sm:-left-6 sm:-top-8 sm:text-6xl"
+          >
+            “
+          </span>
 
-            <h3 className="relative mt-3 text-xl font-bold leading-snug sm:text-2xl">
-              Making your child
-              <span className="block text-[#8FBBD4]">
-                tomorrow&apos;s leader.
+          <p
+            aria-hidden="true"
+            className={`${visionFont.className} relative text-center text-[28px] font-semibold leading-[1.4] tracking-[0.005em] sm:text-[34px] sm:leading-[1.4] lg:text-[40px] lg:leading-[1.42]`}
+          >
+            {WORDS.map((word, index) => (
+              <span key={`${word}-${index}`}>
+                <span
+                  ref={(element) => {
+                    wordSpansRef.current[index] = element;
+                  }}
+                  className="inline"
+                  style={{
+                    opacity: 0.58,
+                    color: "#D5E4F0",
+                  }}
+                >
+                  {word}
+                </span>{" "}
               </span>
-            </h3>
+            ))}
+          </p>
+        </div>
 
-            <p className="relative mt-3 max-w-md text-sm leading-6 text-[#D0DCE5]">
-              Empowering every child with knowledge, confidence
-              and values to shape a better future.
-            </p>
+        {/* Gold scroll indicator */}
+        <div
+          className="mx-auto mt-6 h-px w-24 overflow-hidden bg-white/20 sm:mt-7 sm:w-32"
+          aria-hidden="true"
+        >
+          <div
+            ref={progressRef}
+            className="h-full w-full origin-left bg-gold"
+            style={{ transform: "scaleX(0)" }}
+          />
+        </div>
 
-            <div className="relative mt-5 flex items-center gap-2 text-[10px] font-bold uppercase tracking-[0.18em] text-white/80">
-              <span>Learn</span>
-              <span className="text-[#F5C66B]">•</span>
-              <span>Lead</span>
-              <span className="text-[#F5C66B]">•</span>
-              <span>Inspire</span>
-            </div>
-          </div>
+        {/* Footer */}
+        <div className="mt-4 text-center sm:mt-5">
+          <p className="text-[10px] font-semibold uppercase tracking-[0.2em] text-white/75 sm:text-xs">
+            Knowledge
+            <span className="mx-2 text-gold">•</span>
+            Confidence
+            <span className="mx-2 text-gold">•</span>
+            Character
+          </p>
 
-          {/* Mission */}
-          <div className="p-5 sm:p-7 lg:p-8">
-            <div className="mb-2">
-              <span className="text-[11px] font-bold uppercase tracking-[0.2em] text-[#508AA8]">
-                Our Mission
-              </span>
-
-              <h3 className="mt-1 text-xl font-bold text-[#122B3B]">
-                Growing beyond classrooms.
-              </h3>
-            </div>
-
-            <div className="divide-y divide-[#DCE5EB]">
-              {missionPoints.map((point, index) => {
-                const Icon = point.icon;
-
-                return (
-                  <div
-                    key={point.title}
-                    className="flex items-center gap-3 py-3"
-                  >
-                    <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-[#508AA8]/10 text-[#508AA8]">
-                      <Icon size={19} aria-hidden="true" />
-                    </div>
-
-                    <div className="min-w-0 flex-1">
-                      <h4 className="text-sm font-bold text-[#122B3B]">
-                        {point.title}
-                      </h4>
-
-                      <p className="mt-0.5 text-xs leading-5 text-[#597080] sm:text-sm">
-                        {point.description}
-                      </p>
-                    </div>
-
-                   
-                  </div>
-                );
-              })}
-            </div>
-
-            <Link
-              href="/about-institute"
-              className="mt-3 inline-flex min-h-10 items-center gap-2 rounded-lg bg-[#508AA8] px-4 py-2.5 text-sm font-semibold text-white transition-colors hover:bg-[#3D718D] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#508AA8] focus-visible:ring-offset-2"
-            >
-              Discover Our Academy
-              <ArrowUpRight size={16} aria-hidden="true" />
-            </Link>
-          </div>
+          <p className="mt-2 text-[10px] font-medium tracking-[0.16em] text-white/50">
+            PRINCE ACADEMY · SIKAR
+          </p>
         </div>
       </div>
     </section>

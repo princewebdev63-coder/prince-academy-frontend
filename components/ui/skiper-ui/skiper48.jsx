@@ -83,12 +83,12 @@ const Carousel_002 = ({
     padding-bottom: 55px !important;
   }
   .Carousal_002 .swiper-pagination-bullet {
-    background: #13293D !important;
+    background: #0A3D91 !important;
     opacity: 0.3;
     transition: all 0.3s ease;
   }
   .Carousal_002 .swiper-pagination-bullet-active {
-    background: #F4C675 !important;
+    background: #FFC107 !important;
     opacity: 1;
     width: 26px !important;
     border-radius: 9999px !important;
@@ -100,8 +100,8 @@ const Carousel_002 = ({
     width: 44px !important;
     height: 44px !important;
     border-radius: 9999px !important;
-    box-shadow: 0 8px 24px rgba(19, 41, 61, 0.15) !important;
-    border: 1px solid rgba(19, 41, 61, 0.08) !important;
+    box-shadow: 0 8px 24px rgba(6, 27, 58, 0.15) !important;
+    border: 1px solid rgba(6, 27, 58, 0.08) !important;
     transition: all 0.2s ease;
   }
   .Carousal_002 .swiper-button-next:hover,

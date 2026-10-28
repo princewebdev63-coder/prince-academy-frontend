@@ -3,9 +3,9 @@ import { cn } from "@/lib/utils";
 
 const VARIANTS = {
   primary:
-    "bg-button text-primary shadow-lg hover:bg-button-hover hover:shadow-xl active:scale-[0.98]",
+    "btn-primary-gradient shadow-lg shadow-[#FF8A3D]/25 hover:shadow-xl hover:shadow-[#FFC107]/30 active:scale-[0.98]",
   secondary:
-    "bg-secondary text-white shadow-lg hover:bg-secondary-hover hover:shadow-xl active:scale-[0.98]",
+    "btn-secondary-gradient text-foreground hover:shadow-md active:scale-[0.98]",
   navy:
     "bg-primary text-white shadow-lg hover:bg-primary/90 hover:shadow-xl active:scale-[0.98]",
   outline:
@@ -13,9 +13,9 @@ const VARIANTS = {
   white:
     "bg-white text-primary shadow-md hover:bg-zinc-100 active:scale-[0.98]",
   transparent:
-    "bg-transparent border-2 border-white text-[#F4C675] hover:bg-white/10 hover:shadow-md active:scale-[0.98]",
+    "btn-secondary-gradient text-white hover:shadow-md active:scale-[0.98]",
   outlineWhite:
-    "bg-transparent border-2 border-white text-[#F4C675] hover:bg-white/10 hover:shadow-md active:scale-[0.98]",
+    "btn-secondary-gradient text-white hover:shadow-md active:scale-[0.98]",
 };
 
 const SIZES = {

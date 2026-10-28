@@ -36,7 +36,7 @@ export function HeroPlus() {
       />
       <div
         aria-hidden="true"
-        className="pointer-events-none absolute -right-20 bottom-10 -z-10 h-80 w-80 rounded-full bg-button/20 blur-3xl"
+        className="pointer-events-none absolute -right-20 bottom-10 -z-10 h-80 w-80 rounded-full bg-gold/20 blur-3xl"
       />
 
       <div className="mx-auto grid max-w-7xl items-center gap-10 px-5 sm:px-8 lg:grid-cols-2 lg:gap-14 lg:px-12 xl:px-16">
@@ -72,7 +72,7 @@ export function HeroPlus() {
                 key={item}
                 className="inline-flex items-center gap-1.5 rounded-full bg-white px-3.5 py-1.5 text-xs font-semibold text-primary shadow-sm ring-1 ring-primary/10 sm:text-sm"
               >
-                <span className="font-bold text-button">✓</span> {item}
+                <span className="font-bold text-accent">✓</span> {item}
               </li>
             ))}
           </ul>

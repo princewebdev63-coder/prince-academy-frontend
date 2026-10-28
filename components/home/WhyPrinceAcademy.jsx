@@ -1,4 +1,3 @@
-
 "use client";
 
 import { useCallback, useEffect, useRef, useState } from "react";
@@ -18,361 +17,342 @@ import {
   Users,
 } from "lucide-react";
 
+/* ------------------------------------------------------------------ */
+/* Static data                                                         */
+/* ------------------------------------------------------------------ */
+
+const AUTOPLAY_MS = 5000;
+
 const slides = [
-  {
-    src: "/images/olympiad.webp",
-    alt: "Prince Academy Olympiad Achievements and National Top Ranks",
-  },
-  {
-    src: "/images/result1.webp",
-    alt: "Prince Academy CBSE Board & Competitive Exam Results",
-  },
-  {
-    src: "/images/result2.webp",
-    alt: "Prince Academy National Toppers and Outstanding Ranks",
-  },
-  {
-    src: "/images/result3.webp",
-    alt: "Prince Academy Record-Breaking Selections and Results",
-  },
-  {
-    src: "/images/result4.webp",
-    alt: "Prince Academy Competitive Examination Achievers",
-  },
+  { src: "/images/olympiad.webp", alt: "Prince Academy Olympiad Achievements and National Top Ranks" },
+  { src: "/images/result1.webp", alt: "Prince Academy CBSE Board & Competitive Exam Results" },
+  { src: "/images/result2.webp", alt: "Prince Academy National Toppers and Outstanding Ranks" },
+  { src: "/images/result3.webp", alt: "Prince Academy Record-Breaking Selections and Results" },
+  { src: "/images/result4.webp", alt: "Prince Academy Competitive Examination Achievers" },
 ];
 
 const features = [
-  {
-    title: "Expert Academic Guidance",
-    description:
-      "Build strong concepts with structured teaching and academic support.",
-    category: "LEARN",
-    icon: GraduationCap,
-  },
-  {
-    title: "Goal-Focused Preparation",
-    description:
-      "Stay focused on your course, syllabus and examination goals.",
-    category: "PREPARE",
-    icon: Target,
-  },
-  {
-    title: "Regular Assessment",
-    description:
-      "Test your understanding and discover where you can improve.",
-    category: "PRACTICE",
-    icon: ClipboardCheck,
-  },
-  {
-    title: "Discipline & Values",
-    description:
-      "Develop consistent habits, responsibility and confidence.",
-    category: "DEVELOP",
-    icon: ShieldCheck,
-  },
-  {
-    title: "Personal Guidance",
-    description:
-      "Get direction for your individual learning journey.",
-    category: "SUPPORT",
-    icon: Users,
-  },
-  {
-    title: "Quality Study Material",
-    description:
-      "Use organised resources for concept building and revision.",
-    category: "LEARN",
-    icon: BookOpen,
-  },
-  {
-    title: "Progress Review",
-    description:
-      "Use feedback to recognise improvement and plan next steps.",
-    category: "IMPROVE",
-    icon: ChartNoAxesCombined,
-  },
-  {
-    title: "Growth-Oriented Environment",
-    description:
-      "Stay motivated in an environment that encourages effort and ambition.",
-    category: "GROW",
-    icon: Flag,
-  },
+  { short: "Guidance", title: "Expert Academic Guidance", description: "Build strong concepts with structured teaching and academic support.", icon: GraduationCap },
+  { short: "Goal focus", title: "Goal-Focused Preparation", description: "Stay focused on your course, syllabus and examination goals.", icon: Target },
+  { short: "Assessment", title: "Regular Assessment", description: "Test your understanding and discover where you can improve.", icon: ClipboardCheck },
+  { short: "Discipline", title: "Discipline & Values", description: "Develop consistent habits, responsibility and confidence.", icon: ShieldCheck },
+  { short: "Mentoring", title: "Personal Guidance", description: "Get direction for your individual learning journey.", icon: Users },
+  { short: "Study material", title: "Quality Study Material", description: "Use organised resources for concept building and revision.", icon: BookOpen },
+  { short: "Review", title: "Progress Review", description: "Use feedback to recognise improvement and plan next steps.", icon: ChartNoAxesCombined },
+  { short: "Growth", title: "Growth-Oriented Environment", description: "Stay motivated in an environment that encourages effort and ambition.", icon: Flag },
 ];
 
-export default function WhyPrinceAcademy() {
-  const timelineRef = useRef(null);
-  const progressLineRef = useRef(null);
-  const [activeSlide, setActiveSlide] = useState(0);
+const PILL_BTN =
+  "flex h-7 w-7 items-center justify-center rounded-full text-white transition-colors hover:bg-white/15 hover:text-gold focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold";
 
-  const changeSlide = useCallback((direction) => {
-    setActiveSlide((current) => {
-      return (current + direction + slides.length) % slides.length;
-    });
-  }, []);
+const prefersReducedMotion = () =>
+  window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
-  // Timeline progress follows scroll in both directions.
+/* ------------------------------------------------------------------ */
+/* Hook: true while the element is on (or near) the screen             */
+/* ------------------------------------------------------------------ */
+
+function useInView(ref) {
+  const [inView, setInView] = useState(false);
+
   useEffect(() => {
-    const timeline = timelineRef.current;
-    const progressLine = progressLineRef.current;
+    const element = ref.current;
+    if (!element) return;
 
-    if (!timeline || !progressLine) return;
-
-    let frameId = null;
-
-    const updateProgress = () => {
-      frameId = null;
-
-      const rect = timeline.getBoundingClientRect();
-      const triggerPoint = window.innerHeight * 0.58;
-
-      const progress = Math.max(
-        0,
-        Math.min(1, (triggerPoint - rect.top) / rect.height)
-      );
-
-      progressLine.style.transform = `scaleY(${progress})`;
-    };
-
-    const onScroll = () => {
-      if (frameId !== null) return;
-      frameId = window.requestAnimationFrame(updateProgress);
-    };
-
-    updateProgress();
-
-    window.addEventListener("scroll", onScroll, { passive: true });
-    window.addEventListener("resize", onScroll);
-
-    return () => {
-      window.removeEventListener("scroll", onScroll);
-      window.removeEventListener("resize", onScroll);
-
-      if (frameId !== null) {
-        window.cancelAnimationFrame(frameId);
-      }
-    };
-  }, []);
-
-  // Auto slider; disabled when reduced motion is preferred.
-  useEffect(() => {
-    const mediaQuery = window.matchMedia(
-      "(prefers-reduced-motion: reduce)"
+    const observer = new IntersectionObserver(([entry]) =>
+      setInView(entry.isIntersecting)
     );
 
-    if (mediaQuery.matches) return;
+    observer.observe(element);
+    return () => observer.disconnect();
+  }, [ref]);
 
-    const intervalId = window.setInterval(() => {
-      setActiveSlide((current) => (current + 1) % slides.length);
-    }, 5000);
+  return inView;
+}
 
-    return () => window.clearInterval(intervalId);
+/* ------------------------------------------------------------------ */
+/* Results slider (own state: autoplay never re-renders the rest)      */
+/* ------------------------------------------------------------------ */
+
+function ResultsSlider() {
+  const rootRef = useRef(null);
+  const inView = useInView(rootRef);
+  const [slide, setSlide] = useState(0);
+  const [paused, setPaused] = useState(false);
+
+  const change = useCallback((direction) => {
+    setSlide((current) => (current + direction + slides.length) % slides.length);
   }, []);
+
+  // Autoplay only while visible and not hovered/focused; re-armed on every change.
+  const playing = inView && !paused;
+
+  useEffect(() => {
+    if (!playing || prefersReducedMotion()) return;
+
+    const id = window.setTimeout(() => change(1), AUTOPLAY_MS);
+    return () => window.clearTimeout(id);
+  }, [playing, slide, change]);
+
+  return (
+    <div
+      ref={rootRef}
+      role="region"
+      aria-roledescription="carousel"
+      aria-label="Prince Academy results and achievements"
+      className="h-full lg:col-span-7"
+      onMouseEnter={() => setPaused(true)}
+      onMouseLeave={() => setPaused(false)}
+      onFocus={() => setPaused(true)}
+      onBlur={() => setPaused(false)}
+    >
+      <div
+        aria-live={playing ? "off" : "polite"}
+        className="relative aspect-[16/6] w-full overflow-hidden rounded-[20px] border border-white/10 bg-primary/20 shadow-[0_24px_60px_-20px_rgba(0,0,0,0.65)] ring-1 ring-gold/20 sm:aspect-[1818/576] lg:aspect-auto lg:h-full lg:min-h-[200px]"
+      >
+        {slides.map((s, index) => (
+          <div
+            key={s.src}
+            aria-hidden={slide !== index}
+            className={`absolute inset-0 transition-opacity duration-500 motion-reduce:transition-none ${
+              slide === index ? "z-10 opacity-100" : "z-0 opacity-0"
+            }`}
+          >
+            <Image
+              src={s.src}
+              alt={s.alt}
+              fill
+              priority={index === 0}
+              sizes="(max-width: 1024px) 100vw, 720px"
+              className="object-cover"
+            />
+          </div>
+        ))}
+
+        <div aria-hidden="true" className="pointer-events-none absolute inset-x-0 bottom-0 z-20 h-14 bg-gradient-to-t from-[#041226]/70 to-transparent" />
+
+        {/* Controls inside the banner */}
+        <div className="absolute bottom-2 right-2 z-30 flex items-center gap-1 rounded-full border border-white/15 bg-navy/75 p-1 backdrop-blur-md">
+          <button type="button" onClick={() => change(-1)} aria-label="Previous image" className={PILL_BTN}>
+            <ArrowLeft size={15} aria-hidden="true" />
+          </button>
+
+          <div className="flex items-center gap-1.5 px-1">
+            {slides.map((s, index) => (
+              <button
+                key={s.src}
+                type="button"
+                onClick={() => setSlide(index)}
+                aria-label={`Show image ${index + 1}`}
+                aria-current={slide === index ? "true" : undefined}
+                className={`h-1.5 rounded-full transition-all duration-300 ${
+                  slide === index ? "w-5 bg-gold" : "w-1.5 bg-white/35 hover:bg-white/70"
+                }`}
+              />
+            ))}
+          </div>
+
+          <button type="button" onClick={() => change(1)} aria-label="Next image" className={PILL_BTN}>
+            <ArrowRight size={15} aria-hidden="true" />
+          </button>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+/* ------------------------------------------------------------------ */
+/* Spotlight + journey rail (share the selected step)                  */
+/* ------------------------------------------------------------------ */
+
+function Spotlight({ step, onChange }) {
+  const detailRef = useRef(null);
+  const mountedRef = useRef(false);
+  const current = features[step];
+  const CurrentIcon = current.icon;
+
+  // One soft entrance whenever the step changes (Web Animations API: no extra CSS needed).
+  useEffect(() => {
+    if (!mountedRef.current) {
+      mountedRef.current = true;
+      return;
+    }
+
+    const element = detailRef.current;
+    if (!element?.animate || prefersReducedMotion()) return;
+
+    element.animate(
+      [
+        { opacity: 0, transform: "translateY(14px)" },
+        { opacity: 1, transform: "none" },
+      ],
+      { duration: 500, easing: "cubic-bezier(0.22, 1, 0.36, 1)" }
+    );
+  }, [step]);
+
+  return (
+    <div className="facility-border-rotate rounded-[20px] lg:col-span-5">
+      <div
+        id="journey-panel"
+        role="tabpanel"
+        aria-live="polite"
+        className="flex h-full flex-col justify-between gap-4 rounded-[18.5px] bg-[#081F45] p-5"
+      >
+        <div ref={detailRef} className="flex flex-col gap-3">
+          <div className="flex items-center gap-3">
+            <span className="flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl bg-gradient-to-br from-gold to-orange text-navy shadow-[0_10px_24px_-8px_rgba(255,138,61,0.7)]">
+              <CurrentIcon size={24} aria-hidden="true" />
+            </span>
+            <span className="text-sm font-semibold text-gold">
+              Step {step + 1} of {features.length}
+            </span>
+          </div>
+
+          <h3 className="text-2xl font-bold leading-tight text-white">{current.title}</h3>
+          <p className="text-sm leading-6 text-white/75 sm:text-base">{current.description}</p>
+        </div>
+
+        <div className="flex items-center justify-between border-t border-white/10 pt-3">
+          <span className="text-xs text-white/55">Your journey at Prince Academy</span>
+          <div className="flex items-center gap-1.5">
+            <button
+              type="button"
+              onClick={() => onChange((step - 1 + features.length) % features.length)}
+              aria-label="Previous step"
+              className={`${PILL_BTN} border border-white/15`}
+            >
+              <ArrowLeft size={15} aria-hidden="true" />
+            </button>
+            <button
+              type="button"
+              onClick={() => onChange((step + 1) % features.length)}
+              aria-label="Next step"
+              className={`${PILL_BTN} border border-white/15`}
+            >
+              <ArrowRight size={15} aria-hidden="true" />
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+function JourneyRail({ step, onChange }) {
+  return (
+    <div role="tablist" aria-label="Prince Academy journey" className="relative mt-6 lg:mt-8">
+      {/* Track + gold progress */}
+      <div
+        aria-hidden="true"
+        className="absolute left-[6.25%] right-[6.25%] top-[17px] h-0.5 rounded bg-white/15 sm:top-[21px]"
+      >
+        <div
+          className="h-full rounded bg-gradient-to-r from-orange to-gold transition-[width] duration-500 motion-reduce:transition-none"
+          style={{ width: `${(step / (features.length - 1)) * 100}%` }}
+        />
+      </div>
+
+      <div className="relative grid grid-cols-8">
+        {features.map(({ title, short, icon: Icon }, index) => {
+          const on = index === step;
+          const done = index < step;
+
+          return (
+            <button
+              key={title}
+              type="button"
+              role="tab"
+              aria-selected={on}
+              aria-controls="journey-panel"
+              aria-label={title}
+              onClick={() => onChange(index)}
+              className="group flex flex-col items-center gap-2 focus-visible:outline-none"
+            >
+              <span
+                className={`flex h-9 w-9 items-center justify-center rounded-full border transition-all duration-300 group-focus-visible:ring-2 group-focus-visible:ring-gold motion-reduce:transition-none sm:h-11 sm:w-11 ${
+                  on
+                    ? "scale-110 border-gold bg-gradient-to-br from-gold to-orange text-navy shadow-[0_0_0_5px_rgba(255,193,7,0.18),0_10px_24px_-8px_rgba(255,138,61,0.7)]"
+                    : done
+                      ? "border-gold/60 bg-primary text-gold"
+                      : "border-white/20 bg-[#0A254E] text-white/60 group-hover:border-gold/60 group-hover:text-white"
+                }`}
+              >
+                <Icon size={17} aria-hidden="true" />
+              </span>
+
+              <span
+                className={`hidden text-center text-xs leading-4 lg:block ${
+                  on ? "font-semibold text-white" : "text-white/60"
+                }`}
+              >
+                {short}
+              </span>
+            </button>
+          );
+        })}
+      </div>
+    </div>
+  );
+}
+
+/* ------------------------------------------------------------------ */
+/* Section                                                             */
+/* ------------------------------------------------------------------ */
+
+export default function WhyPrinceAcademyJourney() {
+  const [step, setStep] = useState(0);
 
   return (
     <section
       aria-labelledby="why-prince-heading"
-      className="relative overflow-hidden bg-[#0B1420] px-4 py-10 text-white sm:px-6 sm:py-14 lg:px-8 lg:py-16"
+      className="relative isolate overflow-hidden bg-gradient-to-b from-[#030E22] via-navy to-[#092B60] px-4 py-10 text-white sm:px-6 sm:py-12 lg:px-8 lg:py-14"
     >
-      {/* Subtle static background accent */}
-      <div
-        aria-hidden="true"
-        className="pointer-events-none absolute -right-40 top-16 h-72 w-72 rounded-full bg-[#4F8EAD]/[0.07] blur-3xl"
-      />
+      {/* Dotted texture, glows and gold hairline */}
+      <div aria-hidden="true" className="pointer-events-none absolute inset-0 -z-10 opacity-70 [background-image:radial-gradient(rgb(255_255_255/0.08)_1px,transparent_1px)] [background-size:22px_22px] [mask-image:radial-gradient(75%_85%_at_50%_30%,#000,transparent)]" />
+      <div aria-hidden="true" className="pointer-events-none absolute -left-24 -top-24 -z-10 h-72 w-72 rounded-full bg-gold/10 blur-[110px]" />
+      <div aria-hidden="true" className="pointer-events-none absolute -right-24 bottom-0 -z-10 h-72 w-72 rounded-full bg-secondary/25 blur-[110px]" />
+      <div aria-hidden="true" className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-gold/60 to-transparent" />
 
       <div className="relative mx-auto max-w-7xl">
-        {/* Section heading */}
-        <div className="mb-8 max-w-3xl sm:mb-10">
-          <div className="mb-3 flex items-center gap-3">
-            
-            <span className="text-xs font-bold uppercase tracking-[0.2em] text-[#D9B66F]">
+        {/* Header row */}
+        <div className="flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
+          <div className="max-w-2xl">
+            <span className="inline-flex items-center gap-2.5 text-sm font-semibold text-gold">
+              
               Why Prince Academy
             </span>
-          </div>
 
-          <h2
-            id="why-prince-heading"
-            className="text-3xl font-bold leading-tight tracking-tight sm:text-4xl lg:text-5xl"
-          >
-            Your Ambition. {" "}
-            <span className="mt-1 text-[#8FBBD4]">
-              Our Commitment.
-            </span>
-          </h2>
-
-          <p className="mt-3 max-w-2xl text-sm leading-6 text-[#A9B8C7] sm:text-base sm:leading-7">
-            The right environment can transform how you learn,
-            prepare and grow. Discover what makes the Prince
-            Academy experience distinctive.
-          </p>
-        </div>
-
-        {/* Image slider - Results and Olympiad Banners */}
-        <div className="mb-10 sm:mb-12">
-          <div className="relative aspect-[16/6] w-full overflow-hidden rounded-xl border border-[#304354] bg-[#142638] sm:aspect-[1818/576]">
-            {slides.map((slide, index) => (
-              <div
-                key={slide.src}
-                className={`absolute inset-0 transition-opacity duration-500 ${
-                  activeSlide === index
-                    ? "z-10 opacity-100"
-                    : "z-0 opacity-0"
-                }`}
-                aria-hidden={activeSlide !== index}
-              >
-                <Image
-                  src={slide.src}
-                  alt={slide.alt}
-                  fill
-                  priority={index === 0}
-                  sizes="(max-width: 768px) 100vw, 1200px"
-                  className="object-cover"
-                />
-              </div>
-            ))}
-          </div>
-
-          <div className="mt-3 flex items-center justify-between gap-4">
-            <div className="flex items-center gap-2">
-              {slides.map((slide, index) => (
-                <button
-                  key={slide.src}
-                  type="button"
-                  onClick={() => setActiveSlide(index)}
-                  aria-label={`Show image ${index + 1}`}
-                  aria-current={activeSlide === index ? "true" : undefined}
-                  className={`h-1.5 rounded-full transition-all duration-300 ${
-                    activeSlide === index
-                      ? "w-7 bg-[#D9B66F]"
-                      : "w-3 bg-[#52677A] hover:bg-[#8FBBD4]"
-                  }`}
-                />
-              ))}
-            </div>
-
-            <div className="flex items-center gap-2">
-              <button
-                type="button"
-                onClick={() => changeSlide(-1)}
-                aria-label="Previous image"
-                className="flex h-9 w-9 items-center justify-center rounded-full border border-[#405466] text-[#DCE6ED] transition-colors hover:border-[#D9B66F] hover:text-[#D9B66F] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#D9B66F]"
-              >
-                <ArrowLeft size={17} aria-hidden="true" />
-              </button>
-
-              <button
-                type="button"
-                onClick={() => changeSlide(1)}
-                aria-label="Next image"
-                className="flex h-9 w-9 items-center justify-center rounded-full border border-[#405466] text-[#DCE6ED] transition-colors hover:border-[#D9B66F] hover:text-[#D9B66F] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#D9B66F]"
-              >
-                <ArrowRight size={17} aria-hidden="true" />
-              </button>
-            </div>
-          </div>
-        </div>
-
-        {/* Timeline heading */}
-        <div className="mb-6 max-w-2xl sm:mb-8">
-          <span className="text-xs font-bold uppercase tracking-[0.2em] text-[#8FBBD4]">
-            The Difference
-          </span>
-
-          <h3 className="mt-2 text-2xl font-bold text-white sm:text-3xl">
-            A journey built around you.
-          </h3>
-        </div>
-
-        {/* Scroll-responsive timeline */}
-        <div ref={timelineRef} className="relative">
-          {/* Base line */}
-          <div
-            aria-hidden="true"
-            className="absolute bottom-0 left-[13px] top-0 w-[2px] bg-[#52677A] sm:left-[17px]"
-          />
-
-          {/* Gold line fills downward and reverses on upward scroll */}
-          <div
-            ref={progressLineRef}
-            aria-hidden="true"
-            className="absolute left-[13px] top-0 h-full w-[2px] origin-top bg-[#D9B66F] sm:left-[17px]"
-            style={{ transform: "scaleY(0)" }}
-          />
-
-          <div className="space-y-5 sm:space-y-6">
-            {features.map((feature, index) => {
-              const Icon = feature.icon;
-
-              return (
-                <article
-                  key={feature.title}
-                  className="relative grid grid-cols-[28px_minmax(0,1fr)] gap-3 sm:grid-cols-[36px_minmax(0,1fr)] sm:gap-5"
-                >
-                  {/* Timeline marker */}
-                  <div className="relative z-10 flex justify-center pt-1">
-                    <span className="flex h-7 w-7 items-center justify-center rounded-full border border-[#52677A] bg-[#0B1420] sm:h-9 sm:w-9">
-                      <span className="h-2 w-2 rounded-full bg-[#D9B66F]" />
-                    </span>
-                  </div>
-
-                  {/* Feature details */}
-                  <div className="flex flex-col gap-2 border-b border-[#263848] pb-4 sm:flex-row sm:items-start sm:gap-5 sm:pb-5">
-                    <div className="flex min-w-0 flex-1 gap-3 sm:gap-4">
-                      <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-[#172A3B] text-[#8FBBD4] sm:h-10 sm:w-10">
-                        <Icon size={19} aria-hidden="true" />
-                      </div>
-
-                      <div className="min-w-0 flex-1">
-                        <span className="text-[10px] font-bold uppercase tracking-[0.16em] text-[#D9B66F]">
-                          {String(index + 1).padStart(2, "0")} /{" "}
-                          {feature.category}
-                        </span>
-
-                        <h4 className="mt-1 text-base font-semibold text-white sm:text-lg">
-                          {feature.title}
-                        </h4>
-
-                        <p className="mt-1.5 max-w-2xl text-sm leading-6 text-[#A9B8C7]">
-                          {feature.description}
-                        </p>
-                      </div>
-                    </div>
-
-                    
-                  </div>
-                </article>
-              );
-            })}
-          </div>
-        </div>
-
-        {/* Bottom CTA */}
-        <div className="mt-8 rounded-xl border border-[#304354] bg-[#132536] p-4 sm:mt-10 sm:p-6">
-          <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
-            <div className="max-w-2xl">
-              <span className="text-xs font-bold uppercase tracking-[0.18em] text-[#D9B66F]">
-                Your Next Chapter
-              </span>
-
-              <h3 className="mt-2 text-lg font-bold text-white sm:text-xl">
-                Every great journey starts with a decision.
-              </h3>
-
-              <p className="mt-1.5 text-sm leading-6 text-[#A9B8C7]">
-                Discover the Prince Academy experience and take
-                the next step towards your goals.
-              </p>
-            </div>
-
-            <Link
-              href="/about-institute"
-              className="inline-flex min-h-10 shrink-0 items-center justify-center gap-2 self-start rounded-lg bg-[#D9B66F] px-4 py-2.5 text-sm font-bold text-[#102030] transition-colors hover:bg-[#E8CB8D] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#D9B66F] focus-visible:ring-offset-2 focus-visible:ring-offset-[#132536] sm:self-auto"
+            <h2
+              id="why-prince-heading"
+              className="mt-2.5 text-3xl font-bold leading-[1.1] tracking-tight text-white sm:text-4xl"
             >
-              Explore Academy
-              <ArrowUpRight size={17} aria-hidden="true" />
-            </Link>
+              Your Ambition.{" "} <br />
+              <span className="bg-gradient-to-r from-orange to-gold bg-clip-text text-transparent">
+                Our Commitment.
+              </span>
+            </h2>
+
+            <p className="mt-2 text-sm leading-6 text-white/75 sm:text-base">
+              The right environment can transform how you learn, prepare and grow.
+            </p>
           </div>
+
+          <Link
+            href="/about-institute"
+            className="btn-primary-gradient inline-flex min-h-10 shrink-0 items-center justify-center gap-2 self-start rounded-full px-5 py-2.5 text-sm font-bold shadow-[0_12px_28px_-10px_rgba(255,138,61,0.6)] hover:-translate-y-0.5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold focus-visible:ring-offset-2 focus-visible:ring-offset-navy sm:self-auto"
+          >
+            Explore Academy
+            <ArrowUpRight size={17} aria-hidden="true" />
+          </Link>
         </div>
+
+        {/* Slider + spotlight */}
+        <div className="mt-6 grid gap-4 lg:grid-cols-12 lg:gap-5">
+          <ResultsSlider />
+          <Spotlight step={step} onChange={setStep} />
+        </div>
+
+        <JourneyRail step={step} onChange={setStep} />
       </div>
     </section>
   );

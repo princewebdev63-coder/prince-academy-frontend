@@ -100,7 +100,7 @@ function GalleryColumn({ items, direction, duration }) {
             <figure
               key={`${photo.src}-${index}`}
               aria-hidden={isDuplicate}
-              className="relative m-0 w-full shrink-0 overflow-hidden rounded-lg border border-[#E5EAF0] bg-[#F1F4F7] sm:rounded-xl"
+              className="relative m-0 w-full shrink-0 overflow-hidden rounded-lg border border-border bg-background sm:rounded-xl"
               style={{ aspectRatio: photo.ratio }}
             >
               <Image
@@ -122,7 +122,7 @@ export default function CampusGallery() {
   return (
     <section
       aria-label="Prince Academy sports gallery"
-      className="w-full overflow-hidden bg-white py-3 sm:py-4"
+      className="w-full overflow-hidden bg-background py-3 sm:py-4"
     >
       {/* Mobile and tablet: 3 columns */}
       <div

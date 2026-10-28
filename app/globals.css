@@ -1,110 +1,191 @@
+
 @import "tailwindcss";
+ 
+html,
+body {
+  max-width: 100%;
+  overflow-x: clip;
+}
 
 :root {
-
-  /* 1. Primary Color - Deep Prussian Navy */
-  --primary: #13293D;
+  /* 1. Primary - Royal Blue */
+  --primary: #0A3D91;
   --primary-foreground: #FFFFFF;
-  --navy: #13293D;
+  --navy: #061B3A;
 
-  /* 2. Page Background - Clean Slate / Off-White */
-  --background: #F6F5F8;
-  --foreground: #13293D;
-  --bg-main: #F6F5F8;
+  /* 2. Page Background - Premium Off-White */
+  --background: #F8FAFF;
+  --foreground: #102A56;
+  --bg-main: #F8FAFF;
 
-  /* 3. Button / CTA Accent - Warm Amber Gold */
-  --button: #F4C675;
-  --button-hover: #E8B85F;
-  --button-foreground: #13293D;
-  --gold: #F4C675;
-  --btn-primary: #F4C675;
-  --btn-primary-hover: #E8B85F;
+  /* 3. CTA - Orange and Golden Yellow */
+  --button: #FFC107;
+  --button-hover: #FFB52E;
+  --button-foreground: #061B3A;
 
-  /* 4. Secondary / Accent - Steel Blue */
+  --gold: #FFC107;
+  --btn-primary: #FF8A3D;
+  --btn-primary-hover: #F07824;
+
+  /* 4. Secondary - Steel Blue */
   --secondary: #508AA8;
   --secondary-hover: #3E728E;
   --secondary-foreground: #FFFFFF;
-  --accent: #508AA8;
+  --accent: #FF8A3D;
   --steel-blue: #508AA8;
+
+  /* Additional Premium Colors */
+  --orange: #FF8A3D;
+  --yellow: #FFC107;
+  --light-orange: #FFF3E6;
+  --light-blue: #E8F1FF;
+  --border: #D9E2F0;
 }
 
 @theme {
   /* Colors */
-  --color-primary: #13293D;
+  --color-primary: #0A3D91;
   --color-primary-foreground: #FFFFFF;
-  --color-navy: #13293D;
+  --color-navy: #061B3A;
 
-  --color-background: #F6F5F8;
-  --color-foreground: #13293D;
-  --color-bg-main: #F6F5F8;
+  --color-background: #F8FAFF;
+  --color-foreground: #102A56;
+  --color-bg-main: #F8FAFF;
 
-  --color-button: #F4C675;
-  --color-button-hover: #E8B85F;
-  --color-button-foreground: #13293D;
-  --color-gold: #F4C675;
-  --color-btn-primary: #F4C675;
-  --color-btn-primary-hover: #E8B85F;
+  --color-button: #FFC107;
+  --color-button-hover: #FFB52E;
+  --color-button-foreground: #061B3A;
+
+  --color-gold: #FFC107;
+  --color-btn-primary: #FF8A3D;
+  --color-btn-primary-hover: #F07824;
 
   --color-secondary: #508AA8;
   --color-secondary-hover: #3E728E;
   --color-secondary-foreground: #FFFFFF;
-  --color-accent: #508AA8;
+  --color-accent: #FF8A3D;
   --color-steel-blue: #508AA8;
+
+  --color-orange: #FF8A3D;
+  --color-yellow: #FFC107;
+  --color-light-orange: #FFF3E6;
+  --color-light-blue: #E8F1FF;
+  --color-border: #D9E2F0;
 
   /* Fonts */
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
 }
 
-/* Optional Dark Mode (Uncomment if needed)
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0B1924;
-    --foreground: #F6F5F8;
-    --bg-main: #0B1924;
-  }
-}
-*/
-
+/* Base */
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-sans), Arial, Helvetica, sans-serif;
 }
 
-.bg-primary { background-color: var(--primary) !important; }
-.bg-secondary { background-color: var(--secondary) !important; }
-.bg-button { background-color: var(--button) !important; }
-.bg-background { background-color: var(--background) !important; }
+/* Background Utilities */
+.bg-primary {
+  background-color: var(--primary) !important;
+}
 
-.text-primary { color: var(--primary) !important; }
-.text-secondary { color: var(--secondary) !important; }
-.text-button { color: var(--button) !important; }
+.bg-secondary {
+  background-color: var(--secondary) !important;
+}
 
-.border-primary { border-color: var(--primary) !important; }
-.border-secondary { border-color: var(--secondary) !important; }
-.border-button { border-color: var(--button) !important; }
+.bg-button {
+  background: linear-gradient(90deg, #FF8A3D 0%, #FFC107 50%, #FF8A3D 100%) !important;
+  background-size: 200% 100% !important;
+  background-position: 0% 0% !important;
+  color: #061B3A !important;
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1) !important;
+}
 
-.hover\:bg-button-hover:hover { background-color: var(--button-hover) !important; }
-.hover\:bg-secondary-hover:hover { background-color: var(--secondary-hover) !important; }
-.hover\:text-button:hover { color: var(--button) !important; }
+.bg-button:hover {
+  background-position: 100% 0% !important;
+}
 
+.bg-background {
+  background-color: var(--background) !important;
+}
 
+/* Text Utilities */
+.text-primary {
+  color: var(--primary) !important;
+}
 
+.text-secondary {
+  color: var(--secondary) !important;
+}
 
+.text-button {
+  color: var(--button-foreground) !important;
+}
 
-/* Rotating gradient border: cards only */
+/* Border Utilities */
+.border-primary {
+  border-color: var(--primary) !important;
+}
 
+.border-secondary {
+  border-color: var(--secondary) !important;
+}
+
+.border-button {
+  border-color: var(--button) !important;
+}
+
+/* Hover Utilities */
+.hover\:bg-button-hover:hover {
+  background-color: var(--button-hover) !important;
+}
+
+.hover\:bg-secondary-hover:hover {
+  background-color: var(--secondary-hover) !important;
+}
+
+.hover\:text-button:hover {
+  color: var(--button) !important;
+}
+
+/* 1. Primary Button - Left Orange, Right Yellow -> Hover: Left Yellow, Right Orange */
+.btn-primary-gradient {
+  background: linear-gradient(90deg, #FF8A3D 0%, #FFC107 50%, #FF8A3D 100%) !important;
+  background-size: 200% 100% !important;
+  background-position: 0% 0% !important;
+  color: #061B3A !important;
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1) !important;
+}
+
+.btn-primary-gradient:hover {
+  background-position: 100% 0% !important;
+}
+
+/* 2. Secondary Button - Transparent background with Orange & Yellow gradient border */
+.btn-secondary-gradient {
+  position: relative;
+  background-color: transparent !important;
+  border: 2px solid transparent !important;
+  background-image: linear-gradient(rgba(255, 255, 255, 0), rgba(255, 255, 255, 0)), linear-gradient(90deg, #FF8A3D 0%, #FFC107 100%) !important;
+  background-origin: border-box !important;
+  background-clip: padding-box, border-box !important;
+  transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1) !important;
+}
+
+.btn-secondary-gradient:hover {
+  background-image: linear-gradient(rgba(255, 138, 61, 0.12), rgba(255, 193, 7, 0.12)), linear-gradient(90deg, #FFC107 0%, #FF8A3D 100%) !important;
+}
+
+/* Rotating Gradient Border - Facility Cards */
 .facility-border-rotate {
   position: relative;
   isolation: isolate;
   overflow: hidden;
   padding: 1.5px;
-  background: #dfe6ef;
+  background: #D9E2F0;
   box-shadow: 0 5px 20px rgb(18 38 63 / 6%);
 }
 
-/* Rotating blue and gold light */
 .facility-border-rotate::before {
   content: "";
   position: absolute;
@@ -113,18 +194,21 @@ body {
   height: 200%;
   top: -50%;
   left: -50%;
+
   background: conic-gradient(
     from 0deg,
-    #dce8f4 0deg,
-    #dce8f4 55deg,
-    #4f8ead 100deg,
-    #8dc9e6 145deg,
-    #f5c66b 195deg,
-    #fff0ca 225deg,
-    #dce8f4 280deg,
-    #dce8f4 360deg
+    #D9E2F0 0deg,
+    #D9E2F0 45deg,
+    #0A3D91 90deg,
+    #508AA8 135deg,
+    #FF8A3D 180deg,
+    #FFC107 225deg,
+    #FFF3E6 260deg,
+    #D9E2F0 310deg,
+    #D9E2F0 360deg
   );
-  animation: facilityBorderSpin 4s linear infinite;
+
+  animation: facilityBorderSpin 6s linear infinite;
 }
 
 @keyframes facilityBorderSpin {
@@ -133,20 +217,14 @@ body {
   }
 }
 
-/* Respect reduced-motion settings */
+/* Respect Reduced Motion */
 @media (prefers-reduced-motion: reduce) {
   .facility-border-rotate::before {
     animation: none;
   }
 }
 
-
-
-
-
-
 /* Prince Academy - Continuous Gallery Animation */
-
 .prince-campus-gallery-track {
   --prince-gallery-gap: 8px;
   --prince-gallery-half-gap: 4px;
@@ -155,11 +233,13 @@ body {
   flex-direction: column;
   gap: var(--prince-gallery-gap);
   width: 100%;
+
   animation-duration: var(--gallery-duration, 32s);
   animation-timing-function: linear;
   animation-iteration-count: infinite;
   animation-fill-mode: both;
   animation-play-state: running;
+
   will-change: transform;
 }
 
@@ -171,7 +251,7 @@ body {
   animation-name: prince-gallery-move-down;
 }
 
-/* Move exactly to the start of the duplicated image sequence. */
+/* Move to the start of the duplicated image sequence */
 @keyframes prince-gallery-move-up {
   from {
     transform: translate3d(0, 0, 0);

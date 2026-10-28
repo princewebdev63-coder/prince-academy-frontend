@@ -81,7 +81,7 @@ export default function Hero() {
             {/* Heading */}
             <h1 className="max-w-4xl text-balance text-4xl font-extrabold leading-tight tracking-tight text-white sm:text-5xl md:text-6xl lg:text-7xl [text-shadow:0_3px_18px_rgba(0,0,0,1)]">
               Welcome to{" "}
-              <span className="font-black text-amber-400 [text-shadow:0_2px_14px_rgba(0,0,0,1)]">
+              <span className="font-black text-[#FFC107] [text-shadow:0_2px_14px_rgba(0,0,0,1)]">
                 Prince Academy
               </span>
             </h1>

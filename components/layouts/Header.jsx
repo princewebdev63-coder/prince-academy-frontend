@@ -1,6 +1,7 @@
+
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import Button from "@/components/comman/Button";
@@ -14,32 +15,25 @@ const LINKS = [
   { label: "Achievers", href: "/achievers" },
 ];
 
-// Computed once, not on every render.
-const LEFT_LINKS = LINKS.slice(0, 3);
-const RIGHT_LINKS = LINKS.slice(3);
+const TOUR_URL =
+  "https://tour.princeeduhub.com/princt34/prince-academy/";
 
-const TOUR_URL = "https://tour.princeeduhub.com/princt34/prince-academy/";
 const LOGO_SRC = "/images/prince-academy-logo.png";
 
-const CLIP =
-  "polygon(0 0, var(--lw) 0, calc(var(--lw) + var(--sl)) var(--bump), calc(100% - var(--rw) - var(--sl)) var(--bump), calc(100% - var(--rw)) 0, 100% 0, 100% var(--band), calc(100% - var(--rw)) var(--band), calc(100% - var(--rw) - var(--sl)) var(--total), calc(var(--lw) + var(--sl)) var(--total), var(--lw) var(--band), 0 var(--band))";
-
-// Static style objects (no new object on every render).
-const SHADOW_STYLE = {
-  filter: "drop-shadow(0 1.5px 2px rgba(255, 255, 255, 0.35))",
-};
-const SHAPE_STYLE = {
-  clipPath: CLIP,
-  backgroundColor: "var(--primary)",
-};
-
-// NavLink class groups (same classes as before, just split out).
 const BASE_LINK =
-  "rounded-lg px-3 py-2 font-semibold transition-colors duration-200";
-const MOBILE_LINK = "block rounded-xl px-4 py-3";
-const DESKTOP_LINK = "text-white hover:bg-white/10";
-const ACTIVE_LINK = "bg-button text-primary shadow-sm";
-const INACTIVE_LINK = "text-white hover:text-button";
+  "rounded-full px-3.5 py-1.5 text-sm font-semibold transition-all duration-200 select-none";
+
+const DESKTOP_LINK =
+  "text-white/85 hover:text-white hover:bg-white/10";
+
+const ACTIVE_LINK =
+  "bg-button text-primary font-bold shadow-sm";
+
+const INACTIVE_LINK =
+  "text-white/85 hover:text-gold hover:bg-white/10";
+
+const MOBILE_LINK =
+  "block rounded-xl px-4 py-2.5 text-sm font-semibold";
 
 function isActiveRoute(pathname, href) {
   if (href === "/") {
@@ -62,17 +56,14 @@ function NavLink({
       href={item.href}
       onClick={onClick}
       aria-current={active ? "page" : undefined}
-      className={`${BASE_LINK} ${mobile ? MOBILE_LINK : DESKTOP_LINK} ${
-        active ? ACTIVE_LINK : INACTIVE_LINK
-      }`}
+      className={`${BASE_LINK} ${
+        mobile ? MOBILE_LINK : DESKTOP_LINK
+      } ${active ? ACTIVE_LINK : INACTIVE_LINK}`}
     >
       {item.label}
     </Link>
   );
 }
-
-
-//  360 degree campus tour button.
 
 function Tour360Link() {
   return (
@@ -80,22 +71,17 @@ function Tour360Link() {
       href={TOUR_URL}
       target="_blank"
       rel="noopener noreferrer"
-      className="
-        order-first flex h-[var(--band)]
-        items-center justify-center
-        lg:order-none
-      "
+      className="flex shrink-0 items-center justify-center"
       aria-label="Explore 360 degree campus tour"
     >
       <div
         className="
-          flex h-9 w-9 items-center justify-center
+          flex h-8 w-8 items-center justify-center
           rounded-full bg-button text-primary
           shadow-md transition-all duration-300
           hover:scale-110 hover:bg-button-hover hover:shadow-lg
           active:scale-95
-          sm:h-10 sm:w-10
-          lg:h-11 lg:w-11
+          sm:h-9 sm:w-9
         "
       >
         <svg
@@ -105,20 +91,22 @@ function Tour360Link() {
           strokeWidth="7"
           strokeLinecap="round"
           strokeLinejoin="round"
-          className="h-6 w-6 sm:h-7 sm:w-7 lg:h-8 lg:w-8"
+          className="h-[18px] w-[18px] sm:h-5 sm:w-5"
           aria-hidden="true"
         >
-          {/* Circular rotation arc (center 50,50 / radius 41) */}
           <path d="M 89.5 60.9 A 41 41 0 1 1 73.5 16.4" />
 
-          {/* Arrow shaft and head at top right */}
           <path d="M 73.5 16.4 L 91 31.9" />
           <polyline points="73.5,31.9 91,31.9 91,14.4" />
 
-          {/* Degree dot */}
-          <circle cx="88" cy="42.9" r="3.2" fill="currentColor" stroke="none" />
+          <circle
+            cx="88"
+            cy="42.9"
+            r="3.2"
+            fill="currentColor"
+            stroke="none"
+          />
 
-          {/* 360 text, centered inside the ring */}
           <text
             x="49.3"
             y="50"
@@ -126,7 +114,7 @@ function Tour360Link() {
             textAnchor="middle"
             fontSize="34"
             fontWeight="900"
-            fontFamily="system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif"
+            fontFamily="system-ui, sans-serif"
             letterSpacing="-1.5px"
             fill="currentColor"
             stroke="none"
@@ -142,199 +130,131 @@ function Tour360Link() {
 export default function Header() {
   const pathname = usePathname();
   const [open, setOpen] = useState(false);
-  const [prevPathname, setPrevPathname] = useState(pathname);
 
   const closeMenu = () => setOpen(false);
-  const toggleMenu = () => setOpen((previous) => !previous);
+  const toggleMenu = () => setOpen((prev) => !prev);
 
-  // Close mobile menu when route changes.
-  if (prevPathname !== pathname) {
-    setPrevPathname(pathname);
+  // Close the menu when the route changes.
+  useEffect(() => {
     setOpen(false);
-  }
+  }, [pathname]);
+
+  // Close the menu with the Escape key.
+  useEffect(() => {
+    if (!open) return;
+
+    const handleKeyDown = (event) => {
+      if (event.key === "Escape") {
+        closeMenu();
+      }
+    };
+
+    window.addEventListener("keydown", handleKeyDown);
+
+    return () => {
+      window.removeEventListener("keydown", handleKeyDown);
+    };
+  }, [open]);
 
   return (
-    <header
-      className="
-        fixed top-0 left-0 right-0 z-50
-        w-full h-[var(--total)]
-        text-white
-        [--bump:8px]
-        [--band:46px]
-        [--lw:76px]
-        [--rw:64px]
-        [--sl:14px]
-        [--bover:7px]
-        lg:[--bump:22px]
-        lg:[--band:58px]
-        lg:[--lw:170px]
-        lg:[--rw:120px]
-        lg:[--sl:34px]
-        lg:[--bover:13px]
-        [--total:calc(var(--bump)_+_var(--band))]
-      "
-    >
-      {/* Transparent area: underlying page background remains visible. */}
-      <div
-        aria-hidden="true"
-        className="pointer-events-none absolute inset-0"
-        style={SHADOW_STYLE}
-      >
-        {/* Navbar background shape */}
-        <div className="h-full w-full bg-primary" style={SHAPE_STYLE} />
-      </div>
-
-      {/* Header navigation */}
-      <div
-        className="
-          relative z-50 grid h-full
-          grid-cols-[var(--lw)_1fr_var(--rw)]
-          lg:grid-cols-[var(--lw)_1fr_250px_1fr_var(--rw)]
-        "
-      >
-        {/* Apply Now - Desktop */}
-        <div className="hidden h-[var(--band)] items-center justify-center lg:flex">
-          <Button href="/applyNow">Apply Now</Button>
+    <header className="fixed left-0 right-0 top-0 z-50 w-full border-b border-white/15 bg-[#0A3D91]/45 text-white shadow-[0_4px_30px_rgba(10,61,145,0.2)] backdrop-blur-xl transition-all">
+      <div className="mx-auto flex h-14 max-w-7xl items-center justify-between px-4 sm:h-16 sm:px-6 lg:px-8">
+        {/* LEFT: Logo */}
+        <div className="flex items-center lg:min-w-[180px]">
+          <Link
+            href="/"
+            aria-label="Prince Academy Home"
+            className="flex items-center transition-transform duration-200 hover:scale-105"
+          >
+            <div className="flex items-center rounded-lg bg-white/95 px-2.5 py-1 shadow-sm ring-1 ring-white/30">
+              <img
+                src={LOGO_SRC}
+                alt="Prince Academy logo"
+                width="160"
+                height="40"
+                className="h-6 w-auto select-none object-contain sm:h-7.5"
+              />
+            </div>
+          </Link>
         </div>
 
-        {/* Left navigation */}
+        {/* CENTER: Desktop Navigation */}
         <nav
           aria-label="Primary navigation"
-          className="
-            hidden h-[var(--band)]
-            items-center justify-center gap-2
-            self-end pl-[var(--sl)] lg:flex
-          "
+          className="hidden flex-1 items-center justify-center gap-1 lg:flex xl:gap-2"
         >
-          {LEFT_LINKS.map((item) => (
-            <NavLink key={item.href} item={item} pathname={pathname} />
+          {LINKS.map((item) => (
+            <NavLink
+              key={item.href}
+              item={item}
+              pathname={pathname}
+            />
           ))}
         </nav>
 
-        {/* Center grid space for logo */}
-        <div aria-hidden="true" />
+        {/* RIGHT: Tour, Apply and Mobile Toggle */}
+        <div className="flex items-center justify-end gap-2 sm:gap-3 lg:min-w-[180px]">
+          <Tour360Link />
 
-        {/* Right navigation */}
-        <nav
-          aria-label="Secondary navigation"
-          className="
-            hidden h-[var(--band)]
-            items-center justify-center gap-2
-            self-end pr-[var(--sl)] lg:flex
-          "
-        >
-          {RIGHT_LINKS.map((item) => (
-            <NavLink key={item.href} item={item} pathname={pathname} />
-          ))}
-        </nav>
+          <div className="hidden sm:block">
+            <Button
+              href="/applyNow"
+              size="sm"
+              className="px-3.5 py-1.5 text-xs font-bold"
+            >
+              Apply Now
+            </Button>
+          </div>
 
-        {/* 360 Degree Campus Tour */}
-        <Tour360Link />
-
-        {/* Mobile Menu Button */}
-        <button
-          type="button"
-          aria-label={open ? "Close menu" : "Open menu"}
-          aria-expanded={open}
-          aria-controls="mobile-navigation"
-          onClick={toggleMenu}
-          className="
-            flex h-[var(--band)]
-            items-center justify-center
-            text-xl transition-colors
-            hover:text-button
-            lg:hidden lg:text-2xl
-          "
-        >
-          {open ? "✕" : "☰"}
-        </button>
+          <button
+            type="button"
+            aria-label={open ? "Close menu" : "Open menu"}
+            aria-expanded={open}
+            aria-controls="mobile-navigation"
+            onClick={toggleMenu}
+            className="flex h-9 w-9 items-center justify-center rounded-lg border border-white/15 bg-white/5 text-lg text-white transition-colors hover:bg-white/15 lg:hidden"
+          >
+            {open ? "✕" : "☰"}
+          </button>
+        </div>
       </div>
 
-      {/* Center Logo */}
-      <Link
-        href="/"
-        aria-label="Prince Academy Home"
-        className="
-          absolute
-          left-1/2
-          top-[calc(var(--bump)_-_var(--bover))]
-          z-10
-          flex
-          h-[calc(var(--band)_+_2_*_var(--bover))]
-          w-[115px]
-          -translate-x-1/2
-          items-center justify-center
-          rounded-4xl
-          border-2 border-secondary
-          bg-background
-          px-2.5
-          shadow-xl
-          transition-transform
-          hover:-translate-y-0.5
-          sm:w-[150px] sm:px-3
-          lg:w-[230px] lg:px-4
-        "
-      >
-        <img
-          src={LOGO_SRC}
-          alt="Prince Academy logo"
-          width="230"
-          height="60"
-          className="
-            h-7 w-auto max-w-[92%]
-            select-none object-contain
-            sm:h-9 lg:h-12
-          "
-        />
-      </Link>
-
-      {/* Mobile Navigation & Backdrop */}
+      {/* Mobile Navigation */}
       {open && (
         <>
-          {/* Backdrop overlay (subtle opacity to close on outside click) */}
+          {/* Backdrop starts BELOW the header, so the logo stays sharp */}
           <div
             onClick={closeMenu}
             aria-hidden="true"
-            className="fixed inset-0 z-40 bg-black/15 backdrop-blur-[1px] lg:hidden"
+            className="fixed inset-x-0 bottom-0 top-14 z-40 bg-black/40 backdrop-blur-sm sm:top-16 lg:hidden"
           />
 
+          {/* Tap anywhere inside the menu to close it */}
           <nav
             id="mobile-navigation"
             aria-label="Mobile navigation"
-            className="
-              absolute inset-x-2
-              top-[calc(var(--total)_+_var(--bover)_+_6px)]
-              z-50
-              rounded-2xl
-              border border-white/20
-              bg-primary
-              p-2
-              shadow-2xl
-              lg:hidden
-            "
+            onClick={closeMenu}
+            className="absolute inset-x-4 top-[calc(100%+8px)] z-50 rounded-2xl border border-white/15 bg-[#0A3D91]/95 p-3 shadow-2xl backdrop-blur-2xl lg:hidden"
           >
-            {LINKS.map((item) => (
-              <NavLink
-                key={item.href}
-                item={item}
-                pathname={pathname}
-                mobile
-                onClick={closeMenu}
-              />
-            ))}
+            <div className="space-y-1">
+              {LINKS.map((item) => (
+                <NavLink
+                  key={item.href}
+                  item={item}
+                  pathname={pathname}
+                  mobile
+                />
+              ))}
+            </div>
 
-            <Link
-              href="/applyNow"
-              onClick={closeMenu}
-              className="
-                mt-2 block rounded-full
-                bg-button py-3 text-center
-                font-bold text-primary
-                transition-colors hover:bg-button-hover
-              "
-            >
-              Apply Now
-            </Link>
+            <div className="mt-3 border-t border-white/10 pt-3">
+              <Link
+                href="/applyNow"
+                className="btn-primary-gradient block rounded-full py-2.5 text-center text-sm font-bold shadow-md"
+              >
+                Apply Now
+              </Link>
+            </div>
           </nav>
         </>
       )}

@@ -77,7 +77,7 @@ export default function Footer() {
   return (
     <footer
       aria-label="Site Footer"
-      className="relative w-full overflow-hidden bg-[#0a1622] text-white selection:bg-button selection:text-primary"
+      className="relative w-full overflow-hidden bg-navy text-white selection:bg-button selection:text-button-foreground"
     >
       {/* Top subtle golden & steel-blue ambient light source */}
       <div

@@ -1,4 +1,3 @@
-
 "use client";
 
 import React, { memo, useRef, useState } from "react";
@@ -76,23 +75,38 @@ const ImageStack = memo(function ImageStack({ activeIndex }) {
 
 const ContentBlock = memo(function ContentBlock({
   item,
+  index,
   isSelected,
 }) {
   return (
     <motion.article
-      animate={{ opacity: isSelected ? 1 : 0.25 }}
-      transition={{ duration: 0.3 }}
-      className="flex min-h-[55vh] flex-col justify-center py-16"
+      animate={{
+        opacity: isSelected ? 1 : 0.3,
+        x: isSelected ? 0 : -6,
+      }}
+      transition={{ duration: 0.35, ease: "easeOut" }}
+      className="flex min-h-[38vh] flex-col justify-center py-10"
     >
-      <h3 className="mt-4 max-w-2xl text-balance text-[2.5rem] font-extrabold leading-[1.12] tracking-tight text-[#FDFAF3]">
+      <div className="flex items-center gap-3">
+        <span
+          className={`inline-flex h-7 w-7 items-center justify-center rounded-full text-xs font-extrabold transition-all duration-300 ${
+            isSelected
+              ? "bg-secondary text-white shadow-sm ring-4 ring-secondary/15"
+              : "bg-slate-200 text-slate-500"
+          }`}
+        >
+          0{index + 1}
+        </span>
+        <p className="text-xs font-bold uppercase tracking-widest text-secondary">
+          {item.subtitle}
+        </p>
+      </div>
+
+      <h3 className="mt-3.5 max-w-2xl text-balance text-3xl font-extrabold leading-tight tracking-tight text-primary xl:text-4xl">
         {item.title}
       </h3>
 
-      <p className="mt-3 text-base font-bold uppercase tracking-wide text-button">
-        {item.subtitle}
-      </p>
-
-      <p className="mt-5 max-w-xl text-pretty text-base font-medium leading-8 text-[#FDFAF3]/80">
+      <p className="mt-4 max-w-xl text-pretty text-base font-medium leading-relaxed text-slate-600">
         {item.description}
       </p>
     </motion.article>
@@ -120,34 +134,46 @@ function DesktopShowcase() {
   });
 
   return (
+    // overflow-hidden ki jagah overflow-clip: scroll container nahi banata,
+    // isliye andar ka `sticky` image column sahi se chipka rehta hai.
     <section
       ref={containerRef}
       id="campus-life"
       aria-label="The Prince Advantage"
-      className="relative hidden w-full select-none bg-primary py-24 lg:block"
+      className="relative hidden w-full overflow-clip select-none bg-[#ffffff] py-16 lg:block"
     >
-      <div className="mx-auto max-w-7xl px-12 xl:px-16">
-        <header className="mx-auto mb-16 max-w-3xl text-center">
-          <h2 className="text-balance text-5xl font-black tracking-tight text-[#FDFAF3]">
+      {/* Ambient background decoration */}
+      <div
+        aria-hidden="true"
+        className="pointer-events-none absolute -left-20 top-1/4 h-80 w-80 rounded-full bg-secondary/[0.07] blur-3xl"
+      />
+      <div
+        aria-hidden="true"
+        className="pointer-events-none absolute -right-20 bottom-1/4 h-80 w-80 rounded-full bg-button/[0.12] blur-3xl"
+      />
+
+      <div className="relative mx-auto max-w-7xl px-12 xl:px-16">
+        <header className="mx-auto mb-10 max-w-3xl text-center">
+          <h2 className="mt-3.5 text-balance text-4xl font-black tracking-tight text-primary xl:text-5xl">
             Excellence Engineered Across{" "}
-            <span className="text-button">Every Dimension</span>
+            <span className="text-secondary">Every Dimension</span>
           </h2>
 
-          <p className="mx-auto mt-3 max-w-xl text-pretty text-base font-medium leading-relaxed text-[#FDFAF3]/80">
+          <p className="mx-auto mt-3.5 max-w-xl text-pretty text-base font-medium leading-relaxed text-slate-600">
             Scroll to explore why Prince Academy Sikar is Rajasthan&apos;s
             premier educational institution.
           </p>
         </header>
 
         <div className="relative grid grid-cols-12 items-start gap-14">
-          <div className="relative col-span-7 pl-8">
+          <div className="relative col-span-7 pl-10 pr-4">
             <div
               aria-hidden="true"
-              className="absolute inset-y-0 left-0 w-px bg-[#FDFAF3]/15"
+              className="absolute inset-y-0 left-0 w-[2px] bg-slate-200"
             >
               <motion.div
                 style={{ scaleY: scrollYProgress }}
-                className="h-full w-full origin-top bg-button"
+                className="h-full w-full origin-top bg-gradient-to-b from-secondary to-[#FFC107]"
               />
             </div>
 
@@ -155,14 +181,20 @@ function DesktopShowcase() {
               <ContentBlock
                 key={item.title}
                 item={item}
+                index={index}
                 isSelected={activeCard === index}
               />
             ))}
           </div>
 
-          <div className="sticky top-32 col-span-5">
-            <div className="relative aspect-[4/3] w-full overflow-hidden rounded-2xl bg-[#FDFAF3]/5 shadow-2xl shadow-black/40">
-              <ImageStack activeIndex={activeCard} />
+          {/* Image column: grid ki poori height leta hai, andar wala box sticky rehta hai */}
+          <div className="sticky top-[calc(50vh-10rem)] col-span-5">
+            <div className="relative rounded-3xl border border-slate-200/90 bg-white p-3 shadow-[0_20px_50px_rgba(19,41,61,0.10)] ring-1 ring-slate-900/5">
+              <div className="relative aspect-[4/3] w-full overflow-hidden rounded-2xl bg-slate-100">
+                <ImageStack activeIndex={activeCard} />
+
+             
+              </div>
             </div>
           </div>
         </div>
@@ -175,21 +207,25 @@ function MobileShowcase() {
   return (
     <section
       aria-label="The Prince Advantage"
-      className="bg-primary px-4 py-10 sm:px-8 sm:py-14 lg:hidden"
+      className="relative bg-[#ffffff] px-4 py-12 sm:px-8 sm:py-16 lg:hidden"
     >
-      <header className="mx-auto mb-7 max-w-3xl text-center sm:mb-10">
-        <h2 className="text-balance text-xl font-black tracking-tight text-[#FDFAF3] sm:text-3xl">
+      <header className="mx-auto mb-8 max-w-3xl text-center sm:mb-12">
+        <span className="inline-flex items-center gap-1.5 rounded-full border border-secondary/25 bg-secondary/10 px-3.5 py-1 text-[11px] font-bold uppercase tracking-widest text-secondary shadow-sm">
+          The Prince Advantage
+        </span>
+
+        <h2 className="mt-3 text-balance text-2xl font-black tracking-tight text-primary sm:text-3xl">
           Excellence Engineered Across{" "}
-          <span className="text-button">Every Dimension</span>
+          <span className="text-secondary">Every Dimension</span>
         </h2>
 
-        <p className="mx-auto mt-2 max-w-xl text-pretty text-sm font-medium leading-relaxed text-[#FDFAF3]/80">
+        <p className="mx-auto mt-2.5 max-w-xl text-pretty text-sm font-medium leading-relaxed text-slate-600">
           Scroll to explore why Prince Academy Sikar is Rajasthan&apos;s premier
           educational institution.
         </p>
       </header>
 
-      <div className="relative mx-auto max-w-3xl">
+      <div className="relative mx-auto max-w-2xl">
         {CONTENT.map((item, index) => (
           <div
             key={item.title}
@@ -200,8 +236,8 @@ function MobileShowcase() {
               marginBottom: index === LAST_INDEX ? 0 : "1.5rem",
             }}
           >
-            <article className="overflow-hidden rounded-2xl border border-[#D6B66C]/25 bg-[#13293D] shadow-[0_16px_36px_rgba(0,0,0,0.28)]">
-              <div className="relative aspect-[4/3] w-full overflow-hidden bg-[#0B1730]">
+            <article className="overflow-hidden rounded-2xl border border-slate-200/90 bg-white shadow-[0_12px_32px_rgba(19,41,61,0.08)] ring-1 ring-slate-900/5">
+              <div className="relative aspect-[4/3] w-full overflow-hidden bg-slate-100">
                 <Image
                   src={item.image}
                   alt={item.alt}
@@ -210,20 +246,20 @@ function MobileShowcase() {
                   sizes="(min-width: 640px) 672px, calc(100vw - 32px)"
                   className="object-cover object-center"
                 />
+
+                
               </div>
 
-              <div className="h-px bg-gradient-to-r from-transparent via-[#D6B66C]/70 to-transparent" />
-
-              <div className="p-4 sm:p-5">
-                <h3 className="text-balance text-xl font-extrabold leading-tight tracking-tight text-[#FDFAF3] sm:text-2xl">
-                  {item.title}
-                </h3>
-
-                <p className="mt-2 text-xs font-bold uppercase leading-relaxed tracking-[0.08em] text-button sm:text-sm">
+              <div className="border-t border-slate-100 p-5 sm:p-6">
+                <p className="text-xs font-bold uppercase tracking-wider text-secondary">
                   {item.subtitle}
                 </p>
 
-                <p className="mt-3 text-pretty text-[13px] font-medium leading-6 text-[#FDFAF3]/75 sm:text-sm sm:leading-7">
+                <h3 className="mt-1.5 text-balance text-xl font-extrabold leading-snug tracking-tight text-primary sm:text-2xl">
+                  {item.title}
+                </h3>
+
+                <p className="mt-3 text-pretty text-sm font-medium leading-relaxed text-slate-600">
                   {item.description}
                 </p>
               </div>

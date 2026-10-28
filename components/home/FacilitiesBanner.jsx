@@ -9,7 +9,7 @@ const TOUR_URL = "https://tour.princeeduhub.com/princt34/old-campus/";
 export default function FacilitiesBanner() {
   return (
     <div className="mt-3 w-full sm:mt-4">
-      <div className="relative isolate overflow-hidden rounded-2xl border border-[#F5C66B]/35 bg-gradient-to-r from-[#10243A] via-[#17304D] to-[#10243A] px-3.5 py-2.5 text-white shadow-lg shadow-black/15 sm:px-6 sm:py-3">
+      <div className="relative isolate overflow-hidden rounded-2xl border border-button/35 bg-gradient-to-r from-[#061B3A] via-[#0A3D91] to-[#061B3A] px-3.5 py-2.5 text-white shadow-lg shadow-black/15 sm:px-6 sm:py-3">
         {/* Subtle animated moving light sheen */}
         <motion.div
           animate={{
@@ -27,7 +27,7 @@ export default function FacilitiesBanner() {
         <div className="relative z-10 flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between sm:gap-4">
           {/* Left: 360 Icon + Headline */}
           <div className="flex items-center gap-3">
-            <div className="relative flex h-9 w-9 shrink-0 items-center justify-center rounded-xl border border-[#F5C66B]/40 bg-[#F5C66B]/15 text-[#F5C66B] shadow-inner sm:h-10 sm:w-10">
+            <div className="relative flex h-9 w-9 shrink-0 items-center justify-center rounded-xl border border-button/40 bg-button/15 text-gold shadow-inner sm:h-10 sm:w-10">
               <Compass className="h-5 w-5 animate-[spin_12s_linear_infinite]" />
               <span className="absolute -right-0.5 -top-0.5 flex h-2 w-2">
                 <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-400 opacity-75" />
@@ -40,7 +40,7 @@ export default function FacilitiesBanner() {
                 <span className="text-xs font-black tracking-tight text-white sm:text-sm">
                   Can&apos;t Visit In Person?
                 </span>
-                <span className="inline-flex items-center gap-1 rounded-full bg-[#F5C66B]/20 px-2 py-0.5 text-[9px] font-extrabold uppercase tracking-wider text-[#F5C66B] sm:text-[10px]">
+                <span className="inline-flex items-center gap-1 rounded-full bg-button/20 px-2 py-0.5 text-[9px] font-extrabold uppercase tracking-wider text-gold sm:text-[10px]">
                   <Sparkles size={10} /> 360° Live Tour
                 </span>
               </div>
@@ -60,7 +60,7 @@ export default function FacilitiesBanner() {
               href={TOUR_URL}
               target="_blank"
               rel="noopener noreferrer"
-              className="group inline-flex items-center gap-1.5 rounded-full bg-[#F5C66B] px-3.5 py-1.5 text-xs font-black text-[#172B40] shadow-md transition-all duration-300 hover:scale-105 hover:bg-amber-300 hover:shadow-[#F5C66B]/30 active:scale-95 sm:px-4 sm:py-2"
+              className="group inline-flex items-center gap-1.5 rounded-full bg-button px-3.5 py-1.5 text-xs font-black text-[#061B3A] shadow-md transition-all duration-300 hover:scale-105 hover:bg-button-hover hover:shadow-button/30 active:scale-95 sm:px-4 sm:py-2"
             >
               <span>Explore 360°</span>
               <ArrowUpRight className="h-3.5 w-3.5 transition-transform duration-200 group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
