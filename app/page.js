@@ -3,6 +3,10 @@ import StatsStrip from "@/components/home/StatsStrip";
 import { HeroPlus } from "@/components/home/HeroPlus";
 import StickyScrollReveal from "@/components/home/StickyScrollReveal";
 import CampusFacilities from "@/components/home/CampusFacilities";
+import FAQSection from "@/components/home/FAQSection";
+import WhyPrinceAcademy from "@/components/home/WhyPrinceAcademy";
+import VisionPrinceAcademy from "@/components/home/VisionPrinceAcademy";
+import CampusGallery from "@/components/home/CampusGallery";
 
 export default function Home() {
   return (
@@ -12,6 +16,10 @@ export default function Home() {
       <HeroPlus />
       <StickyScrollReveal />
       <CampusFacilities/>
+      <WhyPrinceAcademy/>
+      <VisionPrinceAcademy/>
+      <CampusGallery/>
+      <FAQSection />
     </main>
   );
 }

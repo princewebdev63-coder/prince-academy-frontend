@@ -139,3 +139,70 @@ body {
     animation: none;
   }
 }
+
+
+
+
+
+
+/* Prince Academy - Continuous Gallery Animation */
+
+.prince-campus-gallery-track {
+  --prince-gallery-gap: 8px;
+  --prince-gallery-half-gap: 4px;
+
+  display: flex;
+  flex-direction: column;
+  gap: var(--prince-gallery-gap);
+  width: 100%;
+  animation-duration: var(--gallery-duration, 32s);
+  animation-timing-function: linear;
+  animation-iteration-count: infinite;
+  animation-fill-mode: both;
+  animation-play-state: running;
+  will-change: transform;
+}
+
+.prince-gallery-up {
+  animation-name: prince-gallery-move-up;
+}
+
+.prince-gallery-down {
+  animation-name: prince-gallery-move-down;
+}
+
+/* Move exactly to the start of the duplicated image sequence. */
+@keyframes prince-gallery-move-up {
+  from {
+    transform: translate3d(0, 0, 0);
+  }
+
+  to {
+    transform: translate3d(
+      0,
+      calc(-50% - var(--prince-gallery-half-gap)),
+      0
+    );
+  }
+}
+
+@keyframes prince-gallery-move-down {
+  from {
+    transform: translate3d(
+      0,
+      calc(-50% - var(--prince-gallery-half-gap)),
+      0
+    );
+  }
+
+  to {
+    transform: translate3d(0, 0, 0);
+  }
+}
+
+@media (min-width: 640px) {
+  .prince-campus-gallery-track {
+    --prince-gallery-gap: 12px;
+    --prince-gallery-half-gap: 6px;
+  }
+}

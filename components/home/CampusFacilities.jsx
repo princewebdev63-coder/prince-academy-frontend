@@ -7,8 +7,9 @@ import { ArrowUpRight } from "lucide-react";
 
 import FacilityCard from "../facilities/FacilityCard";
 import { facilities } from "../../data/facilitiesData";
+import FacilitiesBanner from "./FacilitiesBanner";
 
-export { facilities };
+export { facilities, FacilitiesBanner };
 
 const TOUR_URL =
   "https://tour.princeeduhub.com/princt34/old-campus/";
@@ -242,19 +243,8 @@ export default function CampusFacilities() {
             </div>
           </div>
 
-          {/* Footer */}
-          <div className="mt-2 flex items-center justify-between gap-3 text-[9px] font-bold tracking-wide text-slate-500 sm:mt-3 sm:text-[10px]">
-            <span>SCROLL TO EXPLORE</span>
-
-            <Link
-              href={TOUR_URL}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="shrink-0 text-[#8A621D] underline underline-offset-4"
-            >
-              Explore 360° Campus
-            </Link>
-          </div>
+          {/* Compact Animated Footer Banner */}
+          <FacilitiesBanner />
         </div>
       </div>
     </section>
