@@ -7,6 +7,8 @@ import FAQSection from "@/components/home/FAQSection";
 import WhyPrinceAcademy from "@/components/home/WhyPrinceAcademy";
 import VisionPrinceAcademy from "@/components/home/VisionPrinceAcademy";
 import CampusGallery from "@/components/home/CampusGallery";
+import ResultStateSection from "@/components/home/ResultStateSection";
+import Philosophy  from "@/components/home/Philosophy";
 
 export default function Home() {
   return (
@@ -14,12 +16,14 @@ export default function Home() {
       <Hero />
       <StatsStrip />
       <HeroPlus />
-      <StickyScrollReveal />
       <WhyPrinceAcademy/>
-      <CampusFacilities/>
-      <VisionPrinceAcademy/>
-      <CampusGallery/>
-      <FAQSection />
+      <ResultStateSection/>
+      <Philosophy/>
+      {/* <StickyScrollReveal /> */}
+      {/* <CampusFacilities/> */}
+      {/* <VisionPrinceAcademy/> */}
+      {/* <CampusGallery/> */}
+      {/* <FAQSection /> */}
     </main>
   );
 }

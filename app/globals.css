@@ -1,98 +1,108 @@
-
 @import "tailwindcss";
- 
+
 html,
 body {
   max-width: 100%;
   overflow-x: clip;
 }
 
+/* ================================================================== */
+/* 1. MASTER BRAND DESIGN TOKENS (:root)                              */
+/* ================================================================== */
 :root {
-  /* 1. Primary - Royal Blue */
+  /* Core Royal & Navy Colors */
   --primary: #0A3D91;
+  --primary-hover: #08337A;
   --primary-foreground: #FFFFFF;
   --navy: #061B3A;
+  --navy-dark: #041022;
+  --navy-deep: #030E1F;
 
-  /* 2. Page Background - Premium Off-White */
-  --background: #F8FAFF;
-  --foreground: #102A56;
-  --bg-main: #F8FAFF;
+  /* Vibrant Accent & CTA (Orange & Yellow) */
+  --orange: #FF8A3D;
+  --orange-hover: #F07824;
+  --yellow: #FFC107;
+  --yellow-hover: #FFB52E;
+  --gold: #FFC107;
+  --accent: #FF8A3D;
 
-  /* 3. CTA - Orange and Golden Yellow */
+  /* Button Tokens */
   --button: #FFC107;
   --button-hover: #FFB52E;
   --button-foreground: #061B3A;
-
-  --gold: #FFC107;
   --btn-primary: #FF8A3D;
   --btn-primary-hover: #F07824;
 
-  /* 4. Secondary - Steel Blue */
-  --secondary: #508AA8;
-  --secondary-hover: #3E728E;
+  /* Secondary & Accents */
+  --secondary: #78B6F5;
+  --secondary-hover: #5A9FE8;
   --secondary-foreground: #FFFFFF;
-  --accent: #FF8A3D;
   --steel-blue: #508AA8;
 
-  /* Additional Premium Colors */
-  --orange: #FF8A3D;
-  --yellow: #FFC107;
+  /* Surfaces & Backgrounds */
+  --background: #F8FAFF;
+  --foreground: #102A56;
+  --bg-main: #F8FAFF;
   --light-orange: #FFF3E6;
   --light-blue: #E8F1FF;
   --border: #D9E2F0;
 }
 
+/* ================================================================== */
+/* 2. TAILWIND CSS v4 THEME TOKENS (@theme)                          */
+/* ================================================================== */
 @theme {
   /* Colors */
   --color-primary: #0A3D91;
+  --color-primary-hover: #08337A;
   --color-primary-foreground: #FFFFFF;
   --color-navy: #061B3A;
+  --color-navy-dark: #041022;
+  --color-navy-deep: #030E1F;
 
-  --color-background: #F8FAFF;
-  --color-foreground: #102A56;
-  --color-bg-main: #F8FAFF;
+  --color-orange: #FF8A3D;
+  --color-orange-hover: #F07824;
+  --color-yellow: #FFC107;
+  --color-yellow-hover: #FFB52E;
+  --color-gold: #FFC107;
+  --color-accent: #FF8A3D;
 
   --color-button: #FFC107;
   --color-button-hover: #FFB52E;
   --color-button-foreground: #061B3A;
-
-  --color-gold: #FFC107;
   --color-btn-primary: #FF8A3D;
   --color-btn-primary-hover: #F07824;
 
-  --color-secondary: #508AA8;
-  --color-secondary-hover: #3E728E;
+  --color-secondary: #78B6F5;
+  --color-secondary-hover: #5A9FE8;
   --color-secondary-foreground: #FFFFFF;
-  --color-accent: #FF8A3D;
   --color-steel-blue: #508AA8;
 
-  --color-orange: #FF8A3D;
-  --color-yellow: #FFC107;
+  --color-background: #F8FAFF;
+  --color-foreground: #102A56;
+  --color-bg-main: #F8FAFF;
   --color-light-orange: #FFF3E6;
   --color-light-blue: #E8F1FF;
   --color-border: #D9E2F0;
 
-  /* Fonts */
+  /* Typography */
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
 }
 
-/* Base */
+/* Base Body */
 body {
   background: var(--background);
   color: var(--foreground);
   font-family: var(--font-sans), Arial, Helvetica, sans-serif;
 }
 
-/* Background Utilities */
-.bg-primary {
-  background-color: var(--primary) !important;
-}
+/* ================================================================== */
+/* 3. REUSABLE BRAND UTILITIES & SHORTCUTS                            */
+/* ================================================================== */
 
-.bg-secondary {
-  background-color: var(--secondary) !important;
-}
-
+/* 1. Primary Button / CTA Gradient (Orange -> Yellow -> Orange) */
+.btn-primary-gradient,
 .bg-button {
   background: linear-gradient(90deg, #FF8A3D 0%, #FFC107 50%, #FF8A3D 100%) !important;
   background-size: 200% 100% !important;
@@ -101,80 +111,59 @@ body {
   transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1) !important;
 }
 
+.btn-primary-gradient:hover,
 .bg-button:hover {
   background-position: 100% 0% !important;
 }
 
-.bg-background {
-  background-color: var(--background) !important;
-}
-
-/* Text Utilities */
-.text-primary {
-  color: var(--primary) !important;
-}
-
-.text-secondary {
-  color: var(--secondary) !important;
-}
-
-.text-button {
-  color: var(--button-foreground) !important;
-}
-
-/* Border Utilities */
-.border-primary {
-  border-color: var(--primary) !important;
-}
-
-.border-secondary {
-  border-color: var(--secondary) !important;
-}
-
-.border-button {
-  border-color: var(--button) !important;
-}
-
-/* Hover Utilities */
-.hover\:bg-button-hover:hover {
-  background-color: var(--button-hover) !important;
-}
-
-.hover\:bg-secondary-hover:hover {
-  background-color: var(--secondary-hover) !important;
-}
-
-.hover\:text-button:hover {
-  color: var(--button) !important;
-}
-
-/* 1. Primary Button - Left Orange, Right Yellow -> Hover: Left Yellow, Right Orange */
-.btn-primary-gradient {
-  background: linear-gradient(90deg, #FF8A3D 0%, #FFC107 50%, #FF8A3D 100%) !important;
-  background-size: 200% 100% !important;
-  background-position: 0% 0% !important;
-  color: #061B3A !important;
-  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1) !important;
-}
-
-.btn-primary-gradient:hover {
-  background-position: 100% 0% !important;
-}
-
-/* 2. Secondary Button - Transparent background with Orange & Yellow gradient border */
+/* 2. Secondary Button - Gradient Border */
 .btn-secondary-gradient {
   position: relative;
   background-color: transparent !important;
   border: 2px solid transparent !important;
-  background-image: linear-gradient(rgba(255, 255, 255, 0), rgba(255, 255, 255, 0)), linear-gradient(90deg, #FF8A3D 0%, #FFC107 100%) !important;
+  background-image: linear-gradient(rgba(255, 255, 255, 0), rgba(255, 255, 255, 0)),
+    linear-gradient(90deg, #FF8A3D 0%, #FFC107 100%) !important;
   background-origin: border-box !important;
   background-clip: padding-box, border-box !important;
   transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1) !important;
 }
 
 .btn-secondary-gradient:hover {
-  background-image: linear-gradient(rgba(255, 138, 61, 0.12), rgba(255, 193, 7, 0.12)), linear-gradient(90deg, #FFC107 0%, #FF8A3D 100%) !important;
+  background-image: linear-gradient(rgba(255, 138, 61, 0.12), rgba(255, 193, 7, 0.12)),
+    linear-gradient(90deg, #FFC107 0%, #FF8A3D 100%) !important;
 }
+
+/* 3. Brand Text Gradient */
+.text-gradient-brand {
+  background: linear-gradient(90deg, #FF8A3D 0%, #FFC107 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+/* 4. Deep Theme Background (Midnight Blue & Royal Blue Gradient) */
+.bg-theme-midnight {
+  background-color: #041022;
+  background-image: radial-gradient(ellipse at 50% 30%, rgba(10, 61, 145, 0.78) 0%, rgba(6, 27, 58, 0.94) 55%, #030E1F 100%);
+}
+
+/* Color Overrides */
+.bg-primary { background-color: var(--primary) !important; }
+.bg-secondary { background-color: var(--secondary) !important; }
+.bg-background { background-color: var(--background) !important; }
+.text-primary { color: var(--primary) !important; }
+.text-secondary { color: var(--secondary) !important; }
+.text-button { color: var(--button) !important; }
+.text-button-foreground { color: var(--button-foreground) !important; }
+.border-primary { border-color: var(--primary) !important; }
+.border-secondary { border-color: var(--secondary) !important; }
+.border-button { border-color: var(--button) !important; }
+.hover\:bg-button-hover:hover { background-color: var(--button-hover) !important; }
+.hover\:bg-secondary-hover:hover { background-color: var(--secondary-hover) !important; }
+.hover\:text-button:hover { color: var(--button) !important; }
+
+/* ================================================================== */
+/* 4. INTERACTIVE SECTIONS & ANIMATIONS                               */
+/* ================================================================== */
 
 /* Rotating Gradient Border - Facility Cards */
 .facility-border-rotate {
@@ -194,7 +183,6 @@ body {
   height: 200%;
   top: -50%;
   left: -50%;
-
   background: conic-gradient(
     from 0deg,
     #D9E2F0 0deg,
@@ -207,7 +195,6 @@ body {
     #D9E2F0 310deg,
     #D9E2F0 360deg
   );
-
   animation: facilityBorderSpin 6s linear infinite;
 }
 
@@ -217,29 +204,19 @@ body {
   }
 }
 
-/* Respect Reduced Motion */
-@media (prefers-reduced-motion: reduce) {
-  .facility-border-rotate::before {
-    animation: none;
-  }
-}
-
-/* Prince Academy - Continuous Gallery Animation */
+/* Continuous Campus Gallery Scroll Track */
 .prince-campus-gallery-track {
   --prince-gallery-gap: 8px;
   --prince-gallery-half-gap: 4px;
-
   display: flex;
   flex-direction: column;
   gap: var(--prince-gallery-gap);
   width: 100%;
-
   animation-duration: var(--gallery-duration, 32s);
   animation-timing-function: linear;
   animation-iteration-count: infinite;
   animation-fill-mode: both;
   animation-play-state: running;
-
   will-change: transform;
 }
 
@@ -251,30 +228,19 @@ body {
   animation-name: prince-gallery-move-down;
 }
 
-/* Move to the start of the duplicated image sequence */
 @keyframes prince-gallery-move-up {
   from {
     transform: translate3d(0, 0, 0);
   }
-
   to {
-    transform: translate3d(
-      0,
-      calc(-50% - var(--prince-gallery-half-gap)),
-      0
-    );
+    transform: translate3d(0, calc(-50% - var(--prince-gallery-half-gap)), 0);
   }
 }
 
 @keyframes prince-gallery-move-down {
   from {
-    transform: translate3d(
-      0,
-      calc(-50% - var(--prince-gallery-half-gap)),
-      0
-    );
+    transform: translate3d(0, calc(-50% - var(--prince-gallery-half-gap)), 0);
   }
-
   to {
     transform: translate3d(0, 0, 0);
   }
@@ -284,5 +250,131 @@ body {
   .prince-campus-gallery-track {
     --prince-gallery-gap: 12px;
     --prince-gallery-half-gap: 6px;
+  }
+}
+
+/* General Fade Up */
+@keyframes fadeUp {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+/* Philosophy Section Theme & Connected Layout */
+.pa-star-texture {
+  background-image: radial-gradient(rgba(255, 193, 7, 0.22) 0.8px, transparent 0.8px);
+  background-size: 24px 24px;
+  mask-image: linear-gradient(to bottom, black 35%, transparent 95%);
+}
+
+.pa-dark-card {
+  animation: paFloat 7s ease-in-out infinite;
+  backdrop-filter: blur(12px);
+}
+
+.pa-card-right {
+  animation-delay: -3.5s;
+}
+
+.pa-emblem {
+  animation: paGlow 5s ease-in-out infinite;
+}
+
+.pa-connector {
+  position: absolute;
+  z-index: 10;
+  width: 18px;
+  height: 18px;
+  border-top: 1.5px solid rgba(255, 138, 61, 0.75);
+}
+
+.pa-connector::after {
+  content: "";
+  position: absolute;
+  top: -3.5px;
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: #FFC107;
+  box-shadow: 0 0 8px rgba(255, 193, 7, 0.95);
+}
+
+.pa-connector-left-top {
+  top: 28%;
+  left: -14px;
+  transform: rotate(35deg);
+}
+
+.pa-connector-left-top::after,
+.pa-connector-left-bottom::after {
+  left: -1px;
+}
+
+.pa-connector-left-bottom {
+  bottom: 28%;
+  left: -14px;
+  transform: rotate(-35deg);
+}
+
+.pa-connector-right-top {
+  top: 28%;
+  right: -14px;
+  transform: rotate(-35deg);
+}
+
+.pa-connector-right-top::after,
+.pa-connector-right-bottom::after {
+  right: -1px;
+}
+
+.pa-connector-right-bottom {
+  right: -14px;
+  bottom: 28%;
+  transform: rotate(35deg);
+}
+
+@keyframes paFloat {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-4px);
+  }
+}
+
+@keyframes paGlow {
+  0%, 100% {
+    box-shadow: 0 0 25px rgba(255, 193, 7, 0.22), 0 15px 40px rgba(0, 0, 0, 0.55);
+  }
+  50% {
+    box-shadow: 0 0 32px rgba(255, 138, 61, 0.32), 0 18px 45px rgba(0, 0, 0, 0.65);
+  }
+}
+
+@media (max-width: 640px) {
+  .pa-connector {
+    width: 12px;
+    height: 12px;
+  }
+  .pa-connector-left-top,
+  .pa-connector-left-bottom {
+    left: -9px;
+  }
+  .pa-connector-right-top,
+  .pa-connector-right-bottom {
+    right: -9px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .facility-border-rotate::before,
+  .pa-dark-card,
+  .pa-emblem {
+    animation: none !important;
   }
 }

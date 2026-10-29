@@ -42,7 +42,7 @@ export default function Hero() {
     <section
       ref={containerRef}
       aria-label="Prince Academy Campus"
-      className="relative isolate w-full overflow-hidden bg-background select-none pt-[14px] sm:pt-[18px] lg:pt-0"
+      className="relative isolate w-full overflow-hidden bg-background select-none"
     >
       <div className="relative h-[85vh] min-h-[480px] w-full overflow-hidden sm:h-[90vh] sm:min-h-[540px] lg:h-screen lg:min-h-0">
 

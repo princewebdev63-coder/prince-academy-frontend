@@ -8,6 +8,13 @@ import {
   FaYoutube,
   FaLinkedinIn,
   FaTelegramPlane,
+  FaMapMarkerAlt,
+  FaLink,
+  FaPhoneAlt,
+  FaEnvelope,
+  FaChevronRight,
+  FaGraduationCap,
+  FaShareAlt,
 } from "react-icons/fa";
 
 const TOUR_URL = "https://tour.princeeduhub.com/princt34/old-campus/";
@@ -144,36 +151,44 @@ export default function Footer() {
             </Button>
             {/* CBSE Accreditation Pill */}
             <div className="mt-4 rounded-xl border border-white/10 bg-white/[0.04] p-3 text-xs text-slate-300">
-              <span className="font-bold text-button">
-                CBSE Affiliation No: 1730414
+              <span className="flex items-center gap-2 font-bold text-[#F4C056]">
+                <FaGraduationCap className="h-4 w-4 shrink-0 text-[#F4C056]" />
+                <span>CBSE Affiliation No: 1730414</span>
               </span>
-              <p className="mt-0.5 text-slate-400">
+              <p className="mt-1 pl-6 text-slate-400">
                 English Medium Co-educational Day Boarding &amp; Residential
                 School
               </p>
             </div>
 
             {/* Social Icons */}
-            <div className="mt-6 flex flex-wrap items-center gap-3">
-              {SOCIAL_LINKS.map((item) => (
-                <Link
-                  key={item.name}
-                  href={item.href}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  aria-label={item.name}
-                  className="flex h-10 w-10 items-center justify-center rounded-full border border-white/20 bg-white/[0.05] text-white backdrop-blur-sm transition-all duration-200 hover:scale-110 hover:border-button hover:bg-button/20 hover:text-button"
-                >
-                  {item.icon}
-                </Link>
-              ))}
+            <div className="mt-6">
+              <span className="flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-[#F4C056]">
+                <FaShareAlt className="h-3.5 w-3.5 shrink-0 text-[#F4C056]" />
+                <span>Follow Us</span>
+              </span>
+              <div className="mt-3 flex flex-wrap items-center gap-3">
+                {SOCIAL_LINKS.map((item) => (
+                  <Link
+                    key={item.name}
+                    href={item.href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    aria-label={item.name}
+                    className="flex h-10 w-10 items-center justify-center rounded-full border border-white/20 bg-white/[0.05] text-white backdrop-blur-sm transition-all duration-200 hover:scale-110 hover:border-[#F4C056] hover:bg-[#F4C056]/20 hover:text-[#F4C056]"
+                  >
+                    {item.icon}
+                  </Link>
+                ))}
+              </div>
             </div>
           </div>
 
           {/* Col 2: Quick Links */}
           <div className="lg:col-span-3 lg:pl-4">
-            <h4 className="text-sm font-bold uppercase tracking-wider text-button">
-              Explore &amp; Links
+            <h4 className="flex items-center gap-2 text-sm font-bold uppercase tracking-wider text-[#F4C056]">
+              <FaLink className="h-4 w-4 shrink-0 text-[#F4C056]" />
+              <span>Quick Links</span>
             </h4>
             <ul className="mt-5 space-y-2.5 text-sm">
               {QUICK_LINKS.map((link) => (
@@ -183,9 +198,9 @@ export default function Footer() {
                     {...(link.external
                       ? { target: "_blank", rel: "noopener noreferrer" }
                       : {})}
-                    className="group flex items-center gap-2 text-slate-300 transition-colors duration-200 hover:text-button"
+                    className="group flex items-center gap-2 text-slate-300 transition-colors duration-200 hover:text-[#F4C056]"
                   >
-                    <span className="h-1 w-1 rounded-full bg-slate-500 transition-all duration-200 group-hover:w-2.5 group-hover:bg-button" />
+                    <FaChevronRight className="h-2.5 w-2.5 text-[#F4C056]/70 transition-transform duration-200 group-hover:translate-x-1 group-hover:text-[#F4C056]" />
                     <span>{link.label}</span>
                   </Link>
                 </li>
@@ -195,63 +210,38 @@ export default function Footer() {
 
           {/* Col 3: Contact & Campus Info */}
           <div className="lg:col-span-4">
-            <h4 className="text-sm font-bold uppercase tracking-wider text-button">
-              Campus &amp; Helpline
+            <h4 className="flex items-center gap-2 text-sm font-bold uppercase tracking-wider text-[#F4C056]">
+              <FaMapMarkerAlt className="h-4 w-4 shrink-0 text-[#F4C056]" />
+              <span>Campus &amp; Helpline</span>
             </h4>
             <div className="mt-5 space-y-4 text-sm text-slate-300">
               {/* Address */}
-              <div className="flex items-start gap-3">
-                <svg
-                  className="mt-1 h-5 w-5 shrink-0 text-button"
-                  fill="none"
-                  stroke="currentColor"
-                  viewBox="0 0 24 24"
-                  aria-hidden="true"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth="2"
-                    d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"
-                  />
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth="2"
-                    d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"
-                  />
-                </svg>
-                <p className="leading-relaxed">
+              <div className="space-y-1">
+                <div className="flex items-center gap-2 font-semibold text-[#F4C056]">
+                  <FaMapMarkerAlt className="h-4 w-4 shrink-0 text-[#F4C056]" />
+                  <span>Campus Address</span>
+                </div>
+                <p className="leading-relaxed pl-6 text-slate-300">
                   Palwas Road, Sikar (Rajasthan) - 332001
                 </p>
               </div>
 
               {/* Phone */}
-              <div className="flex items-start gap-3">
-                <svg
-                  className="mt-1 h-5 w-5 shrink-0 text-button"
-                  fill="none"
-                  stroke="currentColor"
-                  viewBox="0 0 24 24"
-                  aria-hidden="true"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth="2"
-                    d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"
-                  />
-                </svg>
-                <div className="flex flex-col space-y-1">
+              <div className="space-y-1">
+                <div className="flex items-center gap-2 font-semibold text-[#F4C056]">
+                  <FaPhoneAlt className="h-3.5 w-3.5 shrink-0 text-[#F4C056]" />
+                  <span>Helpline / Contact</span>
+                </div>
+                <div className="flex flex-col space-y-1 pl-6">
                   <Link
                     href="tel:9610892222"
-                    className="transition-colors hover:text-button"
+                    className="transition-colors hover:text-[#F4C056]"
                   >
                     +91 9610 89 2222
                   </Link>
                   <Link
                     href="tel:9610992222"
-                    className="transition-colors hover:text-button"
+                    className="transition-colors hover:text-[#F4C056]"
                   >
                     +91 9610 99 2222
                   </Link>
@@ -259,31 +249,21 @@ export default function Footer() {
               </div>
 
               {/* Email */}
-              <div className="flex items-start gap-3">
-                <svg
-                  className="mt-1 h-5 w-5 shrink-0 text-button"
-                  fill="none"
-                  stroke="currentColor"
-                  viewBox="0 0 24 24"
-                  aria-hidden="true"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth="2"
-                    d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"
-                  />
-                </svg>
-                <div className="flex flex-col space-y-1">
+              <div className="space-y-1">
+                <div className="flex items-center gap-2 font-semibold text-[#F4C056]">
+                  <FaEnvelope className="h-3.5 w-3.5 shrink-0 text-[#F4C056]" />
+                  <span>Email Support</span>
+                </div>
+                <div className="flex flex-col space-y-1 pl-6">
                   <Link
                     href="mailto:info@princecbse.com"
-                    className="break-all transition-colors hover:text-button"
+                    className="break-all transition-colors hover:text-[#F4C056]"
                   >
                     info@princecbse.com
                   </Link>
                   <Link
                     href="mailto:princeacademy31@gmail.com"
-                    className="break-all transition-colors hover:text-button"
+                    className="break-all transition-colors hover:text-[#F4C056]"
                   >
                     princeacademy31@gmail.com
                   </Link>

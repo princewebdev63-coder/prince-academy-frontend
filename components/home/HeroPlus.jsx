@@ -41,12 +41,12 @@ export function HeroPlus() {
 
       <div className="mx-auto grid max-w-7xl items-center gap-10 px-5 sm:px-8 lg:grid-cols-2 lg:gap-14 lg:px-12 xl:px-16">
         {/* LEFT: Content */}
-        <div className="order-2 w-full text-center lg:order-1 lg:text-left">
+        <div className="order-2 w-full text-left lg:order-1 lg:text-left">
 
           {/* Heading */}
           <h2
             id="prince-academy-heading"
-            className="mt-5 text-balance text-3xl font-extrabold leading-tight tracking-tight text-primary sm:text-4xl lg:text-5xl xl:text-6xl"
+            className="mt-5 text-balance text-2xl font-extrabold leading-tight tracking-tight text-primary sm:text-3xl lg:text-4xl xl:text-5xl"
           >
             Prince Academy{" "}
             <span className="text-secondary">
@@ -56,7 +56,7 @@ export function HeroPlus() {
           </h2>
 
           {/* Subtitle */}
-          <p className="mx-auto mt-5 max-w-xl text-pretty text-base leading-relaxed text-primary/75 sm:text-lg lg:mx-0">
+          <p className="mx-auto mt-5 max-w-xl text-pretty text-left text-base leading-relaxed text-primary/75 sm:text-lg lg:mx-0">
             At Prince Academy Sikar, students receive more than just an
             education they build a foundation for a bright future. With
             experienced faculty, smart classrooms, advanced laboratories, and
@@ -66,7 +66,7 @@ export function HeroPlus() {
           </p>
 
           {/* Highlights */}
-          <ul className="mt-6 flex flex-wrap justify-center gap-2 lg:justify-start">
+          <ul className="mt-6 flex flex-wrap gap-2">
             {HIGHLIGHTS.map((item) => (
               <li
                 key={item}

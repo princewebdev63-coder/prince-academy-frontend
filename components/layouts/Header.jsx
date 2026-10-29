@@ -21,19 +21,20 @@ const TOUR_URL =
 const LOGO_SRC = "/images/prince-academy-logo.png";
 
 const BASE_LINK =
-  "rounded-full px-3.5 py-1.5 text-sm font-semibold transition-all duration-200 select-none";
+  "text-base font-semibold transition-all duration-200 select-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold";
 
-const DESKTOP_LINK =
-  "text-white/85 hover:text-white hover:bg-white/10";
+const DESKTOP_LINK = "rounded-full px-4 py-1.5";
+
+const MOBILE_LINK = "block rounded-xl px-4 py-2.5";
 
 const ACTIVE_LINK =
-  "bg-button text-primary font-bold shadow-sm";
+  "bg-button text-primary font-bold shadow-sm ring-1 ring-[#FFC107]/50 hover:bg-button";
 
-const INACTIVE_LINK =
+const DESKTOP_INACTIVE_LINK =
+  "text-white font-semibold hover:text-[#FFC107] hover:bg-white/10 drop-shadow-[0_1px_2px_rgba(0,0,0,0.5)]";
+
+const MOBILE_INACTIVE_LINK =
   "text-white/85 hover:text-gold hover:bg-white/10";
-
-const MOBILE_LINK =
-  "block rounded-xl px-4 py-2.5 text-sm font-semibold";
 
 function isActiveRoute(pathname, href) {
   if (href === "/") {
@@ -51,6 +52,12 @@ function NavLink({
 }) {
   const active = isActiveRoute(pathname, item.href);
 
+  const appearance = active
+    ? ACTIVE_LINK
+    : mobile
+      ? MOBILE_INACTIVE_LINK
+      : DESKTOP_INACTIVE_LINK;
+
   return (
     <Link
       href={item.href}
@@ -58,7 +65,7 @@ function NavLink({
       aria-current={active ? "page" : undefined}
       className={`${BASE_LINK} ${
         mobile ? MOBILE_LINK : DESKTOP_LINK
-      } ${active ? ACTIVE_LINK : INACTIVE_LINK}`}
+      } ${appearance}`}
     >
       {item.label}
     </Link>
@@ -95,7 +102,6 @@ function Tour360Link() {
           aria-hidden="true"
         >
           <path d="M 89.5 60.9 A 41 41 0 1 1 73.5 16.4" />
-
           <path d="M 73.5 16.4 L 91 31.9" />
           <polyline points="73.5,31.9 91,31.9 91,14.4" />
 
@@ -139,13 +145,13 @@ export default function Header() {
     setOpen(false);
   }, [pathname]);
 
-  // Close the menu with the Escape key.
+  // Close the menu with Escape.
   useEffect(() => {
     if (!open) return;
 
     const handleKeyDown = (event) => {
       if (event.key === "Escape") {
-        closeMenu();
+        setOpen(false);
       }
     };
 
@@ -157,7 +163,7 @@ export default function Header() {
   }, [open]);
 
   return (
-    <header className="fixed left-0 right-0 top-0 z-50 w-full border-b border-white/15 bg-[#0A3D91]/45 text-white shadow-[0_4px_30px_rgba(10,61,145,0.2)] backdrop-blur-xl transition-all">
+    <header className="fixed left-0 right-0 top-0 z-50 w-full border-b border-white/10 bg-[#0A3D91]/35 text-white shadow-sm backdrop-blur-md transition-all">
       <div className="mx-auto flex h-14 max-w-7xl items-center justify-between px-4 sm:h-16 sm:px-6 lg:px-8">
         {/* LEFT: Logo */}
         <div className="flex items-center lg:min-w-[180px]">
@@ -166,13 +172,13 @@ export default function Header() {
             aria-label="Prince Academy Home"
             className="flex items-center transition-transform duration-200 hover:scale-105"
           >
-            <div className="flex items-center rounded-lg bg-white/95 px-2.5 py-1 shadow-sm ring-1 ring-white/30">
+            <div className="flex items-center rounded-lg bg-white/95 px-3 py-1.5 shadow-sm ring-1 ring-white/30">
               <img
                 src={LOGO_SRC}
                 alt="Prince Academy logo"
-                width="160"
-                height="40"
-                className="h-6 w-auto select-none object-contain sm:h-7.5"
+                width="170"
+                height="44"
+                className="h-7.5 w-auto select-none object-contain sm:h-9"
               />
             </div>
           </Link>
@@ -199,8 +205,8 @@ export default function Header() {
           <div className="hidden sm:block">
             <Button
               href="/applyNow"
-              size="sm"
-              className="px-3.5 py-1.5 text-xs font-bold"
+              size="md"
+              className="px-5 py-2 text-sm font-bold sm:text-[15px]"
             >
               Apply Now
             </Button>
@@ -212,7 +218,7 @@ export default function Header() {
             aria-expanded={open}
             aria-controls="mobile-navigation"
             onClick={toggleMenu}
-            className="flex h-9 w-9 items-center justify-center rounded-lg border border-white/15 bg-white/5 text-lg text-white transition-colors hover:bg-white/15 lg:hidden"
+            className="flex h-9 w-9 items-center justify-center rounded-lg border border-white/20 bg-white/10 text-lg text-white transition-colors hover:bg-white/20 lg:hidden"
           >
             {open ? "✕" : "☰"}
           </button>
@@ -222,14 +228,12 @@ export default function Header() {
       {/* Mobile Navigation */}
       {open && (
         <>
-          {/* Backdrop starts BELOW the header, so the logo stays sharp */}
           <div
             onClick={closeMenu}
             aria-hidden="true"
             className="fixed inset-x-0 bottom-0 top-14 z-40 bg-black/40 backdrop-blur-sm sm:top-16 lg:hidden"
           />
 
-          {/* Tap anywhere inside the menu to close it */}
           <nav
             id="mobile-navigation"
             aria-label="Mobile navigation"
