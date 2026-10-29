@@ -1,222 +1,493 @@
+
 @import "tailwindcss";
 
-html,
+/* =========================================
+   1. BASE
+========================================= */
+
+html {
+  max-width: 100%;
+  overflow-x: clip;
+  scroll-behavior: smooth;
+}
+
 body {
   max-width: 100%;
   overflow-x: clip;
-}
-
-/* ================================================================== */
-/* 1. MASTER BRAND DESIGN TOKENS (:root)                              */
-/* ================================================================== */
-:root {
-  /* Core Royal & Navy Colors */
-  --primary: #0A3D91;
-  --primary-hover: #08337A;
-  --primary-foreground: #FFFFFF;
-  --navy: #061B3A;
-  --navy-dark: #041022;
-  --navy-deep: #030E1F;
-
-  /* Vibrant Accent & CTA (Orange & Yellow) */
-  --orange: #FF8A3D;
-  --orange-hover: #F07824;
-  --yellow: #FFC107;
-  --yellow-hover: #FFB52E;
-  --gold: #FFC107;
-  --accent: #FF8A3D;
-
-  /* Button Tokens */
-  --button: #FFC107;
-  --button-hover: #FFB52E;
-  --button-foreground: #061B3A;
-  --btn-primary: #FF8A3D;
-  --btn-primary-hover: #F07824;
-
-  /* Secondary & Accents */
-  --secondary: #78B6F5;
-  --secondary-hover: #5A9FE8;
-  --secondary-foreground: #FFFFFF;
-  --steel-blue: #508AA8;
-
-  /* Surfaces & Backgrounds */
-  --background: #F8FAFF;
-  --foreground: #102A56;
-  --bg-main: #F8FAFF;
-  --light-orange: #FFF3E6;
-  --light-blue: #E8F1FF;
-  --border: #D9E2F0;
-}
-
-/* ================================================================== */
-/* 2. TAILWIND CSS v4 THEME TOKENS (@theme)                          */
-/* ================================================================== */
-@theme {
-  /* Colors */
-  --color-primary: #0A3D91;
-  --color-primary-hover: #08337A;
-  --color-primary-foreground: #FFFFFF;
-  --color-navy: #061B3A;
-  --color-navy-dark: #041022;
-  --color-navy-deep: #030E1F;
-
-  --color-orange: #FF8A3D;
-  --color-orange-hover: #F07824;
-  --color-yellow: #FFC107;
-  --color-yellow-hover: #FFB52E;
-  --color-gold: #FFC107;
-  --color-accent: #FF8A3D;
-
-  --color-button: #FFC107;
-  --color-button-hover: #FFB52E;
-  --color-button-foreground: #061B3A;
-  --color-btn-primary: #FF8A3D;
-  --color-btn-primary-hover: #F07824;
-
-  --color-secondary: #78B6F5;
-  --color-secondary-hover: #5A9FE8;
-  --color-secondary-foreground: #FFFFFF;
-  --color-steel-blue: #508AA8;
-
-  --color-background: #F8FAFF;
-  --color-foreground: #102A56;
-  --color-bg-main: #F8FAFF;
-  --color-light-orange: #FFF3E6;
-  --color-light-blue: #E8F1FF;
-  --color-border: #D9E2F0;
-
-  /* Typography */
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-/* Base Body */
-body {
+  margin: 0;
   background: var(--background);
   color: var(--foreground);
-  font-family: var(--font-sans), Arial, Helvetica, sans-serif;
+  font-family: Arial, Helvetica, sans-serif;
+  -webkit-font-smoothing: antialiased;
 }
 
-/* ================================================================== */
-/* 3. REUSABLE BRAND UTILITIES & SHORTCUTS                            */
-/* ================================================================== */
+* {
+  box-sizing: border-box;
+}
 
-/* 1. Primary Button / CTA Gradient (Orange -> Yellow -> Orange) */
+button,
+input,
+textarea,
+select {
+  font: inherit;
+}
+
+button {
+  cursor: pointer;
+}
+
+img {
+  max-width: 100%;
+}
+
+/* =========================================
+   2. ROYAL BLUE DESIGN SYSTEM
+========================================= */
+
+:root {
+  /* Brand */
+  --primary: #0A3D91;
+  --primary-hover: #082F70;
+  --primary-foreground: #FFFFFF;
+
+  /* Premium dark colors */
+  --navy: #061B3A;
+  --navy-dark: #041329;
+  --navy-deep: #020D1E;
+
+  /* Button palette */
+  --platinum: #DDE3EC;
+  --ice-tonal: #CFE0FF;
+  --azure: #4DA3FF;
+  --honey: #F2B134;
+
+  /* Button compatibility */
+  --button: #0A3D91;
+  --button-hover: #082F70;
+  --button-foreground: #FFFFFF;
+
+  --btn-primary: #0A3D91;
+  --btn-primary-hover: #082F70;
+
+  --gold: #F2B134;
+  --accent: #F2B134;
+  --yellow: #F2B134;
+  --yellow-hover: #D99A19;
+
+  /* Secondary */
+  --secondary: #CFE0FF;
+  --secondary-hover: #B7D0FF;
+  --secondary-foreground: #061B3A;
+
+  --steel-blue: #7897C4;
+
+  /* Backgrounds */
+  --background: #F3F6FC;
+  --bg-main: #F3F6FC;
+  --surface: #FFFFFF;
+  --surface-muted: #EDF2FA;
+
+  --light-blue: #EAF1FC;
+  --light-orange: #FFF5DF;
+
+  /* Typography */
+  --foreground: #15233B;
+  --muted: #52627A;
+  --muted-foreground: #65748B;
+
+  /* Borders */
+  --border: #DCE4F0;
+  --border-strong: #C7D3E5;
+
+  /* Effects */
+  --shadow-sm: 0 2px 8px rgb(6 27 58 / 5%);
+  --shadow-md: 0 8px 24px rgb(6 27 58 / 8%);
+  --shadow-lg: 0 16px 40px rgb(6 27 58 / 12%);
+
+  --radius-card: 16px;
+  --radius-button: 10px;
+}
+
+/* =========================================
+   3. TAILWIND CSS V4 TOKENS
+========================================= */
+
+@theme {
+  --color-primary: #0A3D91;
+  --color-primary-hover: #082F70;
+  --color-primary-foreground: #FFFFFF;
+
+  --color-navy: #061B3A;
+  --color-navy-dark: #041329;
+  --color-navy-deep: #020D1E;
+
+  --color-platinum: #DDE3EC;
+  --color-ice-tonal: #CFE0FF;
+  --color-azure: #4DA3FF;
+  --color-honey: #F2B134;
+
+  --color-gold: #F2B134;
+  --color-yellow: #F2B134;
+  --color-yellow-hover: #D99A19;
+
+  --color-button: #0A3D91;
+  --color-button-hover: #082F70;
+  --color-button-foreground: #FFFFFF;
+
+  --color-btn-primary: #0A3D91;
+  --color-btn-primary-hover: #082F70;
+
+  --color-secondary: #CFE0FF;
+  --color-secondary-hover: #B7D0FF;
+  --color-secondary-foreground: #061B3A;
+
+  --color-steel-blue: #7897C4;
+
+  --color-background: #F3F6FC;
+  --color-bg-main: #F3F6FC;
+  --color-surface: #FFFFFF;
+  --color-surface-muted: #EDF2FA;
+
+  --color-light-blue: #EAF1FC;
+  --color-light-orange: #FFF5DF;
+
+  --color-foreground: #15233B;
+  --color-muted: #52627A;
+  --color-border: #DCE4F0;
+  --color-border-strong: #C7D3E5;
+
+  --font-sans: Arial, Helvetica, sans-serif;
+}
+
+/* =========================================
+   4. REUSABLE COLOR UTILITIES
+========================================= */
+
+.bg-primary {
+  background-color: var(--primary) !important;
+}
+
+.bg-secondary {
+  background-color: var(--secondary) !important;
+}
+
+.bg-background {
+  background-color: var(--background) !important;
+}
+
+.bg-button {
+  background: var(--primary) !important;
+  color: #FFFFFF !important;
+}
+
+.text-primary {
+  color: var(--primary) !important;
+}
+
+.text-secondary {
+  color: var(--secondary-foreground) !important;
+}
+
+.text-button {
+  color: var(--honey) !important;
+}
+
+.text-button-foreground {
+  color: var(--button-foreground) !important;
+}
+
+.border-primary {
+  border-color: var(--primary) !important;
+}
+
+.border-secondary {
+  border-color: var(--secondary) !important;
+}
+
+.border-button {
+  border-color: var(--honey) !important;
+}
+
+.hover\:bg-button-hover:hover {
+  background-color: var(--primary-hover) !important;
+}
+
+.hover\:bg-secondary-hover:hover {
+  background-color: var(--secondary-hover) !important;
+}
+
+.hover\:text-button:hover {
+  color: var(--honey) !important;
+}
+
+/* =========================================
+   5. PRIMARY BUTTON
+   Royal blue with platinum text
+========================================= */
+
 .btn-primary-gradient,
 .bg-button {
-  background: linear-gradient(90deg, #FF8A3D 0%, #FFC107 50%, #FF8A3D 100%) !important;
-  background-size: 200% 100% !important;
-  background-position: 0% 0% !important;
-  color: #061B3A !important;
-  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1) !important;
+  background: var(--primary) !important;
+  color: var(--primary-foreground) !important;
+  border: 1px solid transparent;
+  border-radius: var(--radius-button);
+  transition:
+    background-color 0.2s ease,
+    box-shadow 0.2s ease,
+    transform 0.2s ease;
 }
 
 .btn-primary-gradient:hover,
 .bg-button:hover {
-  background-position: 100% 0% !important;
+  background: var(--primary-hover) !important;
+  box-shadow: 0 5px 14px rgb(10 61 145 / 20%);
 }
 
-/* 2. Secondary Button - Gradient Border */
+.btn-primary-gradient:active,
+.bg-button:active {
+  transform: translateY(1px);
+}
+
+/* =========================================
+   6. PLATINUM BUTTON
+========================================= */
+
+.btn-platinum {
+  background: var(--platinum);
+  color: var(--navy);
+  border: 1px solid #CBD4E1;
+  border-radius: var(--radius-button);
+  transition: background-color 0.2s ease;
+}
+
+.btn-platinum:hover {
+  background: #CDD5E1;
+}
+
+/* =========================================
+   7. ICE TONAL BUTTON
+========================================= */
+
+.btn-ice {
+  background: var(--ice-tonal);
+  color: var(--navy);
+  border: 1px solid transparent;
+  border-radius: var(--radius-button);
+  transition: background-color 0.2s ease;
+}
+
+.btn-ice:hover {
+  background: #B7D0FF;
+}
+
+/* =========================================
+   8. AZURE BUTTON
+========================================= */
+
+.btn-azure {
+  background: var(--azure);
+  color: #061B3A;
+  border: 1px solid transparent;
+  border-radius: var(--radius-button);
+  transition:
+    background-color 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+.btn-azure:hover {
+  background: #3293F5;
+  box-shadow: 0 4px 12px rgb(77 163 255 / 22%);
+}
+
+/* =========================================
+   9. HONEY BUTTON
+========================================= */
+
+.btn-honey {
+  background: var(--honey);
+  color: #172033;
+  border: 1px solid transparent;
+  border-radius: var(--radius-button);
+  transition:
+    background-color 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+.btn-honey:hover {
+  background: #E4A321;
+  box-shadow: 0 4px 12px rgb(242 177 52 / 20%);
+}
+
+/* =========================================
+   10. SECONDARY OUTLINE BUTTON
+========================================= */
+
 .btn-secondary-gradient {
-  position: relative;
-  background-color: transparent !important;
-  border: 2px solid transparent !important;
-  background-image: linear-gradient(rgba(255, 255, 255, 0), rgba(255, 255, 255, 0)),
-    linear-gradient(90deg, #FF8A3D 0%, #FFC107 100%) !important;
-  background-origin: border-box !important;
-  background-clip: padding-box, border-box !important;
-  transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1) !important;
+  background: transparent !important;
+  color: var(--primary) !important;
+  border: 1px solid var(--primary) !important;
+  border-radius: var(--radius-button);
+  transition:
+    background-color 0.2s ease,
+    color 0.2s ease;
 }
 
 .btn-secondary-gradient:hover {
-  background-image: linear-gradient(rgba(255, 138, 61, 0.12), rgba(255, 193, 7, 0.12)),
-    linear-gradient(90deg, #FFC107 0%, #FF8A3D 100%) !important;
+  background: var(--ice-tonal) !important;
+  color: var(--navy) !important;
 }
 
-/* 3. Brand Text Gradient */
+/* =========================================
+   11. HONEY ACCENT UNDERLINE
+========================================= */
+
+.btn-navy-accent {
+  background: var(--navy);
+  color: #FFFFFF;
+  border: 0;
+  border-bottom: 3px solid var(--honey);
+  border-radius: var(--radius-button);
+  transition: background-color 0.2s ease;
+}
+
+.btn-navy-accent:hover {
+  background: #0B2B55;
+}
+
+/* =========================================
+   12. BRAND TEXT
+========================================= */
+
 .text-gradient-brand {
-  background: linear-gradient(90deg, #FF8A3D 0%, #FFC107 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
+  color: var(--primary);
 }
 
-/* 4. Deep Theme Background (Midnight Blue & Royal Blue Gradient) */
+/* =========================================
+   13. DARK PREMIUM SECTION
+========================================= */
+
 .bg-theme-midnight {
-  background-color: #041022;
-  background-image: radial-gradient(ellipse at 50% 30%, rgba(10, 61, 145, 0.78) 0%, rgba(6, 27, 58, 0.94) 55%, #030E1F 100%);
+  background-color: var(--navy-deep);
+  background-image:
+    radial-gradient(
+      circle at 90% 0%,
+      rgb(77 163 255 / 10%),
+      transparent 35%
+    ),
+    linear-gradient(
+      135deg,
+      #061B3A 0%,
+      #0A3D91 55%,
+      #020D1E 100%
+    );
 }
 
-/* Color Overrides */
-.bg-primary { background-color: var(--primary) !important; }
-.bg-secondary { background-color: var(--secondary) !important; }
-.bg-background { background-color: var(--background) !important; }
-.text-primary { color: var(--primary) !important; }
-.text-secondary { color: var(--secondary) !important; }
-.text-button { color: var(--button) !important; }
-.text-button-foreground { color: var(--button-foreground) !important; }
-.border-primary { border-color: var(--primary) !important; }
-.border-secondary { border-color: var(--secondary) !important; }
-.border-button { border-color: var(--button) !important; }
-.hover\:bg-button-hover:hover { background-color: var(--button-hover) !important; }
-.hover\:bg-secondary-hover:hover { background-color: var(--secondary-hover) !important; }
-.hover\:text-button:hover { color: var(--button) !important; }
+/* =========================================
+   14. CARDS
+========================================= */
 
-/* ================================================================== */
-/* 4. INTERACTIVE SECTIONS & ANIMATIONS                               */
-/* ================================================================== */
+.card-premium {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-card);
+  box-shadow: var(--shadow-sm);
+  transition:
+    box-shadow 0.2s ease,
+    border-color 0.2s ease;
+}
 
-/* Rotating Gradient Border - Facility Cards */
+.card-premium:hover {
+  border-color: var(--border-strong);
+  box-shadow: var(--shadow-md);
+}
+
+/* =========================================
+   15. FORM ELEMENTS
+========================================= */
+
+input,
+textarea,
+select {
+  max-width: 100%;
+}
+
+.input-premium {
+  width: 100%;
+  background: #FFFFFF;
+  color: var(--foreground);
+  border: 1px solid var(--border-strong);
+  border-radius: 9px;
+  padding: 12px 14px;
+  outline: none;
+  transition:
+    border-color 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+.input-premium::placeholder {
+  color: var(--muted-foreground);
+}
+
+.input-premium:focus {
+  border-color: var(--primary);
+  box-shadow: 0 0 0 3px rgb(10 61 145 / 10%);
+}
+
+/* Accessible keyboard focus */
+
+:focus-visible {
+  outline: 3px solid rgb(77 163 255 / 65%);
+  outline-offset: 3px;
+}
+
+/* =========================================
+   16. FACILITY CARD BORDER
+   Static, lightweight premium border
+========================================= */
+
 .facility-border-rotate {
   position: relative;
   isolation: isolate;
   overflow: hidden;
-  padding: 1.5px;
-  background: #D9E2F0;
-  box-shadow: 0 5px 20px rgb(18 38 63 / 6%);
+  padding: 1px;
+  background: var(--border);
+  border-radius: var(--radius-card);
+  box-shadow: var(--shadow-sm);
 }
 
 .facility-border-rotate::before {
   content: "";
   position: absolute;
+  inset: 0;
   z-index: -1;
-  width: 200%;
-  height: 200%;
-  top: -50%;
-  left: -50%;
-  background: conic-gradient(
-    from 0deg,
-    #D9E2F0 0deg,
-    #D9E2F0 45deg,
-    #0A3D91 90deg,
-    #508AA8 135deg,
-    #FF8A3D 180deg,
-    #FFC107 225deg,
-    #FFF3E6 260deg,
-    #D9E2F0 310deg,
-    #D9E2F0 360deg
+  background: linear-gradient(
+    120deg,
+    var(--primary),
+    var(--azure),
+    var(--honey),
+    var(--platinum)
   );
-  animation: facilityBorderSpin 6s linear infinite;
 }
 
-@keyframes facilityBorderSpin {
-  to {
-    transform: rotate(360deg);
-  }
-}
+/* =========================================
+   17. CAMPUS GALLERY
+========================================= */
 
-/* Continuous Campus Gallery Scroll Track */
 .prince-campus-gallery-track {
   --prince-gallery-gap: 8px;
   --prince-gallery-half-gap: 4px;
+
   display: flex;
   flex-direction: column;
   gap: var(--prince-gallery-gap);
   width: 100%;
+
   animation-duration: var(--gallery-duration, 32s);
   animation-timing-function: linear;
   animation-iteration-count: infinite;
   animation-fill-mode: both;
   animation-play-state: running;
+
   will-change: transform;
 }
 
@@ -232,15 +503,25 @@ body {
   from {
     transform: translate3d(0, 0, 0);
   }
+
   to {
-    transform: translate3d(0, calc(-50% - var(--prince-gallery-half-gap)), 0);
+    transform: translate3d(
+      0,
+      calc(-50% - var(--prince-gallery-half-gap)),
+      0
+    );
   }
 }
 
 @keyframes prince-gallery-move-down {
   from {
-    transform: translate3d(0, calc(-50% - var(--prince-gallery-half-gap)), 0);
+    transform: translate3d(
+      0,
+      calc(-50% - var(--prince-gallery-half-gap)),
+      0
+    );
   }
+
   to {
     transform: translate3d(0, 0, 0);
   }
@@ -253,27 +534,40 @@ body {
   }
 }
 
-/* General Fade Up */
+/* =========================================
+   18. FADE UP
+========================================= */
+
 @keyframes fadeUp {
   from {
     opacity: 0;
     transform: translateY(10px);
   }
+
   to {
     opacity: 1;
-    transform: none;
+    transform: translateY(0);
   }
 }
 
-/* Philosophy Section Theme & Connected Layout */
+/* =========================================
+   19. ACADEMY DECORATIVE ELEMENTS
+========================================= */
+
 .pa-star-texture {
-  background-image: radial-gradient(rgba(255, 193, 7, 0.22) 0.8px, transparent 0.8px);
+  background-image: radial-gradient(
+    rgb(242 177 52 / 18%) 0.8px,
+    transparent 0.8px
+  );
   background-size: 24px 24px;
-  mask-image: linear-gradient(to bottom, black 35%, transparent 95%);
+  mask-image: linear-gradient(
+    to bottom,
+    black 35%,
+    transparent 95%
+  );
 }
 
 .pa-dark-card {
-  animation: paFloat 7s ease-in-out infinite;
   backdrop-filter: blur(12px);
 }
 
@@ -282,7 +576,7 @@ body {
 }
 
 .pa-emblem {
-  animation: paGlow 5s ease-in-out infinite;
+  box-shadow: 0 0 24px rgb(77 163 255 / 15%);
 }
 
 .pa-connector {
@@ -290,7 +584,7 @@ body {
   z-index: 10;
   width: 18px;
   height: 18px;
-  border-top: 1.5px solid rgba(255, 138, 61, 0.75);
+  border-top: 1.5px solid rgb(242 177 52 / 75%);
 }
 
 .pa-connector::after {
@@ -300,8 +594,7 @@ body {
   width: 5px;
   height: 5px;
   border-radius: 50%;
-  background: #FFC107;
-  box-shadow: 0 0 8px rgba(255, 193, 7, 0.95);
+  background: var(--honey);
 }
 
 .pa-connector-left-top {
@@ -338,43 +631,38 @@ body {
   transform: rotate(35deg);
 }
 
-@keyframes paFloat {
-  0%, 100% {
-    transform: translateY(0);
-  }
-  50% {
-    transform: translateY(-4px);
-  }
-}
-
-@keyframes paGlow {
-  0%, 100% {
-    box-shadow: 0 0 25px rgba(255, 193, 7, 0.22), 0 15px 40px rgba(0, 0, 0, 0.55);
-  }
-  50% {
-    box-shadow: 0 0 32px rgba(255, 138, 61, 0.32), 0 18px 45px rgba(0, 0, 0, 0.65);
-  }
-}
+/* =========================================
+   20. RESPONSIVE
+========================================= */
 
 @media (max-width: 640px) {
   .pa-connector {
     width: 12px;
     height: 12px;
   }
+
   .pa-connector-left-top,
   .pa-connector-left-bottom {
     left: -9px;
   }
+
   .pa-connector-right-top,
   .pa-connector-right-bottom {
     right: -9px;
   }
 }
 
+/* =========================================
+   21. REDUCED MOTION
+========================================= */
+
 @media (prefers-reduced-motion: reduce) {
-  .facility-border-rotate::before,
-  .pa-dark-card,
-  .pa-emblem {
-    animation: none !important;
+  *,
+  *::before,
+  *::after {
+    scroll-behavior: auto !important;
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
   }
 }

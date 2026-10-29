@@ -1,6 +1,7 @@
 
 import Image from "next/image";
 import Link from "next/link";
+import Button from "@/components/comman/Button";
 import { ArrowUpRight } from "lucide-react";
 
 export default function FacilityCard({
@@ -45,13 +46,15 @@ export default function FacilityCard({
             EXPLORE FACILITIES
           </span>
 
-          <Link
+          <Button
             href={facility.href || "/facilities"}
-            className="inline-flex min-h-10 shrink-0 items-center gap-2 rounded-full bg-button px-4 text-xs font-extrabold text-[#061B3A] shadow-md transition-colors hover:bg-button-hover"
+            variant="navy"
+            size="sm"
+            className="rounded-xl font-bold"
           >
             Learn More
             <ArrowUpRight size={16} />
-          </Link>
+          </Button>
         </div>
       </div>
     </article>

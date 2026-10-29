@@ -2,6 +2,7 @@
 
 import { useEffect, useRef } from "react";
 import Link from "next/link";
+import Button from "@/components/comman/Button";
 import { ArrowUpRight } from "lucide-react";
 
 import FacilityCard from "../facilities/FacilityCard";
@@ -219,13 +220,15 @@ export default function CampusFacilities() {
               </p>
             </div>
 
-            <Link
+            <Button
               href="/facilities"
-              className="inline-flex min-h-10 w-fit shrink-0 items-center gap-2 rounded-xl border border-border bg-white px-4 py-2.5 text-xs font-bold text-foreground transition-colors hover:border-gold hover:bg-light-orange sm:text-sm"
+              variant="white"
+              size="md"
+              className="w-fit shrink-0 font-bold"
             >
               All Facilities
               <ArrowUpRight size={17} />
-            </Link>
+            </Button>
           </div>
         </div>
 

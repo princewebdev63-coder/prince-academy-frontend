@@ -19,11 +19,11 @@ export default function Home() {
       <WhyPrinceAcademy/>
       <ResultStateSection/>
       <Philosophy/>
-      {/* <StickyScrollReveal /> */}
-      {/* <CampusFacilities/> */}
-      {/* <VisionPrinceAcademy/> */}
-      {/* <CampusGallery/> */}
-      {/* <FAQSection /> */}
+      <StickyScrollReveal />
+      <CampusFacilities/>
+      <VisionPrinceAcademy/>
+      <CampusGallery/>
+      <FAQSection />
     </main>
   );
 }

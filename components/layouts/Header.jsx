@@ -20,54 +20,57 @@ const TOUR_URL =
 
 const LOGO_SRC = "/images/prince-academy-logo.png";
 
-const BASE_LINK =
-  "text-base font-semibold transition-all duration-200 select-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold";
-
-const DESKTOP_LINK = "rounded-full px-4 py-1.5";
-
-const MOBILE_LINK = "block rounded-xl px-4 py-2.5";
-
-const ACTIVE_LINK =
-  "bg-button text-primary font-bold shadow-sm ring-1 ring-[#FFC107]/50 hover:bg-button";
-
-const DESKTOP_INACTIVE_LINK =
-  "text-white font-semibold hover:text-[#FFC107] hover:bg-white/10 drop-shadow-[0_1px_2px_rgba(0,0,0,0.5)]";
-
-const MOBILE_INACTIVE_LINK =
-  "text-white/85 hover:text-gold hover:bg-white/10";
-
 function isActiveRoute(pathname, href) {
-  if (href === "/") {
-    return pathname === "/";
-  }
-
+  if (href === "/") return pathname === "/";
   return pathname === href || pathname.startsWith(`${href}/`);
 }
 
-function NavLink({
-  item,
-  pathname,
-  mobile = false,
-  onClick,
-}) {
+function NavLink({ item, pathname, mobile = false, onClick }) {
   const active = isActiveRoute(pathname, item.href);
-
-  const appearance = active
-    ? ACTIVE_LINK
-    : mobile
-      ? MOBILE_INACTIVE_LINK
-      : DESKTOP_INACTIVE_LINK;
 
   return (
     <Link
       href={item.href}
       onClick={onClick}
       aria-current={active ? "page" : undefined}
-      className={`${BASE_LINK} ${
-        mobile ? MOBILE_LINK : DESKTOP_LINK
-      } ${appearance}`}
+      className={`
+        relative flex shrink-0 items-center
+        whitespace-nowrap rounded-full font-semibold
+        transition-all duration-300
+        focus-visible:outline-none
+        focus-visible:ring-2 focus-visible:ring-[#F2B134]
+        ${
+          mobile
+            ? "w-full px-4 py-3 text-[15px]"
+            : "px-3.5 py-2.5 text-[13px] xl:px-4 xl:text-sm"
+        }
+        ${
+          active
+            ? `
+              border border-[#F2B134]/70
+              bg-gradient-to-br from-[#EAF3FF] via-white to-[#CFE0FF]
+              text-[#061B3A]
+              shadow-[0_3px_14px_rgba(77,163,255,0.18)]
+            `
+            : `
+              border border-transparent
+              bg-transparent text-white
+              [text-shadow:0_1px_4px_rgba(2,13,30,0.65)]
+              hover:border-white/25
+              hover:bg-white/10
+              hover:text-[#F2B134]
+            `
+        }
+      `}
     >
-      {item.label}
+      {active && (
+        <span
+          aria-hidden="true"
+          className="mr-2 h-1.5 w-1.5 shrink-0 rounded-full bg-[#D99A19]"
+        />
+      )}
+
+      <span>{item.label}</span>
     </Link>
   );
 }
@@ -78,57 +81,57 @@ function Tour360Link() {
       href={TOUR_URL}
       target="_blank"
       rel="noopener noreferrer"
-      className="flex shrink-0 items-center justify-center"
       aria-label="Explore 360 degree campus tour"
+      className="
+        group flex h-10 w-10 shrink-0 items-center justify-center
+        rounded-full border border-white/45
+        bg-white/[0.14] text-[#0A3D91]
+        shadow-[0_2px_10px_rgba(10,30,60,0.08)]
+        backdrop-blur-md
+        transition-all duration-200
+        hover:scale-105 hover:bg-white/35
+        active:scale-95
+        focus-visible:outline-none focus-visible:ring-2
+        focus-visible:ring-[#4DA3FF]
+      "
     >
-      <div
-        className="
-          flex h-8 w-8 items-center justify-center
-          rounded-full bg-button text-primary
-          shadow-md transition-all duration-300
-          hover:scale-110 hover:bg-button-hover hover:shadow-lg
-          active:scale-95
-          sm:h-9 sm:w-9
-        "
+      <svg
+        viewBox="0 0 100 100"
+        fill="none"
+        stroke="currentColor"
+        strokeWidth="7"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        className="h-5 w-5 transition-transform duration-300 group-hover:rotate-12"
+        aria-hidden="true"
       >
-        <svg
-          viewBox="0 0 100 100"
-          fill="none"
-          stroke="currentColor"
-          strokeWidth="7"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-          className="h-[18px] w-[18px] sm:h-5 sm:w-5"
-          aria-hidden="true"
+        <path d="M89.5 60.9A41 41 0 1 1 73.5 16.4" />
+        <path d="M73.5 16.4 91 31.9" />
+        <polyline points="73.5,31.9 91,31.9 91,14.4" />
+
+        <circle
+          cx="88"
+          cy="42.9"
+          r="3.2"
+          fill="currentColor"
+          stroke="none"
+        />
+
+        <text
+          x="49.3"
+          y="50"
+          dy="0.35em"
+          textAnchor="middle"
+          fontSize="34"
+          fontWeight="900"
+          fontFamily="system-ui, sans-serif"
+          letterSpacing="-1.5px"
+          fill="currentColor"
+          stroke="none"
         >
-          <path d="M 89.5 60.9 A 41 41 0 1 1 73.5 16.4" />
-          <path d="M 73.5 16.4 L 91 31.9" />
-          <polyline points="73.5,31.9 91,31.9 91,14.4" />
-
-          <circle
-            cx="88"
-            cy="42.9"
-            r="3.2"
-            fill="currentColor"
-            stroke="none"
-          />
-
-          <text
-            x="49.3"
-            y="50"
-            dy="0.35em"
-            textAnchor="middle"
-            fontSize="34"
-            fontWeight="900"
-            fontFamily="system-ui, sans-serif"
-            letterSpacing="-1.5px"
-            fill="currentColor"
-            stroke="none"
-          >
-            360
-          </text>
-        </svg>
-      </div>
+          360
+        </text>
+      </svg>
     </Link>
   );
 }
@@ -137,15 +140,10 @@ export default function Header() {
   const pathname = usePathname();
   const [open, setOpen] = useState(false);
 
-  const closeMenu = () => setOpen(false);
-  const toggleMenu = () => setOpen((prev) => !prev);
-
-  // Close the menu when the route changes.
   useEffect(() => {
     setOpen(false);
   }, [pathname]);
 
-  // Close the menu with Escape.
   useEffect(() => {
     if (!open) return;
 
@@ -162,32 +160,76 @@ export default function Header() {
     };
   }, [open]);
 
-  return (
-    <header className="fixed left-0 right-0 top-0 z-50 w-full border-b border-white/10 bg-[#0A3D91]/35 text-white shadow-sm backdrop-blur-md transition-all">
-      <div className="mx-auto flex h-14 max-w-7xl items-center justify-between px-4 sm:h-16 sm:px-6 lg:px-8">
-        {/* LEFT: Logo */}
-        <div className="flex items-center lg:min-w-[180px]">
-          <Link
-            href="/"
-            aria-label="Prince Academy Home"
-            className="flex items-center transition-transform duration-200 hover:scale-105"
-          >
-            <div className="flex items-center rounded-lg bg-white/95 px-3 py-1.5 shadow-sm ring-1 ring-white/30">
-              <img
-                src={LOGO_SRC}
-                alt="Prince Academy logo"
-                width="170"
-                height="44"
-                className="h-7.5 w-auto select-none object-contain sm:h-9"
-              />
-            </div>
-          </Link>
-        </div>
+  useEffect(() => {
+    if (!open) return;
 
-        {/* CENTER: Desktop Navigation */}
+    const previousOverflow = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+
+    return () => {
+      document.body.style.overflow = previousOverflow;
+    };
+  }, [open]);
+
+  return (
+    <header
+      className="
+        fixed inset-x-0 top-0 z-50
+        border-b border-white/35
+        bg-white/[0.12]
+        text-white
+        shadow-[0_4px_24px_rgba(10,30,60,0.045)]
+        backdrop-blur-xl
+      "
+    >
+      {/* Glass reflection */}
+      <div
+        aria-hidden="true"
+        className="
+          pointer-events-none absolute inset-x-0 top-0 h-px
+          bg-gradient-to-r from-transparent via-white/80 to-transparent
+        "
+      />
+
+      <div
+        className="
+          relative mx-auto flex h-[68px] max-w-7xl
+          items-center justify-between gap-3
+          px-4 sm:h-[76px] sm:px-6 lg:px-8
+        "
+      >
+        {/* LOGO */}
+        <Link
+          href="/"
+          aria-label="Prince Academy Home"
+          className="
+            flex shrink-0 items-center rounded-xl
+            border border-white/70 bg-white/75
+            px-2.5 py-1.5
+            shadow-[0_2px_8px_rgba(10,30,60,0.06)]
+            transition-transform duration-200
+            hover:scale-[1.02]
+            focus-visible:outline-none focus-visible:ring-2
+            focus-visible:ring-[#4DA3FF]
+          "
+        >
+          <img
+            src={LOGO_SRC}
+            alt="Prince Academy"
+            width="170"
+            height="44"
+            fetchPriority="high"
+            className="h-7 w-auto select-none object-contain sm:h-9"
+          />
+        </Link>
+
+        {/* DESKTOP NAVIGATION */}
         <nav
           aria-label="Primary navigation"
-          className="hidden flex-1 items-center justify-center gap-1 lg:flex xl:gap-2"
+          className="
+            hidden min-w-0 flex-1 items-center justify-center
+            gap-0.5 lg:flex xl:gap-1
+          "
         >
           {LINKS.map((item) => (
             <NavLink
@@ -198,48 +240,117 @@ export default function Header() {
           ))}
         </nav>
 
-        {/* RIGHT: Tour, Apply and Mobile Toggle */}
-        <div className="flex items-center justify-end gap-2 sm:gap-3 lg:min-w-[180px]">
-          <Tour360Link />
+        {/* RIGHT ACTIONS */}
+        <div className="flex shrink-0 items-center gap-2 sm:gap-3">
+          <div className="hidden sm:block">
+            <Tour360Link />
+          </div>
 
           <div className="hidden sm:block">
             <Button
               href="/applyNow"
+              variant="honey"
               size="md"
-              className="px-5 py-2 text-sm font-bold sm:text-[15px]"
+              className="
+                rounded-full border border-[#E6A21A]/70
+                px-5 py-2.5 text-sm font-bold
+                shadow-[0_2px_10px_rgba(10,30,60,0.08)]
+                transition-transform duration-200
+                hover:-translate-y-0.5
+              "
             >
               Apply Now
+              <span aria-hidden="true">→</span>
             </Button>
           </div>
 
+          {/* MOBILE TOGGLE */}
           <button
             type="button"
             aria-label={open ? "Close menu" : "Open menu"}
             aria-expanded={open}
             aria-controls="mobile-navigation"
-            onClick={toggleMenu}
-            className="flex h-9 w-9 items-center justify-center rounded-lg border border-white/20 bg-white/10 text-lg text-white transition-colors hover:bg-white/20 lg:hidden"
+            onClick={() => setOpen((previous) => !previous)}
+            className="
+              flex h-10 w-10 items-center justify-center
+              rounded-full border border-white/50
+              bg-white/[0.16] text-[#0A3D91]
+              shadow-sm backdrop-blur-md
+              transition-colors hover:bg-white/35
+              focus-visible:outline-none focus-visible:ring-2
+              focus-visible:ring-[#4DA3FF]
+              lg:hidden
+            "
           >
-            {open ? "✕" : "☰"}
+            {open ? (
+              <svg
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2"
+                className="h-5 w-5"
+                aria-hidden="true"
+              >
+                <path d="m18 6-12 12M6 6l12 12" />
+              </svg>
+            ) : (
+              <svg
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2"
+                strokeLinecap="round"
+                className="h-5 w-5"
+                aria-hidden="true"
+              >
+                <path d="M4 7h16M4 12h16M4 17h16" />
+              </svg>
+            )}
           </button>
         </div>
       </div>
 
-      {/* Mobile Navigation */}
+      {/* MOBILE GLASS MENU */}
       {open && (
         <>
-          <div
-            onClick={closeMenu}
-            aria-hidden="true"
-            className="fixed inset-x-0 bottom-0 top-14 z-40 bg-black/40 backdrop-blur-sm sm:top-16 lg:hidden"
+          <button
+            type="button"
+            aria-label="Close navigation menu"
+            onClick={() => setOpen(false)}
+            className="
+              fixed inset-0 z-40 bg-[#061B3A]/25
+              backdrop-blur-sm lg:hidden
+            "
           />
 
           <nav
             id="mobile-navigation"
             aria-label="Mobile navigation"
-            onClick={closeMenu}
-            className="absolute inset-x-4 top-[calc(100%+8px)] z-50 rounded-2xl border border-white/15 bg-[#0A3D91]/95 p-3 shadow-2xl backdrop-blur-2xl lg:hidden"
+            className="
+              absolute inset-x-3 top-[calc(100%+8px)] z-50
+              overflow-hidden rounded-2xl
+              border border-white/60
+              bg-white/[0.92] p-3 text-[#10233F]
+              shadow-[0_20px_60px_rgba(10,30,60,0.16)]
+              backdrop-blur-2xl
+              sm:inset-x-6 lg:hidden
+            "
           >
+            <div className="mb-3 flex items-center justify-between border-b border-[#0A3D91]/10 px-3 pb-3">
+              <div>
+                <p className="text-sm font-bold text-[#0A3D91]">
+                  Prince Academy
+                </p>
+                <p className="mt-0.5 text-xs text-[#52627A]">
+                  Explore your future
+                </p>
+              </div>
+
+              <span className="rounded-full border border-[#0A3D91]/10 bg-white/60 px-3 py-1 text-[10px] font-semibold uppercase tracking-[0.15em] text-[#52627A]">
+                Menu
+              </span>
+            </div>
+
             <div className="space-y-1">
               {LINKS.map((item) => (
                 <NavLink
@@ -247,16 +358,36 @@ export default function Header() {
                   item={item}
                   pathname={pathname}
                   mobile
+                  onClick={() => setOpen(false)}
                 />
               ))}
             </div>
 
-            <div className="mt-3 border-t border-white/10 pt-3">
-              <Link
+            <div className="mt-3 border-t border-[#0A3D91]/10 pt-3">
+              <Button
                 href="/applyNow"
-                className="btn-primary-gradient block rounded-full py-2.5 text-center text-sm font-bold shadow-md"
+                variant="honey"
+                size="lg"
+                className="w-full rounded-full font-bold"
               >
-                Apply Now
+                Apply for Admission
+                <span aria-hidden="true">→</span>
+              </Button>
+
+              <Link
+                href={TOUR_URL}
+                target="_blank"
+                rel="noopener noreferrer"
+                onClick={() => setOpen(false)}
+                className="
+                  mt-2 flex w-full items-center justify-center
+                  rounded-full border border-[#0A3D91]/15
+                  bg-white/40 px-4 py-3
+                  text-sm font-semibold text-[#0A3D91]
+                  transition-colors hover:bg-white/70
+                "
+              >
+                Explore 360° Campus Tour
               </Link>
             </div>
           </nav>

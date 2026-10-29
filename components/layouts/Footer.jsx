@@ -125,7 +125,7 @@ export default function Footer() {
               {/* Desktop Apply Now Button */}
               <Button
                 href="/applyNow"
-                variant="primary"
+                variant="navy"
                 size="lg"
                 className="hidden lg:inline-flex shrink-0 rounded-xl"
               >
@@ -143,7 +143,7 @@ export default function Footer() {
             {/* Mobile Apply Now Button */}
             <Button
               href="/applyNow"
-              variant="primary"
+              variant="navy"
               size="lg"
               className="lg:hidden shrink-0 mt-5 rounded-xl"
             >

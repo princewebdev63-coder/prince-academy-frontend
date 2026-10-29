@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import Button from "@/components/comman/Button";
 import { motion } from "framer-motion";
 import { ArrowUpRight, Compass, Sparkles } from "lucide-react";
 
@@ -56,15 +57,17 @@ export default function FacilitiesBanner() {
               Scroll to explore
             </span>
 
-            <Link
+            <Button
               href={TOUR_URL}
               target="_blank"
               rel="noopener noreferrer"
-              className="group inline-flex items-center gap-1.5 rounded-full bg-button px-3.5 py-1.5 text-xs font-black text-[#061B3A] shadow-md transition-all duration-300 hover:scale-105 hover:bg-button-hover hover:shadow-button/30 active:scale-95 sm:px-4 sm:py-2"
+              variant="navy"
+              size="sm"
+              className="group rounded-xl font-bold"
             >
               <span>Explore 360°</span>
               <ArrowUpRight className="h-3.5 w-3.5 transition-transform duration-200 group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
-            </Link>
+            </Button>
           </div>
         </div>
       </div>

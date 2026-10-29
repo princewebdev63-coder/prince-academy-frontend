@@ -1,229 +1,425 @@
+
 "use client";
 
-import React, { useEffect, useRef, useState } from "react";
-import { Crown, ArrowRight } from "lucide-react";
+import React, { useState } from "react";
+import Button from "@/components/comman/Button";
+import {
+  Crown,
+  BookOpen,
+  Users,
+  Sprout,
+  Target,
+  ArrowRight,
+  X,
+  Award,
+  MousePointerClick,
+} from "lucide-react";
 
-/* ------------------------------------------------------------------ */
-/* 4 Pillars                                                           */
-/* ------------------------------------------------------------------ */
+/* -------------------------------------------------- */
+/* 4 Core Pillars Data                                */
+/* -------------------------------------------------- */
+
 const PILLARS = [
   {
-    number: "01",
+    id: "01",
+    badge: "Pillar 01",
     title: "Academic Excellence",
-    description: "Strong foundations and lifelong learning.",
+    icon: BookOpen,
+    shortDesc: "Strong foundations and lifelong learning.",
+    desc: "Building strong foundations through meaningful learning, curiosity, and a culture of continuous improvement.",
+    details:
+      "Our academic framework integrates innovative teaching methodologies, critical thinking exercises, and individualized attention to foster lifelong curiosity and intellectual mastery.",
+    highlights: [
+      "Concept-driven curriculum focus",
+      "Interdisciplinary STEM & Arts integration",
+      "Mentorship for academic distinction",
+    ],
   },
   {
-    number: "02",
+    id: "02",
+    badge: "Pillar 02",
     title: "Holistic Development",
-    description: "Discover talents and grow with confidence.",
+    icon: Users,
+    shortDesc: "Discover talents and grow with confidence.",
+    desc: "Encouraging every student to explore their interests, build life skills, and grow intellectually, physically, socially, and creatively.",
+    details:
+      "We place equal emphasis on sports, performing arts, leadership programs, and emotional intelligence, ensuring well-rounded growth beyond traditional textbooks.",
+    highlights: [
+      "State-of-the-art sports and arts academies",
+      "Leadership & debate forums",
+      "Wellness & emotional resilience programs",
+    ],
   },
   {
-    number: "03",
+    id: "03",
+    badge: "Pillar 03",
     title: "Values & Character",
-    description: "Integrity, empathy and responsibility.",
+    icon: Sprout,
+    shortDesc: "Integrity, empathy and responsibility.",
+    desc: "Nurturing integrity, empathy, discipline, and responsibility to help students become thoughtful and compassionate individuals.",
+    details:
+      "Character education is interwoven into daily campus life, instilling ethical decision-making, respect for diversity, and active community service values.",
+    highlights: [
+      "Community outreach & service learning",
+      "Ethics and global citizenship modules",
+      "Peer collaboration and empathy workshops",
+    ],
   },
   {
-    number: "04",
+    id: "04",
+    badge: "Pillar 04",
     title: "Future Readiness",
-    description: "Build confident, adaptable leaders.",
+    icon: Target,
+    shortDesc: "Build confident, adaptable leaders.",
+    desc: "Equipping students with the knowledge, confidence, critical thinking, and adaptability to navigate an ever-changing world.",
+    details:
+      "With tech-forward classrooms, AI literacy, and global perspective building, we prepare students to confidently lead in tomorrow's dynamic global landscape.",
+    highlights: [
+      "Next-gen tech & digital fluency labs",
+      "Career guidance & university prep",
+      "Problem-solving & design thinking focus",
+    ],
   },
 ];
 
-/* ------------------------------------------------------------------ */
-/* Stats Counter Card Component (Theme Matched to Screenshot)          */
-/* ------------------------------------------------------------------ */
-function CounterItem({ value, suffix = "", label }) {
-  const [displayValue, setDisplayValue] = useState(0);
-  const [hasAnimated, setHasAnimated] = useState(false);
-  const elementRef = useRef(null);
+/* -------------------------------------------------- */
+/* Icon Positions                                     */
+/* -------------------------------------------------- */
 
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting && !hasAnimated) {
-          setHasAnimated(true);
-
-          const duration = 1600;
-          const startTime = performance.now();
-
-          const animate = (currentTime) => {
-            const elapsed = currentTime - startTime;
-            const progress = Math.min(elapsed / duration, 1);
-            const ease = progress === 1 ? 1 : 1 - Math.pow(2, -10 * progress);
-            const current = Math.floor(ease * value);
-            setDisplayValue(current);
-
-            if (progress < 1) {
-              requestAnimationFrame(animate);
-            } else {
-              setDisplayValue(value);
-            }
-          };
-
-          requestAnimationFrame(animate);
-        }
-      },
-      { threshold: 0.2 }
-    );
-
-    if (elementRef.current) {
-      observer.observe(elementRef.current);
-    }
-
-    return () => observer.disconnect();
-  }, [hasAnimated, value]);
-
-  return (
-    <div
-      ref={elementRef}
-      className="flex flex-col items-center justify-center text-center p-2.5 sm:p-4 rounded-xl sm:rounded-2xl bg-white/[0.08] hover:bg-white/[0.14] border border-white/15 hover:border-[#FFC107]/50 backdrop-blur-md shadow-md transition-all duration-300 hover:-translate-y-0.5"
-    >
-      <div className="text-xl sm:text-2xl lg:text-3xl font-extrabold tracking-tight text-[#FFC107] leading-none drop-shadow-sm">
-        {displayValue}
-        {suffix && (
-          <span className="text-[#78B6F5] ml-1 text-xs sm:text-base font-bold">
-            {suffix}
-          </span>
-        )}
-      </div>
-
-      <div className="mt-1 sm:mt-1.5 text-[9px] sm:text-xs font-bold uppercase tracking-wide text-white leading-tight">
-        {label}
-      </div>
-    </div>
-  );
-}
-
-function PillarCard({ pillar, side }) {
-  const { number, title, description } = pillar;
-
-  return (
-    <article
-      className={`pa-dark-card group relative min-w-0 rounded-[16px] sm:rounded-[20px] border border-white/15 bg-white/[0.07] hover:bg-white/[0.12] p-3 sm:p-4 shadow-[0_8px_24px_rgba(0,0,0,0.25)] backdrop-blur-md transition-all duration-400 hover:-translate-y-1 hover:border-[#FFC107]/60 ${
-        side === "left" ? "pa-card-left" : "pa-card-right"
-      }`}
-    >
-      
-
-      {/* Title in White */}
-      <h3 className="font-serif text-[12px] sm:text-[15.5px] font-bold leading-tight text-white">
-        {title}
-      </h3>
-
-      {/* 1-line Description in soft white */}
-      <p className="mt-1 text-[8.5px] sm:text-[12px] leading-snug text-white/85">
-        {description}
-      </p>
-
-      
-    </article>
-  );
-}
+const NODE_POSITIONS = [
+  { left: "50%", top: "0%" }, // Top
+  { left: "100%", top: "50%" }, // Right
+  { left: "50%", top: "100%" }, // Bottom
+  { left: "0%", top: "50%" }, // Left
+];
 
 export default function Philosophy() {
+  const [activeIndex, setActiveIndex] = useState(0);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const activePillar = PILLARS[activeIndex];
+
+  // Har pillar select karne par orbit 90 degrees rotate hogi.
+  const rotation = -activeIndex * 90;
+
+  const cyclePillars = () => {
+    setActiveIndex((prev) => (prev + 1) % PILLARS.length);
+  };
+
   return (
-    <section className="relative isolate overflow-hidden bg-[#0A3D91] px-3.5 pt-12 pb-12 sm:px-6 sm:pt-20 sm:pb-16 text-white select-none">
-      {/* Solid & Luminous Royal Blue Theme Background */}
-      <div className="pointer-events-none absolute inset-0 -z-10 bg-gradient-to-b from-[#0A3D91] via-[#0B459E] to-[#08357E]" />
-      <div className="pointer-events-none absolute inset-0 -z-10 bg-[radial-gradient(circle_at_50%_35%,rgba(255,255,255,0.08)_0%,transparent_70%)]" />
+    <section className="relative isolate overflow-hidden bg-gradient-to-b from-[#072456] via-[#0A3D91] to-[#041022] px-4 py-12 text-white select-none sm:px-6 sm:py-20 lg:py-24">
+      {/* Background glow */}
+      <div className="pointer-events-none absolute inset-0 -z-10 bg-[radial-gradient(circle_at_50%_35%,rgba(10,61,145,0.75)_0%,rgba(6,27,58,0.92)_55%,#041022_100%)]" />
 
-      {/* Subtle Ambient Glows */}
-      <div className="pointer-events-none absolute left-1/2 top-[40%] -z-10 h-72 w-72 -translate-x-1/2 -translate-y-1/2 rounded-full bg-[#78B6F5]/15 blur-3xl sm:h-[28rem] sm:w-[28rem]" />
-      <div className="pointer-events-none absolute left-1/2 top-[40%] -z-10 h-44 w-44 -translate-x-1/2 -translate-y-1/2 rounded-full bg-[#FFC107]/10 blur-2xl" />
+      <div className="pointer-events-none absolute left-1/2 top-1/3 -z-10 h-96 w-96 -translate-x-1/2 -translate-y-1/2 rounded-full bg-[#FFC107]/10 blur-3xl" />
 
-      <div className="mx-auto max-w-5xl">
-        {/* Section Header */}
-        <header className="mx-auto mb-7 sm:mb-12 max-w-2xl text-center">
-          {/* Crown in Yellow */}
-          <div className="flex justify-center mb-2">
-            <Crown className="h-5 w-5 sm:h-6 sm:w-6 text-[#FFC107]" aria-hidden="true" />
+      <div className="mx-auto max-w-7xl">
+        {/* Header */}
+        <header className="mx-auto mb-10 max-w-3xl text-center sm:mb-14">
+          <div className="mb-3 flex justify-center">
+            <div className="grid h-12 w-12 place-items-center rounded-full border border-[#FFC107]/40 bg-white/10 text-[#FFC107] shadow-lg backdrop-blur-md">
+              <Crown className="h-6 w-6 stroke-[2]" />
+            </div>
           </div>
 
-          {/* Eyebrow in Yellow */}
-          <div className="flex items-center justify-center gap-2.5 mb-2.5">
-            <span className="h-px w-8 sm:w-12 bg-white/30" />
-            <span className="text-[10px] sm:text-[11.5px] font-bold uppercase tracking-[0.24em] text-[#FFC107]">
-              OUR PHILOSOPHY
-            </span>
-            <span className="h-px w-8 sm:w-12 bg-white/30" />
-          </div>
+          <p className="mb-2 text-xs font-extrabold uppercase tracking-[0.25em] text-[#FFC107] sm:text-sm">
+            Our Philosophy
+          </p>
 
-          {/* Heading: White + Yellow Highlight */}
-          <h2 className="font-serif text-[26px] sm:text-4xl lg:text-5xl font-bold tracking-tight text-white leading-[1.14]">
+          <h2 className="font-serif text-3xl font-bold leading-tight tracking-tight text-white sm:text-5xl lg:text-6xl">
             More Than Academics.
-            <span className="block font-serif font-normal italic text-[#FFC107] mt-0.5 sm:mt-1">
-              A Foundation for Life.
-            </span>
+            <br className="hidden sm:inline" />{" "}
+            <span className="font-serif font-normal italic text-[#FFC107]">
+              A Foundation
+            </span>{" "}
+            for Life.
           </h2>
 
-          {/* Subtitle in soft white */}
-          <p className="mt-3 text-[11px] sm:text-[13.5px] leading-relaxed text-white/85 max-w-[560px] mx-auto px-2">
-            At Prince Academy, we believe education is not just about what students learn, but who they become. Our philosophy is rooted in nurturing bright minds, strong values, and the confidence to create a better tomorrow.
+          <div className="my-4 flex items-center justify-center gap-3">
+            <span className="h-px w-14 bg-gradient-to-r from-transparent to-[#FFC107]" />
+            <span className="h-2 w-2 rounded-full bg-[#FFC107]" />
+            <span className="h-px w-14 bg-gradient-to-l from-transparent to-[#FFC107]" />
+          </div>
+
+          <p className="mx-auto max-w-2xl px-2 text-sm font-light leading-relaxed text-white/85 sm:text-base">
+            At{" "}
+            <span className="font-semibold text-white">
+              Prince Academy
+            </span>
+            , we believe education is not just about what students learn, but
+            who they become. Our philosophy is rooted in nurturing bright
+            minds, strong values, and the confidence to create a better
+            tomorrow.
           </p>
         </header>
 
-        {/* 2x2 Grid with Perfect Full-Rounded Center Circle */}
-        <div className="relative mx-auto grid max-w-[980px] grid-cols-[minmax(0,1fr)_148px_minmax(0,1fr)] sm:grid-cols-[minmax(0,1fr)_195px_minmax(0,1fr)] lg:grid-cols-[minmax(0,1fr)_235px_minmax(0,1fr)] grid-rows-[auto_auto] items-center gap-x-2 sm:gap-x-5 lg:gap-x-7 gap-y-4 sm:gap-y-6">
-          {/* Card 01 (Top-Left) */}
-          <div className="relative z-10 col-start-1 row-start-1">
-            <PillarCard pillar={PILLARS[0]} side="left" />
-          </div>
+        {/* Orbit Section */}
+        <div className="relative mx-auto flex flex-col items-center">
+          {/* Vision Callout */}
+          <div className="z-20 mb-6 w-full max-w-md sm:max-w-md lg:absolute lg:right-4 lg:top-0 lg:mb-0 lg:max-w-xs">
+            <div className="flex items-start gap-3 rounded-2xl border border-white/15 border-l-4 border-l-[#FFC107] bg-white/10 p-4 shadow-xl backdrop-blur-md sm:p-5">
+              <span className="select-none font-serif text-4xl leading-none text-[#FFC107]">
+                “
+              </span>
 
-          {/* Card 03 (Top-Right) */}
-          <div className="relative z-10 col-start-3 row-start-1">
-            <PillarCard pillar={PILLARS[2]} side="right" />
-          </div>
+              <div>
+                <p className="font-serif text-base italic leading-snug text-white sm:text-lg">
+                  Education today for a brighter tomorrow.
+                </p>
 
-          {/* Full-Rounded Circular Center Emblem (Enlarged with Crisp Typography) */}
-          <div className="pa-emblem-wrap relative z-20 col-start-2 row-span-2 row-start-1 flex items-center justify-center">
-            {/* 4 Glowing Connectors */}
-            <span className="pa-connector pa-connector-left-top" />
-            <span className="pa-connector pa-connector-left-bottom" />
-            <span className="pa-connector pa-connector-right-top" />
-            <span className="pa-connector pa-connector-right-bottom" />
-
-            <div className="pa-emblem relative grid aspect-square w-[144px] h-[144px] sm:w-[190px] sm:h-[190px] lg:w-[230px] lg:h-[230px] place-items-center rounded-full shrink-0 border-2 sm:border-[2.5px] border-[#FFC107] bg-gradient-to-b from-[#114EA8] via-[#0B459E] to-[#0A3D91] p-2.5 sm:p-5 shadow-[0_0_30px_rgba(255,193,7,0.25),0_15px_40px_rgba(0,0,0,0.35)] overflow-hidden">
-              {/* Inner concentric ring */}
-              <div className="absolute inset-[4px] sm:inset-[6px] rounded-full border border-white/25 pointer-events-none" />
-
-              <div className="relative flex max-w-[94%] flex-col items-center text-center">
-                
-                <span className="font-serif text-[10px] sm:text-[14px] lg:text-[16px] leading-tight text-white/90 italic">
-                  The
-                </span>
-                <span className="font-serif text-[12px] sm:text-[18px] lg:text-[21px] font-extrabold leading-tight text-white tracking-tight">
-                  Prince Academy
-                </span>
-                <span className="font-serif text-[11px] sm:text-[16px] lg:text-[18px] italic text-[#FFC107]">
-                  Approach
-                </span>
-                <span className="my-1.5 sm:my-2.5 h-0.5 w-10 sm:w-20 bg-[#FFC107] rounded-full" />
-                <p className="text-[7px] sm:text-[9.5px] lg:text-[11px] font-black uppercase leading-[1.5] tracking-[0.14em] text-[#FFC107]">
-                  KNOWLEDGE<br />
-                  CHARACTER<br />
-                  OPPORTUNITY<br />
-                  LIFELONG GROWTH
+                <p className="mt-2 text-[11px] font-semibold uppercase tracking-wider text-white/70">
+                  — Prince Academy Vision
                 </p>
               </div>
             </div>
           </div>
 
-          {/* Card 02 (Bottom-Left) */}
-          <div className="relative z-10 col-start-1 row-start-2">
-            <PillarCard pillar={PILLARS[1]} side="left" />
+          {/* ------------------------------------------------ */}
+          {/* ORBIT GRAPHIC                                    */}
+          {/* ------------------------------------------------ */}
+
+          <div className="relative my-4 flex h-[340px] w-full max-w-[340px] items-center justify-center sm:my-8 sm:h-[460px] sm:max-w-[460px] md:h-[520px] md:max-w-[520px]">
+            {/* Ambient Glow */}
+            <div className="pointer-events-none absolute inset-0 scale-125 rounded-full bg-[radial-gradient(circle_at_center,rgba(255,193,7,0.18)_0%,transparent_70%)]" />
+
+            {/* Outer Dashed Orbit */}
+            <div
+              className="absolute left-1/2 top-1/2 z-10 h-[260px] w-[260px] rounded-full border-2 border-dashed border-[#FFC107]/50 sm:h-[380px] sm:w-[380px] md:h-[430px] md:w-[430px]"
+              style={{
+                transform: `translate(-50%, -50%) rotate(${rotation}deg)`,
+                transition: "transform 700ms ease-out",
+              }}
+            >
+              {/* Orbit Icons */}
+              {PILLARS.map((pillar, i) => {
+                const isActive = i === activeIndex;
+                const IconComponent = pillar.icon;
+                const pos = NODE_POSITIONS[i];
+
+                return (
+                  <button
+                    key={pillar.id}
+                    type="button"
+                    onClick={() => setActiveIndex(i)}
+                    aria-label={`Select ${pillar.title}`}
+                    aria-pressed={isActive}
+                    className="absolute z-30 rounded-full focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#FFC107] focus-visible:ring-offset-2 focus-visible:ring-offset-[#072456]"
+                    style={{
+                      left: pos.left,
+                      top: pos.top,
+
+                      // Icon ka center orbit line par rahega.
+                      // Rotation ke baad icon seedha bhi rahega.
+                      transform: `translate(-50%, -50%) rotate(${-rotation}deg)`,
+
+                      transition: "transform 700ms ease-out",
+                    }}
+                  >
+                    <span
+                      className={`grid h-12 w-12 place-items-center rounded-full transition-colors duration-300 sm:h-16 sm:w-16 md:h-[72px] md:w-[72px] ${
+                        isActive
+                          ? "scale-110 border-2 border-[#FFC107] bg-gradient-to-br from-[#0F3B7E] to-[#061B3A] text-[#FFC107] shadow-[0_0_25px_rgba(255,193,7,0.55)] ring-4 ring-[#FFC107]/25"
+                          : "border border-white/30 bg-[#34547D]/90 text-white shadow-lg backdrop-blur-md hover:bg-[#46658D]"
+                      }`}
+                    >
+                      <IconComponent className="h-5 w-5 stroke-[2] sm:h-7 sm:w-7" />
+                    </span>
+                  </button>
+                );
+              })}
+            </div>
+
+            {/* Center Golden Circle */}
+            <button
+              type="button"
+              onClick={cyclePillars}
+              aria-label="Show next pillar"
+              className="relative z-20 flex h-[115px] w-[115px] cursor-pointer flex-col items-center justify-center rounded-full border-4 border-white/70 bg-gradient-to-br from-[#FFF0BD] via-[#FFC107] to-[#D99B00] p-3 text-center text-[#061B3A] shadow-[0_15px_40px_rgba(0,0,0,0.45),inset_0_-8px_12px_rgba(0,0,0,0.2),inset_0_8px_16px_rgba(255,255,255,0.85)] transition-transform duration-300 hover:scale-105 sm:h-[155px] sm:w-[155px] md:h-[180px] md:w-[180px]"
+            >
+              <Crown className="mb-1 h-5 w-5 stroke-[2.2] sm:h-7 sm:w-7" />
+
+              <span className="text-[8px] font-black uppercase tracking-widest sm:text-[10px]">
+                THE
+              </span>
+
+              <span className="px-1 font-serif text-xs font-extrabold uppercase leading-tight tracking-wider sm:text-sm md:text-base">
+                PRINCE
+                <br />
+                ACADEMY
+              </span>
+
+              <span className="mt-1 text-[8px] font-bold uppercase tracking-widest sm:text-[10px]">
+                APPROACH
+              </span>
+            </button>
           </div>
 
-          {/* Card 04 (Bottom-Right) */}
-          <div className="relative z-10 col-start-3 row-start-2">
-            <PillarCard pillar={PILLARS[3]} side="right" />
+          {/* Interaction Hint */}
+          <div className="-mt-2 mb-6 text-center">
+            <span className="inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/10 px-4 py-1.5 text-xs font-medium text-white/90 shadow-sm backdrop-blur-md">
+              <MousePointerClick className="h-3.5 w-3.5 text-[#FFC107]" />
+              Click any node on the wheel to explore pillars
+            </span>
+          </div>
+
+          {/* Active Pillar Card */}
+          <div className="mx-auto w-full max-w-4xl">
+            <div
+              key={activePillar.id}
+              className="relative overflow-hidden rounded-3xl border-2 border-[#FFC107]/40 bg-white/10 p-6 shadow-2xl backdrop-blur-xl transition-all duration-300 sm:p-8 md:p-10"
+            >
+              {/* Watermark */}
+              <div className="pointer-events-none absolute -bottom-6 -right-3 select-none font-serif text-8xl font-black text-white/[0.06] sm:text-9xl">
+                {activePillar.id}
+              </div>
+
+              <div className="relative z-10 flex flex-col items-start justify-between gap-6 md:flex-row md:items-center">
+                <div className="flex-1">
+                  <div className="mb-3 flex items-center gap-3">
+                    <span className="rounded-full bg-[#FFC107] px-3.5 py-1 text-xs font-extrabold uppercase tracking-widest text-[#061B3A] shadow-sm">
+                      {activePillar.badge}
+                    </span>
+
+                    <span className="h-px w-12 bg-[#FFC107]/50" />
+                  </div>
+
+                  <h3 className="mb-3 font-serif text-2xl font-bold tracking-tight text-white sm:text-3xl md:text-4xl">
+                    {activePillar.title}
+                  </h3>
+
+                  <p className="max-w-2xl text-sm font-normal leading-relaxed text-white/90 sm:text-base">
+                    {activePillar.desc}
+                  </p>
+                </div>
+
+                <div className="w-full border-t border-white/15 pt-4 md:w-auto md:border-t-0 md:pt-0">
+                  <Button
+                    onClick={() => setIsModalOpen(true)}
+                    variant="navy"
+                    size="md"
+                    className="group w-full md:w-auto font-bold"
+                  >
+                    <span>Know More</span>
+                    <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
+                  </Button>
+                </div>
+              </div>
+            </div>
+
+            {/* Quick Selector Tabs */}
+            <div className="mt-5 grid grid-cols-2 gap-3 sm:grid-cols-4">
+              {PILLARS.map((pillar, i) => {
+                const isActive = i === activeIndex;
+
+                return (
+                  <button
+                    key={pillar.id}
+                    type="button"
+                    onClick={() => setActiveIndex(i)}
+                    aria-pressed={isActive}
+                    className={`flex items-center gap-3 rounded-xl border p-3 text-left transition-all duration-300 sm:p-4 ${
+                      isActive
+                        ? "scale-[1.02] border-[#FFC107] bg-white/20 shadow-lg"
+                        : "border-white/15 bg-white/[0.06] hover:bg-white/15"
+                    }`}
+                  >
+                    <span
+                      className={`font-serif text-xs font-bold sm:text-sm ${
+                        isActive ? "text-[#FFC107]" : "text-white/60"
+                      }`}
+                    >
+                      {pillar.id}
+                    </span>
+
+                    <span className="truncate text-xs font-semibold text-white sm:text-sm">
+                      {pillar.title.split(" ")[0]}
+                    </span>
+                  </button>
+                );
+              })}
+            </div>
           </div>
         </div>
-
-       
       </div>
+
+      {/* Detailed Modal */}
+      {isModalOpen && (
+        <div
+          role="dialog"
+          aria-modal="true"
+          aria-labelledby="pillar-modal-title"
+          className="fixed inset-0 z-50 flex items-center justify-center bg-[#041022]/80 p-4 backdrop-blur-md"
+          onClick={() => setIsModalOpen(false)}
+        >
+          <div
+            onClick={(e) => e.stopPropagation()}
+            className="relative w-full max-w-lg rounded-3xl border border-[#FFC107]/40 bg-gradient-to-b from-[#0E3572] via-[#0A3D91] to-[#061B3A] p-6 text-white shadow-2xl sm:p-8"
+          >
+            {/* Close Button */}
+            <button
+              type="button"
+              onClick={() => setIsModalOpen(false)}
+              aria-label="Close dialog"
+              className="absolute right-4 top-4 grid h-8 w-8 place-items-center rounded-full bg-white/10 text-white transition-colors hover:bg-white/20"
+            >
+              <X className="h-5 w-5" />
+            </button>
+
+            {/* Modal Header */}
+            <div className="mb-4 flex items-center gap-3">
+              <div className="grid h-10 w-10 place-items-center rounded-full bg-[#FFC107]/20 text-[#FFC107]">
+                <Award className="h-5 w-5" />
+              </div>
+
+              <div>
+                <span className="text-xs font-bold uppercase tracking-wider text-[#FFC107]">
+                  {activePillar.badge}
+                </span>
+
+                <h4
+                  id="pillar-modal-title"
+                  className="font-serif text-xl font-bold text-white sm:text-2xl"
+                >
+                  {activePillar.title}
+                </h4>
+              </div>
+            </div>
+
+            {/* Modal Description */}
+            <p className="mb-6 text-sm leading-relaxed text-white/85">
+              {activePillar.details}
+            </p>
+
+            {/* Highlights */}
+            <div className="mb-6 rounded-2xl border border-white/15 bg-white/10 p-4">
+              <h5 className="mb-2 text-xs font-bold uppercase tracking-wider text-[#FFC107]">
+                Key Highlights
+              </h5>
+
+              <ul className="space-y-2 text-xs text-white/90">
+                {activePillar.highlights.map((highlight, idx) => (
+                  <li key={idx} className="flex items-start gap-2">
+                    <span className="mt-1 h-1.5 w-1.5 shrink-0 rounded-full bg-[#FFC107]" />
+                    <span>{highlight}</span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+
+            {/* Close Action */}
+            <Button
+              onClick={() => setIsModalOpen(false)}
+              variant="transparent"
+              size="md"
+              className="w-full font-semibold"
+            >
+              Close Overview
+            </Button>
+          </div>
+        </div>
+      )}
     </section>
   );
 }
 
-// Named export for compatibility
 export { Philosophy };

@@ -75,14 +75,71 @@ export default function Hero() {
         {/* Hero Content */}
         <div className="relative z-20 flex h-full w-full items-center justify-center px-4 pb-8 pt-16 text-center sm:px-6 lg:px-8">
           <div className="mx-auto flex w-full max-w-4xl flex-col items-center">
+            {/* Keyframes for Continuous 3D Text Flip on Prince Academy */}
+            <style>{`
+              @keyframes heroTextFlip {
+                0% {
+                  transform: perspective(600px) rotateX(0deg);
+                }
+                14% {
+                  transform: perspective(600px) rotateX(180deg) scale(1.08);
+                  filter: brightness(1.22) drop-shadow(0 0 16px rgba(255, 193, 7, 0.9));
+                }
+                28% {
+                  transform: perspective(600px) rotateX(360deg) scale(1);
+                  filter: brightness(1);
+                }
+                100% {
+                  transform: perspective(600px) rotateX(360deg) scale(1);
+                  filter: brightness(1);
+                }
+              }
 
-           
+              .hero-flip-char {
+                display: inline-block;
+                transform-style: preserve-3d;
+                backface-visibility: visible;
+                transform-origin: 50% 50%;
+                animation: heroTextFlip 4.2s cubic-bezier(0.45, 0.05, 0.55, 0.95) infinite;
+                will-change: transform;
+              }
+            `}</style>
 
             {/* Heading */}
             <h1 className="max-w-4xl text-balance text-4xl font-extrabold leading-tight tracking-tight text-white sm:text-5xl md:text-6xl lg:text-7xl [text-shadow:0_3px_18px_rgba(0,0,0,1)]">
               Welcome to{" "}
-              <span className="font-black text-[#FFC107] [text-shadow:0_2px_14px_rgba(0,0,0,1)]">
-                Prince Academy
+              <span
+                aria-label="Prince Academy"
+                className="inline-block font-black text-[#FFC107] [text-shadow:0_2px_14px_rgba(0,0,0,1)]"
+                style={{ perspective: "1000px" }}
+              >
+                <span className="inline-block whitespace-nowrap">
+                  {"Prince".split("").map((char, i) => (
+                    <span
+                      key={`p-${i}`}
+                      className="hero-flip-char"
+                      style={{
+                        animationDelay: `${i * 0.045}s`,
+                      }}
+                    >
+                      {char}
+                    </span>
+                  ))}
+                </span>
+                <span className="inline-block">&nbsp;</span>
+                <span className="inline-block whitespace-nowrap">
+                  {"Academy".split("").map((char, i) => (
+                    <span
+                      key={`a-${i}`}
+                      className="hero-flip-char"
+                      style={{
+                        animationDelay: `${(i + 6) * 0.045}s`,
+                      }}
+                    >
+                      {char}
+                    </span>
+                  ))}
+                </span>
               </span>
             </h1>
 
@@ -98,8 +155,8 @@ export default function Hero() {
               <Button
                 href="/applyNow"
                 size="lg"
-                variant="primary"
-                className="px-8 py-3.5 text-base font-bold shadow-xl shadow-black/30 transition-transform duration-300 hover:scale-105 sm:text-lg"
+                variant="navy"
+                className="px-8 py-3.5 text-base font-bold shadow-2xl transition-transform duration-300 hover:scale-105 sm:text-lg"
               >
                 Apply for Admission
               </Button>

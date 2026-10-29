@@ -3,6 +3,7 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
+import Button from "@/components/comman/Button";
 import {
   ArrowLeft,
   ArrowRight,
@@ -337,13 +338,15 @@ export default function WhyPrinceAcademyJourney() {
             </p>
           </div>
 
-          <Link
+          <Button
             href="/about-institute"
-            className="btn-primary-gradient inline-flex min-h-10 shrink-0 items-center justify-center gap-2 self-start rounded-full px-5 py-2.5 text-sm font-bold shadow-[0_12px_28px_-10px_rgba(255,138,61,0.6)] hover:-translate-y-0.5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold focus-visible:ring-offset-2 focus-visible:ring-offset-navy sm:self-auto"
+            variant="navy"
+            size="md"
+            className="self-start sm:self-auto rounded-xl font-bold"
           >
             Explore Academy
             <ArrowUpRight size={17} aria-hidden="true" />
-          </Link>
+          </Button>
         </div>
 
         {/* Slider + spotlight */}
