@@ -163,7 +163,7 @@ export default function Philosophy() {
         </header>
 
         {/* 2x2 Grid with Perfect Full-Rounded Center Circle */}
-        <div className="relative mx-auto grid max-w-[960px] grid-cols-[minmax(0,1fr)_120px_minmax(0,1fr)] sm:grid-cols-[minmax(0,1fr)_165px_minmax(0,1fr)] lg:grid-cols-[minmax(0,1fr)_195px_minmax(0,1fr)] grid-rows-[auto_auto] items-center gap-x-2.5 gap-y-4 sm:gap-x-6 sm:gap-y-7">
+        <div className="relative mx-auto grid max-w-[980px] grid-cols-[minmax(0,1fr)_148px_minmax(0,1fr)] sm:grid-cols-[minmax(0,1fr)_195px_minmax(0,1fr)] lg:grid-cols-[minmax(0,1fr)_235px_minmax(0,1fr)] grid-rows-[auto_auto] items-center gap-x-2 sm:gap-x-5 lg:gap-x-7 gap-y-4 sm:gap-y-6">
           {/* Card 01 (Top-Left) */}
           <div className="relative z-10 col-start-1 row-start-1">
             <PillarCard pillar={PILLARS[0]} side="left" />
@@ -174,7 +174,7 @@ export default function Philosophy() {
             <PillarCard pillar={PILLARS[2]} side="right" />
           </div>
 
-          {/* Full-Rounded Circular Center Emblem */}
+          {/* Full-Rounded Circular Center Emblem (Enlarged with Crisp Typography) */}
           <div className="pa-emblem-wrap relative z-20 col-start-2 row-span-2 row-start-1 flex items-center justify-center">
             {/* 4 Glowing Connectors */}
             <span className="pa-connector pa-connector-left-top" />
@@ -182,23 +182,23 @@ export default function Philosophy() {
             <span className="pa-connector pa-connector-right-top" />
             <span className="pa-connector pa-connector-right-bottom" />
 
-            <div className="pa-emblem relative grid aspect-square w-[116px] h-[116px] sm:w-[160px] sm:h-[160px] lg:w-[190px] lg:h-[190px] place-items-center rounded-full shrink-0 border-2 border-[#FFC107] bg-gradient-to-b from-[#114EA8] to-[#0A3D91] p-2 shadow-[0_0_25px_rgba(255,193,7,0.22),0_15px_40px_rgba(0,0,0,0.35)] sm:p-4 overflow-hidden">
+            <div className="pa-emblem relative grid aspect-square w-[144px] h-[144px] sm:w-[190px] sm:h-[190px] lg:w-[230px] lg:h-[230px] place-items-center rounded-full shrink-0 border-2 sm:border-[2.5px] border-[#FFC107] bg-gradient-to-b from-[#114EA8] via-[#0B459E] to-[#0A3D91] p-2.5 sm:p-5 shadow-[0_0_30px_rgba(255,193,7,0.25),0_15px_40px_rgba(0,0,0,0.35)] overflow-hidden">
               {/* Inner concentric ring */}
-              <div className="absolute inset-[3.5px] sm:inset-[5px] rounded-full border border-white/25 pointer-events-none" />
+              <div className="absolute inset-[4px] sm:inset-[6px] rounded-full border border-white/25 pointer-events-none" />
 
               <div className="relative flex max-w-[94%] flex-col items-center text-center">
                 
-                <span className="font-serif text-[8.5px] sm:text-base leading-tight text-white/90 italic">
+                <span className="font-serif text-[10px] sm:text-[14px] lg:text-[16px] leading-tight text-white/90 italic">
                   The
                 </span>
-                <span className="font-serif text-[9.5px] sm:text-[17px] font-bold leading-tight text-white">
+                <span className="font-serif text-[12px] sm:text-[18px] lg:text-[21px] font-extrabold leading-tight text-white tracking-tight">
                   Prince Academy
                 </span>
-                <span className="font-serif text-[9px] sm:text-[15px] italic text-[#FFC107]">
+                <span className="font-serif text-[11px] sm:text-[16px] lg:text-[18px] italic text-[#FFC107]">
                   Approach
                 </span>
-                <span className="my-1 sm:my-2 h-0.5 w-8 sm:w-16 bg-[#FFC107] rounded-full" />
-                <p className="text-[5px] sm:text-[7.5px] font-bold uppercase leading-[1.55] tracking-[0.14em] text-[#FFC107]">
+                <span className="my-1.5 sm:my-2.5 h-0.5 w-10 sm:w-20 bg-[#FFC107] rounded-full" />
+                <p className="text-[7px] sm:text-[9.5px] lg:text-[11px] font-black uppercase leading-[1.5] tracking-[0.14em] text-[#FFC107]">
                   KNOWLEDGE<br />
                   CHARACTER<br />
                   OPPORTUNITY<br />
