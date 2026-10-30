@@ -16,14 +16,14 @@ export default function Home() {
       <Hero />
       <StatsStrip />
       <HeroPlus />
-      <WhyPrinceAcademy/>
-      <ResultStateSection/>
+      {/* <WhyPrinceAcademy/> */}
+      {/* <ResultStateSection/> */}
       <Philosophy/>
-      <StickyScrollReveal />
-      <CampusFacilities/>
-      <VisionPrinceAcademy/>
-      <CampusGallery/>
-      <FAQSection />
+      {/* <StickyScrollReveal /> */}
+      {/* <CampusFacilities/> */}
+      {/* <VisionPrinceAcademy/> */}
+      {/* <CampusGallery/> */}
+      {/* <FAQSection /> */}
     </main>
   );
 }

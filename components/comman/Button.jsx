@@ -3,19 +3,25 @@ import Link from "next/link";
 import { cn } from "@/lib/utils";
 
 const VARIANTS = {
-  // Royal blue primary button (Standard Brand CTA)
+  // Royal blue primary button (Standard Brand CTA - Solid, no gradient)
   primary:
-    "bg-primary text-primary-foreground shadow-md shadow-primary/25 hover:bg-primary-hover hover:shadow-lg hover:shadow-primary/30 active:scale-[0.98]",
+    "bg-primary text-white font-bold shadow-md shadow-primary/25 hover:bg-primary-hover hover:shadow-lg hover:shadow-primary/30 active:scale-[0.98]",
+
+  // Luxurious Royal Blue CTA (Solid, no gradient)
+  royalBlue:
+    "bg-primary text-white font-bold shadow-md shadow-primary/25 hover:bg-primary-hover hover:shadow-lg active:scale-[0.98]",
 
   // Soft blue secondary button (Supporting actions on light surfaces)
   secondary:
     "bg-secondary text-primary border border-secondary/40 hover:bg-secondary-hover hover:shadow-sm active:scale-[0.98]",
 
-  // Warm honey / gold accent button (High-contrast CTAs on dark navy sections & banners)
+  // Royal gold / yellow accent button (Vibrant royal gold with rich depth)
   honey:
-    "bg-honey text-navy font-bold shadow-md shadow-honey/25 hover:bg-yellow-hover hover:shadow-lg hover:shadow-honey/30 active:scale-[0.98]",
+    "bg-gradient-to-r from-[#FFD043] via-[#FBBF24] to-[#F59E0B] text-[#072255] font-extrabold border border-amber-300/80 shadow-[0_4px_14px_rgba(245,158,11,0.4),inset_0_1px_2px_rgba(255,255,255,0.75)] hover:from-[#FFE073] hover:via-[#FFD043] hover:to-[#FBBF24] hover:shadow-[0_6px_20px_rgba(245,158,11,0.55)] active:scale-[0.98]",
   gold:
-    "bg-gold text-navy font-bold shadow-md shadow-gold/25 hover:bg-yellow-hover hover:shadow-lg hover:shadow-gold/30 active:scale-[0.98]",
+    "bg-gradient-to-r from-[#FFD043] via-[#FBBF24] to-[#F59E0B] text-[#072255] font-extrabold border border-amber-300/80 shadow-[0_4px_14px_rgba(245,158,11,0.4),inset_0_1px_2px_rgba(255,255,255,0.75)] hover:from-[#FFE073] hover:via-[#FFD043] hover:to-[#F59E0B] hover:shadow-[0_6px_20px_rgba(245,158,11,0.55)] active:scale-[0.98]",
+  royalGold:
+    "bg-gradient-to-r from-[#FFD043] via-[#FBBF24] to-[#F59E0B] text-[#072255] font-extrabold border border-amber-300/80 shadow-[0_4px_14px_rgba(245,158,11,0.4),inset_0_1px_2px_rgba(255,255,255,0.75)] hover:from-[#FFE073] hover:via-[#FFD043] hover:to-[#FBBF24] hover:shadow-[0_6px_20px_rgba(245,158,11,0.55)] active:scale-[0.98]",
 
   // Royal blue outline button (Clean secondary CTA on light backgrounds)
   outline:
@@ -33,15 +39,15 @@ const VARIANTS = {
   transparent:
     "border border-white/30 bg-white/10 text-white hover:bg-white/20 hover:border-white/60 backdrop-blur-xs active:scale-[0.98]",
 
-  // Deep navy button with signature honey/gold 3D bottom bevel (User Reference Design)
+  // Royal blue button with signature honey/gold 3D bottom bevel (User Reference Design)
   navy:
-    "bg-navy text-white font-bold border border-white/15 shadow-[0_4px_0_0_#F2B134] hover:bg-[#0A264F] hover:border-white/25 hover:shadow-[0_5px_0_0_#F2B134] hover:-translate-y-0.5 active:translate-y-0.5 active:shadow-[0_1.5px_0_0_#F2B134]",
+    "bg-[#0B2F70] text-white font-bold border border-blue-400/30 shadow-[0_4px_0_0_#F59E0B] hover:bg-[#0E3D8E] hover:border-blue-300/50 hover:shadow-[0_5px_0_0_#F59E0B] hover:-translate-y-0.5 active:translate-y-0.5 active:shadow-[0_1.5px_0_0_#F59E0B]",
 
   navyAccent:
-    "bg-navy text-white font-bold border border-white/15 shadow-[0_4px_0_0_#F2B134] hover:bg-[#0A264F] hover:border-white/25 hover:shadow-[0_5px_0_0_#F2B134] hover:-translate-y-0.5 active:translate-y-0.5 active:shadow-[0_1.5px_0_0_#F2B134]",
+    "bg-[#0B2F70] text-white font-bold border border-blue-400/30 shadow-[0_4px_0_0_#F59E0B] hover:bg-[#0E3D8E] hover:border-blue-300/50 hover:shadow-[0_5px_0_0_#F59E0B] hover:-translate-y-0.5 active:translate-y-0.5 active:shadow-[0_1.5px_0_0_#F59E0B]",
 
   darkGold:
-    "bg-navy text-white font-bold border border-white/15 shadow-[0_4px_0_0_#F2B134] hover:bg-[#0A264F] hover:border-white/25 hover:shadow-[0_5px_0_0_#F2B134] hover:-translate-y-0.5 active:translate-y-0.5 active:shadow-[0_1.5px_0_0_#F2B134]",
+    "bg-[#0B2F70] text-white font-bold border border-blue-400/30 shadow-[0_4px_0_0_#F59E0B] hover:bg-[#0E3D8E] hover:border-blue-300/50 hover:shadow-[0_5px_0_0_#F59E0B] hover:-translate-y-0.5 active:translate-y-0.5 active:shadow-[0_1.5px_0_0_#F59E0B]",
 
   // Brand gradient button (Royal Blue to Deep Blue)
   gradient:

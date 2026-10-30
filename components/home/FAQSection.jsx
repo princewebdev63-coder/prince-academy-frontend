@@ -38,17 +38,17 @@ export default function FAQSection() {
   return (
     <section
       aria-labelledby="faq-heading"
-      className="relative overflow-hidden bg-[#F8FAFF] px-4 py-10 sm:px-6 sm:py-12 lg:px-8 lg:py-14"
+      className="relative overflow-hidden bg-gradient-to-b from-[#F2F7FE] via-[#EAF2FC] to-[#F2F7FE] px-4 py-10 sm:px-6 sm:py-12 lg:px-8 lg:py-14"
     >
       <div className="mx-auto max-w-4xl">
         {/* Compact heading */}
         <div className="mb-6 text-center sm:mb-8">
           <div className="mb-2 inline-flex items-center gap-2">
-            <span className="h-px w-6 bg-[#FF8A3D]" />
-            <span className="text-[10px] font-bold uppercase tracking-[0.22em] text-[#508AA8] sm:text-xs">
+            <span className="h-px w-6 bg-blue-400/80" />
+            <span className="text-[10px] font-bold uppercase tracking-[0.22em] text-primary sm:text-xs">
               Need to know
             </span>
-            <span className="h-px w-6 bg-[#FF8A3D]" />
+            <span className="h-px w-6 bg-blue-400/80" />
           </div>
 
           <h2
@@ -56,7 +56,7 @@ export default function FAQSection() {
             className="text-2xl font-bold tracking-tight text-[#061B3A] sm:text-3xl lg:text-4xl"
           >
             Frequently Asked{" "}
-            <span className="text-[#0A3D91]">Questions</span>
+            <span className="text-gradient-royal drop-shadow-[0_0_15px_rgba(37,99,235,0.25)]">Questions</span>
           </h2>
 
           <p className="mx-auto mt-2 max-w-lg text-sm leading-6 text-[#64748B]">
@@ -73,16 +73,16 @@ export default function FAQSection() {
             return (
               <article
                 key={faq.question}
-                className={`relative overflow-hidden rounded-xl border transition-colors duration-200 ${
+                className={`relative overflow-hidden rounded-xl border transition-all duration-300 ${
                   isOpen
-                    ? "border-[#508AA8]/50 bg-white shadow-[0_6px_22px_rgba(10,61,145,0.08)]"
-                    : "border-[#D9E2F0] bg-white hover:border-[#508AA8]/50"
+                    ? "border-blue-400/60 bg-white shadow-[0_8px_30px_rgba(10,61,145,0.12),0_0_15px_rgba(59,130,246,0.1)]"
+                    : "border-blue-200/70 bg-white/90 hover:border-blue-400/40 hover:shadow-sm"
                 }`}
               >
-                {/* Active gold accent */}
+                {/* Active Royal Blue accent */}
                 <span
                   aria-hidden="true"
-                  className={`absolute bottom-3 left-0 top-3 w-[3px] rounded-r-full bg-[#FFC107] transition-opacity duration-200 ${
+                  className={`absolute bottom-3 left-0 top-3 w-[3px] rounded-r-full bg-gradient-to-b from-blue-500 to-primary shadow-[0_0_8px_#3B82F6] transition-opacity duration-200 ${
                     isOpen ? "opacity-100" : "opacity-0"
                   }`}
                 />
@@ -94,12 +94,12 @@ export default function FAQSection() {
                   onClick={() =>
                     setOpenIndex(isOpen ? -1 : index)
                   }
-                  className="flex w-full items-center gap-3 px-3.5 py-3 text-left sm:gap-4 sm:px-5 sm:py-3.5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-[#508AA8]"
+                  className="flex w-full items-center gap-3 px-3.5 py-3 text-left sm:gap-4 sm:px-5 sm:py-3.5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-blue-400"
                 >
                   <span
                     aria-hidden="true"
                     className={`w-6 shrink-0 text-xs font-bold tabular-nums ${
-                      isOpen ? "text-[#0A3D91]" : "text-[#94A3B8]"
+                      isOpen ? "text-primary" : "text-[#94A3B8]"
                     }`}
                   >
                     {String(index + 1).padStart(2, "0")}
@@ -107,7 +107,7 @@ export default function FAQSection() {
 
                   <span
                     className={`min-w-0 flex-1 text-[13px] font-semibold leading-5 sm:text-sm sm:leading-6 ${
-                      isOpen ? "text-[#0A3D91]" : "text-[#102A56]"
+                      isOpen ? "text-primary font-bold" : "text-[#102A56]"
                     }`}
                   >
                     {faq.question}
@@ -116,8 +116,8 @@ export default function FAQSection() {
                   <span
                     className={`flex h-7 w-7 shrink-0 items-center justify-center rounded-full transition-colors duration-200 ${
                       isOpen
-                        ? "bg-[#FFC107] text-[#061B3A]"
-                        : "border border-[#D9E2F0] bg-[#F8FAFF] text-[#508AA8]"
+                        ? "bg-primary text-white shadow-[0_0_12px_rgba(37,99,235,0.4)]"
+                        : "border border-blue-200/80 bg-light-blue text-primary"
                     }`}
                   >
                     {isOpen ? (

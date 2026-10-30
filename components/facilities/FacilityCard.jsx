@@ -12,7 +12,7 @@ export default function FacilityCard({
 
   return (
     <article
-      className={`facility-card relative h-[390px] w-[280px] shrink-0 overflow-hidden rounded-[20px] border border-white bg-border shadow-[0_12px_30px_rgba(6,27,58,0.12)] sm:h-[420px] sm:w-[310px] ${className}`}
+      className={`facility-card relative h-[390px] w-[280px] shrink-0 overflow-hidden rounded-[20px] border border-blue-400/30 bg-[#072255] shadow-[0_12px_30px_rgba(7,34,85,0.2)] transition-all duration-300 hover:border-blue-400/80 hover:shadow-[0_0_30px_rgba(37,99,235,0.35)] sm:h-[420px] sm:w-[310px] ${className}`}
     >
       <Image
         src={facility.image}
@@ -22,13 +22,13 @@ export default function FacilityCard({
         className="object-cover"
       />
 
-      {/* Static image overlay */}
-      <div className="absolute inset-0 bg-gradient-to-b from-[#0A3D91]/30 via-transparent to-[#061B3A]/95" />
+      {/* Royal Blue image overlay */}
+      <div className="absolute inset-0 bg-gradient-to-b from-[#0A3D91]/35 via-transparent to-[#072255]/95" />
 
-      {/* Subtle bottom-right orange glow */}
+      {/* Royal sapphire glow */}
       <div
         aria-hidden="true"
-        className="pointer-events-none absolute -bottom-10 -right-10 h-36 w-36 rounded-full bg-[#FF8A3D]/25 blur-2xl"
+        className="pointer-events-none absolute -bottom-10 -right-10 h-36 w-36 rounded-full bg-blue-500/30 blur-2xl"
       />
 
       {/* Card information */}

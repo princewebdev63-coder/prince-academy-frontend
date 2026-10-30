@@ -122,7 +122,7 @@ export default function VisionPrinceAcademy() {
     <section
       ref={containerRef}
       aria-labelledby="prince-vision-heading"
-      className="relative isolate overflow-hidden bg-gradient-to-br from-[#061B3A] via-[#0A3D91] to-[#061B3A] px-5 py-10 text-white sm:px-8 sm:py-14 lg:px-12 lg:py-16"
+      className="relative isolate overflow-hidden bg-gradient-to-br from-[#072255] via-[#0D449E] to-[#072255] px-5 py-10 text-white sm:px-8 sm:py-14 lg:px-12 lg:py-16 shadow-[0_0_50px_rgba(37,99,235,0.2)]"
     >
       {/* Steel-blue glow */}
       <div
@@ -135,10 +135,10 @@ export default function VisionPrinceAcademy() {
         className="pointer-events-none absolute -bottom-36 -left-20 -z-10 h-72 w-72 rounded-full bg-primary/40 blur-[100px]"
       />
 
-      {/* Subtle gold glow */}
+      {/* Warm Golden Glow */}
       <div
         aria-hidden="true"
-        className="pointer-events-none absolute left-1/2 top-1/2 -z-10 h-48 w-48 -translate-x-1/2 -translate-y-1/2 rounded-full bg-gold/[0.04] blur-[100px]"
+        className="pointer-events-none absolute left-1/2 top-1/2 -z-10 h-72 w-72 -translate-x-1/2 -translate-y-1/2 rounded-full bg-amber-400/22 blur-[100px] animate-pulse-glow-gold"
       />
 
       <div className="relative mx-auto max-w-5xl">

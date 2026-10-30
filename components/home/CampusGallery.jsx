@@ -122,7 +122,7 @@ export default function CampusGallery() {
   return (
     <section
       aria-label="Prince Academy sports gallery"
-      className="w-full overflow-hidden bg-background py-3 sm:py-4"
+      className="w-full overflow-hidden bg-gradient-to-b from-[#F2F7FE] via-[#E8F2FC] to-[#F2F7FE] py-3 sm:py-4"
     >
       {/* Mobile and tablet: 3 columns */}
       <div

@@ -192,35 +192,35 @@ function Spotlight({ step, onChange }) {
   }, [step]);
 
   return (
-    <div className="facility-border-rotate rounded-[20px] lg:col-span-5">
+    <div className="glow-card-rotating rounded-[22px] border border-blue-400/40 bg-gradient-to-b from-[#0F3A8A] to-[#0B2D6D] p-1 shadow-[0_0_35px_rgba(37,99,235,0.3)] backdrop-blur-xl lg:col-span-5">
       <div
         id="journey-panel"
         role="tabpanel"
         aria-live="polite"
-        className="flex h-full flex-col justify-between gap-4 rounded-[18.5px] bg-[#081F45] p-5"
+        className="flex h-full flex-col justify-between gap-4 rounded-[18.5px] bg-[#0A2E6D]/90 p-5 border border-blue-400/20"
       >
         <div ref={detailRef} className="flex flex-col gap-3">
           <div className="flex items-center gap-3">
-            <span className="flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl bg-gradient-to-br from-gold to-orange text-navy shadow-[0_10px_24px_-8px_rgba(255,138,61,0.7)]">
+            <span className="flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl bg-gradient-to-br from-[#1D4ED8] via-[#0A3D91] to-[#072255] text-white border border-blue-300/50 shadow-[0_0_22px_rgba(37,99,235,0.45)]">
               <CurrentIcon size={24} aria-hidden="true" />
             </span>
-            <span className="text-sm font-semibold text-gold">
+            <span className="text-sm font-bold text-blue-300">
               Step {step + 1} of {features.length}
             </span>
           </div>
 
           <h3 className="text-2xl font-bold leading-tight text-white">{current.title}</h3>
-          <p className="text-sm leading-6 text-white/75 sm:text-base">{current.description}</p>
+          <p className="text-sm leading-6 text-blue-100/90 sm:text-base">{current.description}</p>
         </div>
 
-        <div className="flex items-center justify-between border-t border-white/10 pt-3">
-          <span className="text-xs text-white/55">Your journey at Prince Academy</span>
+        <div className="flex items-center justify-between border-t border-blue-500/15 pt-3">
+          <span className="text-xs text-blue-200/60">Your journey at Prince Academy</span>
           <div className="flex items-center gap-1.5">
             <button
               type="button"
               onClick={() => onChange((step - 1 + features.length) % features.length)}
               aria-label="Previous step"
-              className={`${PILL_BTN} border border-white/15`}
+              className={`${PILL_BTN} border border-blue-400/30 bg-white/5 hover:bg-blue-600/30 hover:border-blue-400 text-white`}
             >
               <ArrowLeft size={15} aria-hidden="true" />
             </button>
@@ -228,7 +228,7 @@ function Spotlight({ step, onChange }) {
               type="button"
               onClick={() => onChange((step + 1) % features.length)}
               aria-label="Next step"
-              className={`${PILL_BTN} border border-white/15`}
+              className={`${PILL_BTN} border border-blue-400/30 bg-white/5 hover:bg-blue-600/30 hover:border-blue-400 text-white`}
             >
               <ArrowRight size={15} aria-hidden="true" />
             </button>
@@ -242,13 +242,13 @@ function Spotlight({ step, onChange }) {
 function JourneyRail({ step, onChange }) {
   return (
     <div role="tablist" aria-label="Prince Academy journey" className="relative mt-6 lg:mt-8">
-      {/* Track + gold progress */}
+      {/* Track + Royal Sapphire Progress */}
       <div
         aria-hidden="true"
-        className="absolute left-[6.25%] right-[6.25%] top-[17px] h-0.5 rounded bg-white/15 sm:top-[21px]"
+        className="absolute left-[6.25%] right-[6.25%] top-[17px] h-0.5 rounded bg-blue-950/60 sm:top-[21px]"
       >
         <div
-          className="h-full rounded bg-gradient-to-r from-orange to-gold transition-[width] duration-500 motion-reduce:transition-none"
+          className="h-full rounded bg-gradient-to-r from-blue-600 via-blue-400 to-cyan-300 shadow-[0_0_12px_#3B82F6] transition-[width] duration-500 motion-reduce:transition-none"
           style={{ width: `${(step / (features.length - 1)) * 100}%` }}
         />
       </div>
@@ -270,12 +270,12 @@ function JourneyRail({ step, onChange }) {
               className="group flex flex-col items-center gap-2 focus-visible:outline-none"
             >
               <span
-                className={`flex h-9 w-9 items-center justify-center rounded-full border transition-all duration-300 group-focus-visible:ring-2 group-focus-visible:ring-gold motion-reduce:transition-none sm:h-11 sm:w-11 ${
+                className={`flex h-9 w-9 items-center justify-center rounded-full border transition-all duration-300 group-focus-visible:ring-2 group-focus-visible:ring-blue-400 motion-reduce:transition-none sm:h-11 sm:w-11 ${
                   on
-                    ? "scale-110 border-gold bg-gradient-to-br from-gold to-orange text-navy shadow-[0_0_0_5px_rgba(255,193,7,0.18),0_10px_24px_-8px_rgba(255,138,61,0.7)]"
+                    ? "scale-110 border-blue-300 bg-gradient-to-br from-[#1656BF] to-[#0A3D91] text-white shadow-[0_0_0_5px_rgba(59,130,246,0.35),0_0_24px_rgba(37,99,235,0.7)]"
                     : done
-                      ? "border-gold/60 bg-primary text-gold"
-                      : "border-white/20 bg-[#0A254E] text-white/60 group-hover:border-gold/60 group-hover:text-white"
+                      ? "border-blue-400/70 bg-[#0A3D91] text-blue-100"
+                      : "border-blue-400/30 bg-[#072255] text-white/60 group-hover:border-blue-300 group-hover:text-white"
                 }`}
               >
                 <Icon size={17} aria-hidden="true" />
@@ -283,7 +283,7 @@ function JourneyRail({ step, onChange }) {
 
               <span
                 className={`hidden text-center text-xs leading-4 lg:block ${
-                  on ? "font-semibold text-white" : "text-white/60"
+                  on ? "font-bold text-white drop-shadow-[0_0_8px_rgba(59,130,246,0.6)]" : "text-white/60"
                 }`}
               >
                 {short}
@@ -306,34 +306,34 @@ export default function WhyPrinceAcademyJourney() {
   return (
     <section
       aria-labelledby="why-prince-heading"
-      className="relative isolate overflow-hidden bg-gradient-to-b from-[#030E22] via-navy to-[#092B60] px-4 py-10 text-white sm:px-6 sm:py-12 lg:px-8 lg:py-14"
+      className="relative isolate overflow-hidden bg-gradient-to-b from-[#072255] via-[#0A327B] to-[#072255] px-4 py-10 text-white sm:px-6 sm:py-12 lg:px-8 lg:py-14"
     >
-      {/* Dotted texture, glows and gold hairline */}
-      <div aria-hidden="true" className="pointer-events-none absolute inset-0 -z-10 opacity-70 [background-image:radial-gradient(rgb(255_255_255/0.08)_1px,transparent_1px)] [background-size:22px_22px] [mask-image:radial-gradient(75%_85%_at_50%_30%,#000,transparent)]" />
-      <div aria-hidden="true" className="pointer-events-none absolute -left-24 -top-24 -z-10 h-72 w-72 rounded-full bg-gold/10 blur-[110px]" />
-      <div aria-hidden="true" className="pointer-events-none absolute -right-24 bottom-0 -z-10 h-72 w-72 rounded-full bg-secondary/25 blur-[110px]" />
-      <div aria-hidden="true" className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-gold/60 to-transparent" />
+      {/* Dotted texture, glows and Royal Blue & Gold hairline */}
+      <div aria-hidden="true" className="pointer-events-none absolute inset-0 -z-10 opacity-60 [background-image:radial-gradient(rgba(59,130,246,0.15)_1px,transparent_1px)] [background-size:24px_24px] [mask-image:radial-gradient(75%_85%_at_50%_30%,#000,transparent)]" />
+      <div aria-hidden="true" className="pointer-events-none absolute -left-24 -top-24 -z-10 h-80 w-80 rounded-full bg-blue-600/20 blur-[120px]" />
+      <div aria-hidden="true" className="pointer-events-none absolute right-1/4 top-10 -z-10 h-72 w-72 rounded-full bg-amber-400/20 blur-[130px] animate-pulse-glow-gold" />
+      <div aria-hidden="true" className="pointer-events-none absolute -right-24 bottom-0 -z-10 h-80 w-80 rounded-full bg-cyan-400/18 blur-[120px]" />
+      <div aria-hidden="true" className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-amber-400/50 to-transparent" />
 
       <div className="relative mx-auto max-w-7xl">
         {/* Header row */}
         <div className="flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
           <div className="max-w-2xl">
-            <span className="inline-flex items-center gap-2.5 text-sm font-semibold text-gold">
-              
+            <span className="inline-flex items-center gap-2.5 text-xs font-bold uppercase tracking-[0.2em] text-blue-300 drop-shadow-[0_0_10px_rgba(59,130,246,0.5)]">
               Why Prince Academy
             </span>
 
             <h2
               id="why-prince-heading"
-              className="mt-2.5 text-3xl font-bold leading-[1.1] tracking-tight text-white sm:text-4xl"
+              className="mt-2.5 text-3xl font-extrabold leading-[1.1] tracking-tight text-white sm:text-4xl lg:text-[42px]"
             >
               Your Ambition.{" "} <br />
-              <span className="bg-gradient-to-r from-orange to-gold bg-clip-text text-transparent">
+              <span className="text-gradient-royal">
                 Our Commitment.
               </span>
             </h2>
 
-            <p className="mt-2 text-sm leading-6 text-white/75 sm:text-base">
+            <p className="mt-2 text-sm leading-6 text-blue-100/75 sm:text-base">
               The right environment can transform how you learn, prepare and grow.
             </p>
           </div>

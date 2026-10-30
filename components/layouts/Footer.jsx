@@ -84,16 +84,16 @@ export default function Footer() {
   return (
     <footer
       aria-label="Site Footer"
-      className="relative w-full overflow-hidden bg-navy text-white selection:bg-button selection:text-button-foreground"
+      className="relative w-full overflow-hidden bg-gradient-to-b from-[#072255] via-[#0A327B] to-[#051A42] text-white border-t border-blue-400/25 selection:bg-primary selection:text-white"
     >
-      {/* Top subtle golden & steel-blue ambient light source */}
+      {/* Top subtle royal blue & sapphire ambient light source */}
       <div
         aria-hidden="true"
-        className="pointer-events-none absolute -top-40 left-1/4 h-96 w-96 rounded-full bg-secondary/15 blur-[120px]"
+        className="pointer-events-none absolute -top-40 left-1/4 h-96 w-96 rounded-full bg-blue-500/20 blur-[120px]"
       />
       <div
         aria-hidden="true"
-        className="pointer-events-none absolute top-10 right-10 h-80 w-80 rounded-full bg-button/10 blur-[130px]"
+        className="pointer-events-none absolute top-10 right-10 h-80 w-80 rounded-full bg-blue-400/20 blur-[130px]"
       />
 
       {/* Main Footer Links Grid */}

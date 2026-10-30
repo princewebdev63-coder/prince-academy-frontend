@@ -10,7 +10,7 @@ const TOUR_URL = "https://tour.princeeduhub.com/princt34/old-campus/";
 export default function FacilitiesBanner() {
   return (
     <div className="mt-3 w-full sm:mt-4">
-      <div className="relative isolate overflow-hidden rounded-2xl border border-button/35 bg-gradient-to-r from-[#061B3A] via-[#0A3D91] to-[#061B3A] px-3.5 py-2.5 text-white shadow-lg shadow-black/15 sm:px-6 sm:py-3">
+      <div className="glow-card-rotating relative isolate overflow-hidden rounded-2xl border border-blue-400/40 bg-gradient-to-r from-[#072255] via-[#0D449E] to-[#072255] px-3.5 py-2.5 text-white shadow-[0_0_30px_rgba(37,99,235,0.25)] sm:px-6 sm:py-3">
         {/* Subtle animated moving light sheen */}
         <motion.div
           animate={{

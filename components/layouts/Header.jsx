@@ -1,10 +1,10 @@
-
 "use client";
 
 import { useEffect, useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import Button from "@/components/comman/Button";
+import { Sparkles, PhoneCall, ArrowRight } from "lucide-react";
 
 const LINKS = [
   { label: "Home", href: "/" },
@@ -36,40 +36,30 @@ function NavLink({ item, pathname, mobile = false, onClick }) {
       className={`
         relative flex shrink-0 items-center
         whitespace-nowrap rounded-full font-semibold
-        transition-all duration-300
+        transition-all duration-200
         focus-visible:outline-none
-        focus-visible:ring-2 focus-visible:ring-[#F2B134]
+        focus-visible:ring-2 focus-visible:ring-primary
         ${
           mobile
             ? "w-full px-4 py-3 text-[15px]"
-            : "px-3.5 py-2.5 text-[13px] xl:px-4 xl:text-sm"
+            : "px-3.5 py-2 text-[13px] xl:px-4 xl:text-sm"
         }
         ${
           active
             ? `
-              border border-[#F2B134]/70
-              bg-gradient-to-br from-[#EAF3FF] via-white to-[#CFE0FF]
-              text-[#061B3A]
-              shadow-[0_3px_14px_rgba(77,163,255,0.18)]
+              border border-blue-200/90
+              bg-blue-50/90
+              text-primary font-bold
+              shadow-xs
             `
             : `
               border border-transparent
-              bg-transparent text-white
-              [text-shadow:0_1px_4px_rgba(2,13,30,0.65)]
-              hover:border-white/25
-              hover:bg-white/10
-              hover:text-[#F2B134]
+              bg-transparent text-slate-700
+              hover:text-primary hover:bg-slate-100/70
             `
         }
       `}
     >
-      {active && (
-        <span
-          aria-hidden="true"
-          className="mr-2 h-1.5 w-1.5 shrink-0 rounded-full bg-[#D99A19]"
-        />
-      )}
-
       <span>{item.label}</span>
     </Link>
   );
@@ -84,15 +74,14 @@ function Tour360Link() {
       aria-label="Explore 360 degree campus tour"
       className="
         group flex h-10 w-10 shrink-0 items-center justify-center
-        rounded-full border border-white/45
-        bg-white/[0.14] text-[#0A3D91]
-        shadow-[0_2px_10px_rgba(10,30,60,0.08)]
-        backdrop-blur-md
+        rounded-full border border-blue-200
+        bg-blue-50/70 text-primary
+        shadow-xs
         transition-all duration-200
-        hover:scale-105 hover:bg-white/35
+        hover:scale-105 hover:border-primary hover:bg-primary hover:text-white hover:shadow-md
         active:scale-95
         focus-visible:outline-none focus-visible:ring-2
-        focus-visible:ring-[#4DA3FF]
+        focus-visible:ring-primary
       "
     >
       <svg
@@ -139,6 +128,16 @@ function Tour360Link() {
 export default function Header() {
   const pathname = usePathname();
   const [open, setOpen] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      setScrolled(window.scrollY > 20);
+    };
+    handleScroll();
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
 
   useEffect(() => {
     setOpen(false);
@@ -172,155 +171,151 @@ export default function Header() {
   }, [open]);
 
   return (
-    <header
-      className="
-        fixed inset-x-0 top-0 z-50
-        border-b border-white/35
-        bg-white/[0.12]
-        text-white
-        shadow-[0_4px_24px_rgba(10,30,60,0.045)]
-        backdrop-blur-xl
-      "
-    >
-      {/* Glass reflection */}
+    <header className="sticky top-0 z-50 w-full select-none shadow-[0_4px_25px_-5px_rgba(0,0,0,0.12)]">
+      {/* 1. TOP ANNOUNCEMENT HEADER (Hides smoothly on scroll) */}
       <div
-        aria-hidden="true"
-        className="
-          pointer-events-none absolute inset-x-0 top-0 h-px
-          bg-gradient-to-r from-transparent via-white/80 to-transparent
-        "
-      />
-
-      <div
-        className="
-          relative mx-auto flex h-[68px] max-w-7xl
-          items-center justify-between gap-3
-          px-4 sm:h-[76px] sm:px-6 lg:px-8
-        "
+        className={`w-full overflow-hidden transition-all duration-300 ease-in-out bg-gradient-to-r from-[#072255] via-[#0A3D91] to-[#072255] text-white px-4 ${
+          scrolled
+            ? "max-h-0 opacity-0 pointer-events-none -translate-y-2 border-b-0 py-0"
+            : "max-h-14 opacity-100 py-2 border-b border-blue-400/20"
+        }`}
       >
-        {/* LOGO */}
-        <Link
-          href="/"
-          aria-label="Prince Academy Home"
-          className="
-            flex shrink-0 items-center rounded-xl
-            border border-white/70 bg-white/75
-            px-2.5 py-1.5
-            shadow-[0_2px_8px_rgba(10,30,60,0.06)]
-            transition-transform duration-200
-            hover:scale-[1.02]
-            focus-visible:outline-none focus-visible:ring-2
-            focus-visible:ring-[#4DA3FF]
-          "
-        >
-          <img
-            src={LOGO_SRC}
-            alt="Prince Academy"
-            width="170"
-            height="44"
-            fetchPriority="high"
-            className="h-7 w-auto select-none object-contain sm:h-9"
-          />
-        </Link>
-
-        {/* DESKTOP NAVIGATION */}
-        <nav
-          aria-label="Primary navigation"
-          className="
-            hidden min-w-0 flex-1 items-center justify-center
-            gap-0.5 lg:flex xl:gap-1
-          "
-        >
-          {LINKS.map((item) => (
-            <NavLink
-              key={item.href}
-              item={item}
-              pathname={pathname}
-            />
-          ))}
-        </nav>
-
-        {/* RIGHT ACTIONS */}
-        <div className="flex shrink-0 items-center gap-2 sm:gap-3">
-          <div className="hidden sm:block">
-            <Tour360Link />
+        <div className="mx-auto flex max-w-7xl items-center justify-between gap-3 text-xs">
+          {/* Left Announcement Message */}
+          <div className="flex items-center gap-2.5 overflow-hidden text-ellipsis whitespace-nowrap">
+            <span className="inline-flex items-center gap-1 rounded-full bg-amber-400 px-2.5 py-0.5 text-[10px] sm:text-[11px] font-black uppercase tracking-wider text-[#072255] shadow-xs">
+              <Sparkles size={11} className="animate-spin-slow" /> Admissions 2026-27
+            </span>
+            <span className="hidden sm:inline font-medium text-blue-100">
+              CBSE Affiliated Day-Boarding &amp; Residential School · Sikar (Raj.)
+            </span>
+            <span className="sm:hidden font-medium text-blue-100 text-[11px]">
+              Open: Nursery to XII (CBSE)
+            </span>
           </div>
 
-          <div className="hidden sm:block">
-            <Button
-              href="/applyNow"
-              variant="honey"
-              size="md"
-              className="
-                rounded-full border border-[#E6A21A]/70
-                px-5 py-2.5 text-sm font-bold
-                shadow-[0_2px_10px_rgba(10,30,60,0.08)]
-                transition-transform duration-200
-                hover:-translate-y-0.5
-              "
+          {/* Right Quick Contacts & Apply link */}
+          <div className="flex shrink-0 items-center gap-3 sm:gap-4 text-[11px] sm:text-xs font-semibold text-blue-100">
+            <a
+              href="tel:+919610892222"
+              className="flex items-center gap-1.5 hover:text-amber-300 transition-colors"
             >
-              Apply Now
-              <span aria-hidden="true">→</span>
-            </Button>
+              <PhoneCall size={12} className="text-amber-400" />
+              <span className="hidden md:inline">Helpline:</span> +91 9610892222
+            </a>
+            <span className="hidden sm:inline h-3 w-px bg-blue-400/30" />
+            <Link
+              href="/applyNow"
+              className="hidden sm:inline-flex items-center gap-1 font-bold text-amber-300 hover:text-white transition-colors"
+            >
+              Enquire Online <ArrowRight size={11} />
+            </Link>
           </div>
-
-          {/* MOBILE TOGGLE */}
-          <button
-            type="button"
-            aria-label={open ? "Close menu" : "Open menu"}
-            aria-expanded={open}
-            aria-controls="mobile-navigation"
-            onClick={() => setOpen((previous) => !previous)}
-            className="
-              flex h-10 w-10 items-center justify-center
-              rounded-full border border-white/50
-              bg-white/[0.16] text-[#0A3D91]
-              shadow-sm backdrop-blur-md
-              transition-colors hover:bg-white/35
-              focus-visible:outline-none focus-visible:ring-2
-              focus-visible:ring-[#4DA3FF]
-              lg:hidden
-            "
-          >
-            {open ? (
-              <svg
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="2"
-                className="h-5 w-5"
-                aria-hidden="true"
-              >
-                <path d="m18 6-12 12M6 6l12 12" />
-              </svg>
-            ) : (
-              <svg
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="2"
-                strokeLinecap="round"
-                className="h-5 w-5"
-                aria-hidden="true"
-              >
-                <path d="M4 7h16M4 12h16M4 17h16" />
-              </svg>
-            )}
-          </button>
         </div>
       </div>
 
-      {/* MOBILE GLASS MENU */}
+      {/* 2. CLEAN SIMPLE WHITE NAVBAR WITH PREMIUM INNER & OUTER SHADOW */}
+      <div className="w-full border-b border-slate-200/80 bg-white text-slate-800 shadow-[inset_0_2px_4px_rgba(0,0,0,0.03),inset_0_-1px_3px_rgba(10,61,145,0.04),0_10px_30px_-5px_rgba(10,37,85,0.12),0_4px_12px_-2px_rgba(0,0,0,0.06)]">
+        <div className="mx-auto flex h-[68px] max-w-7xl items-center justify-between gap-3 px-4 sm:h-[74px] sm:px-6 lg:px-8">
+          {/* LOGO */}
+          <Link
+            href="/"
+            aria-label="Prince Academy Home"
+            className="flex shrink-0 items-center transition-transform hover:scale-[1.02] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary rounded-lg"
+          >
+            <img
+              src={LOGO_SRC}
+              alt="Prince Academy"
+              width="140"
+              height="60"
+              fetchPriority="high"
+              style={{ maxHeight: "36px", width: "auto" }}
+              className="h-7 w-auto select-none object-contain sm:h-8 md:h-9"
+            />
+          </Link>
+
+          {/* DESKTOP NAVIGATION */}
+          <nav
+            aria-label="Primary navigation"
+            className="hidden min-w-0 flex-1 items-center justify-center gap-1 lg:flex xl:gap-1.5"
+          >
+            {LINKS.map((item) => (
+              <NavLink key={item.href} item={item} pathname={pathname} />
+            ))}
+          </nav>
+
+          {/* RIGHT ACTIONS */}
+          <div className="flex shrink-0 items-center gap-2 sm:gap-3">
+            <div className="hidden sm:block">
+              <Tour360Link />
+            </div>
+
+            <div className="hidden sm:block">
+              <Button
+                href="/applyNow"
+                variant="primary"
+                size="md"
+                className="rounded-full px-5 py-2.5 text-sm font-bold tracking-wide shadow-md hover:scale-105 transition-all"
+              >
+                Apply Now
+                <span aria-hidden="true">→</span>
+              </Button>
+            </div>
+
+            {/* MOBILE TOGGLE */}
+            <button
+              type="button"
+              aria-label={open ? "Close menu" : "Open menu"}
+              aria-expanded={open}
+              aria-controls="mobile-navigation"
+              onClick={() => setOpen((previous) => !previous)}
+              className="
+                flex h-10 w-10 items-center justify-center
+                rounded-xl border border-slate-200
+                bg-slate-50 text-slate-700
+                shadow-xs transition-colors hover:bg-slate-100 hover:text-primary
+                focus-visible:outline-none focus-visible:ring-2
+                focus-visible:ring-primary
+                lg:hidden
+              "
+            >
+              {open ? (
+                <svg
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="2"
+                  className="h-5 w-5"
+                  aria-hidden="true"
+                >
+                  <path d="m18 6-12 12M6 6l12 12" />
+                </svg>
+              ) : (
+                <svg
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                  className="h-5 w-5"
+                  aria-hidden="true"
+                >
+                  <path d="M4 7h16M4 12h16M4 17h16" />
+                </svg>
+              )}
+            </button>
+          </div>
+        </div>
+      </div>
+
+      {/* MOBILE MENU */}
       {open && (
         <>
           <button
             type="button"
             aria-label="Close navigation menu"
             onClick={() => setOpen(false)}
-            className="
-              fixed inset-0 z-40 bg-[#061B3A]/25
-              backdrop-blur-sm lg:hidden
-            "
+            className="fixed inset-0 z-40 bg-slate-900/50 backdrop-blur-xs lg:hidden"
           />
 
           <nav
@@ -329,24 +324,19 @@ export default function Header() {
             className="
               absolute inset-x-3 top-[calc(100%+8px)] z-50
               overflow-hidden rounded-2xl
-              border border-white/60
-              bg-white/[0.92] p-3 text-[#10233F]
-              shadow-[0_20px_60px_rgba(10,30,60,0.16)]
-              backdrop-blur-2xl
+              border border-slate-200
+              bg-white p-3.5 text-slate-800
+              shadow-2xl
               sm:inset-x-6 lg:hidden
             "
           >
-            <div className="mb-3 flex items-center justify-between border-b border-[#0A3D91]/10 px-3 pb-3">
+            <div className="mb-3 flex items-center justify-between border-b border-slate-100 px-3 pb-3">
               <div>
-                <p className="text-sm font-bold text-[#0A3D91]">
-                  Prince Academy
-                </p>
-                <p className="mt-0.5 text-xs text-[#52627A]">
-                  Explore your future
-                </p>
+                <p className="text-sm font-bold text-primary">Prince Academy</p>
+                <p className="mt-0.5 text-xs text-slate-500">Explore your future</p>
               </div>
 
-              <span className="rounded-full border border-[#0A3D91]/10 bg-white/60 px-3 py-1 text-[10px] font-semibold uppercase tracking-[0.15em] text-[#52627A]">
+              <span className="rounded-full border border-blue-200 bg-blue-50 px-3 py-1 text-[10px] font-semibold uppercase tracking-[0.15em] text-primary">
                 Menu
               </span>
             </div>
@@ -363,12 +353,12 @@ export default function Header() {
               ))}
             </div>
 
-            <div className="mt-3 border-t border-[#0A3D91]/10 pt-3">
+            <div className="mt-3 border-t border-slate-100 pt-3">
               <Button
                 href="/applyNow"
-                variant="honey"
+                variant="primary"
                 size="lg"
-                className="w-full rounded-full font-bold"
+                className="w-full rounded-xl font-bold tracking-wide"
               >
                 Apply for Admission
                 <span aria-hidden="true">→</span>
@@ -381,10 +371,10 @@ export default function Header() {
                 onClick={() => setOpen(false)}
                 className="
                   mt-2 flex w-full items-center justify-center
-                  rounded-full border border-[#0A3D91]/15
-                  bg-white/40 px-4 py-3
-                  text-sm font-semibold text-[#0A3D91]
-                  transition-colors hover:bg-white/70
+                  rounded-xl border border-blue-200
+                  bg-blue-50/60 px-4 py-3
+                  text-sm font-semibold text-primary
+                  transition-colors hover:bg-blue-100/70
                 "
               >
                 Explore 360° Campus Tour

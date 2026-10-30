@@ -60,21 +60,31 @@ export default function Hero() {
           className="absolute inset-0 z-0 h-full w-full scale-[1.28] sm:scale-[1.3] object-cover object-center transform-gpu"
         />
 
-        {/* Full Video Dark Overlay */}
+        {/* Full Hero Section Overlay Box - Low opacity so video is clear & text is crisp */}
         <div
           aria-hidden="true"
           className="pointer-events-none absolute inset-0 z-10 bg-black/40"
         />
 
-        {/* Gradient Overlay */}
+        {/* Subtle Ambient Depth Gradient */}
         <div
           aria-hidden="true"
-          className="pointer-events-none absolute inset-0 z-10 bg-gradient-to-b from-black/40 via-black/20 to-black/60"
+          className="pointer-events-none absolute inset-0 z-10 bg-gradient-to-b from-black/20 via-transparent to-black/50"
+        />
+
+        {/* Soft Luxury Radial Focus Glow */}
+        <div
+          aria-hidden="true"
+          className="pointer-events-none absolute inset-0 z-10 opacity-25"
+          style={{
+            background:
+              "radial-gradient(ellipse 75% 65% at 50% 45%, rgba(10, 61, 145, 0.22) 0%, transparent 70%)",
+          }}
         />
 
         {/* Hero Content */}
-        <div className="relative z-20 flex h-full w-full items-center justify-center px-4 pb-8 pt-16 text-center sm:px-6 lg:px-8">
-          <div className="mx-auto flex w-full max-w-4xl flex-col items-center">
+        <div className="relative z-20 flex h-full w-full items-center justify-center px-4 pb-10 pt-6 text-center sm:px-6 sm:pb-12 lg:px-8">
+          <div className="mx-auto flex w-full max-w-4xl flex-col items-center -translate-y-2 sm:-translate-y-12 md:-translate-y-20">
             {/* Keyframes for Continuous 3D Text Flip on Prince Academy */}
             <style>{`
               @keyframes heroTextFlip {
@@ -83,7 +93,7 @@ export default function Hero() {
                 }
                 14% {
                   transform: perspective(600px) rotateX(180deg) scale(1.08);
-                  filter: brightness(1.22) drop-shadow(0 0 16px rgba(255, 193, 7, 0.9));
+                  filter: brightness(1.22) drop-shadow(0 0 16px rgba(253, 224, 71, 0.9));
                 }
                 28% {
                   transform: perspective(600px) rotateX(360deg) scale(1);
@@ -103,6 +113,18 @@ export default function Hero() {
                 animation: heroTextFlip 4.2s cubic-bezier(0.45, 0.05, 0.55, 0.95) infinite;
                 will-change: transform;
               }
+              @keyframes buttonShimmer {
+                0% {
+                  transform: translateX(-150%) skewX(-20deg);
+                }
+                65%, 100% {
+                  transform: translateX(350%) skewX(-20deg);
+                }
+              }
+
+              .btn-shimmer-sweep {
+                animation: buttonShimmer 4.8s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+              }
             `}</style>
 
             {/* Heading */}
@@ -110,7 +132,7 @@ export default function Hero() {
               Welcome to{" "}
               <span
                 aria-label="Prince Academy"
-                className="inline-block font-black text-[#FFC107] [text-shadow:0_2px_14px_rgba(0,0,0,1)]"
+                className="inline-block font-black text-[#FDE047] [text-shadow:0_2px_14px_rgba(0,0,0,1)]"
                 style={{ perspective: "1000px" }}
               >
                 <span className="inline-block whitespace-nowrap">
@@ -155,10 +177,18 @@ export default function Hero() {
               <Button
                 href="/applyNow"
                 size="lg"
-                variant="navy"
-                className="px-8 py-3.5 text-base font-bold shadow-2xl transition-transform duration-300 hover:scale-105 sm:text-lg"
+                variant="transparent"
+                className="relative overflow-hidden rounded-xl !bg-transparent hover:!bg-white/10 text-white border-2 border-white/75 hover:border-white px-8 py-3.5 text-base font-bold shadow-lg transition-all duration-300 hover:scale-105 sm:text-lg [text-shadow:0_2px_10px_rgba(0,0,0,0.85)]"
               >
-                Apply for Admission
+                {/* Infinite Blur Line sweeping left to right */}
+                <span
+                  aria-hidden="true"
+                  className="btn-shimmer-sweep pointer-events-none absolute inset-0 -top-2 -bottom-2 w-1/2 bg-gradient-to-r from-transparent via-white/45 to-transparent blur-[3px]"
+                />
+                <span className="relative z-10 flex items-center gap-2">
+                  <span>Apply for Admission</span>
+                  <span aria-hidden="true">→</span>
+                </span>
               </Button>
             </div>
 

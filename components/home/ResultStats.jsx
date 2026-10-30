@@ -91,13 +91,13 @@ const ContentBlock = memo(function ContentBlock({
         <span
           className={`inline-flex h-7 w-7 items-center justify-center rounded-full text-xs font-extrabold transition-all duration-300 ${
             isSelected
-              ? "bg-secondary text-white shadow-sm ring-4 ring-secondary/15"
+              ? "bg-primary text-white shadow-[0_0_15px_rgba(37,99,235,0.4)] ring-4 ring-blue-400/25"
               : "bg-slate-200 text-slate-500"
           }`}
         >
           0{index + 1}
         </span>
-        <p className="text-xs font-bold uppercase tracking-widest text-secondary">
+        <p className="text-xs font-bold uppercase tracking-widest text-primary">
           {item.subtitle}
         </p>
       </div>
@@ -140,23 +140,23 @@ function DesktopShowcase() {
       ref={containerRef}
       id="campus-life"
       aria-label="The Prince Advantage"
-      className="relative hidden w-full overflow-clip select-none bg-[#ffffff] py-16 lg:block"
+      className="relative hidden w-full overflow-clip select-none bg-gradient-to-b from-[#F2F7FE] via-[#E8F2FC] to-[#F2F7FE] py-16 lg:block"
     >
       {/* Ambient background decoration */}
       <div
         aria-hidden="true"
-        className="pointer-events-none absolute -left-20 top-1/4 h-80 w-80 rounded-full bg-secondary/[0.07] blur-3xl"
+        className="pointer-events-none absolute -left-20 top-1/4 h-80 w-80 rounded-full bg-blue-500/10 blur-3xl"
       />
       <div
         aria-hidden="true"
-        className="pointer-events-none absolute -right-20 bottom-1/4 h-80 w-80 rounded-full bg-button/[0.12] blur-3xl"
+        className="pointer-events-none absolute -right-20 bottom-1/4 h-80 w-80 rounded-full bg-blue-400/10 blur-3xl"
       />
 
       <div className="relative mx-auto max-w-7xl px-12 xl:px-16">
         <header className="mx-auto mb-10 max-w-3xl text-center">
           <h2 className="mt-3.5 text-balance text-4xl font-black tracking-tight text-primary xl:text-5xl">
             Excellence Engineered Across{" "}
-            <span className="text-secondary">Every Dimension</span>
+            <span className="text-gradient-royal">Every Dimension</span>
           </h2>
 
           <p className="mx-auto mt-3.5 max-w-xl text-pretty text-base font-medium leading-relaxed text-slate-600">
@@ -173,7 +173,7 @@ function DesktopShowcase() {
             >
               <motion.div
                 style={{ scaleY: scrollYProgress }}
-                className="h-full w-full origin-top bg-gradient-to-b from-secondary to-[#FFC107]"
+                className="h-full w-full origin-top bg-gradient-to-b from-blue-600 via-blue-400 to-primary shadow-[0_0_8px_#3B82F6]"
               />
             </div>
 
@@ -189,11 +189,9 @@ function DesktopShowcase() {
 
           {/* Image column: grid ki poori height leta hai, andar wala box sticky rehta hai */}
           <div className="sticky top-[calc(50vh-10rem)] col-span-5">
-            <div className="relative rounded-3xl border border-slate-200/90 bg-white p-3 shadow-[0_20px_50px_rgba(19,41,61,0.10)] ring-1 ring-slate-900/5">
+            <div className="relative rounded-3xl border border-blue-200/90 bg-white p-3 shadow-[0_20px_50px_rgba(10,61,145,0.12),0_0_25px_rgba(59,130,246,0.10)] ring-1 ring-blue-500/10">
               <div className="relative aspect-[4/3] w-full overflow-hidden rounded-2xl bg-slate-100">
                 <ImageStack activeIndex={activeCard} />
-
-             
               </div>
             </div>
           </div>
@@ -207,16 +205,16 @@ function MobileShowcase() {
   return (
     <section
       aria-label="The Prince Advantage"
-      className="relative bg-[#ffffff] px-4 py-12 sm:px-8 sm:py-16 lg:hidden"
+      className="relative bg-gradient-to-b from-[#F2F7FE] via-[#E8F2FC] to-[#F2F7FE] px-4 py-12 sm:px-8 sm:py-16 lg:hidden"
     >
       <header className="mx-auto mb-8 max-w-3xl text-center sm:mb-12">
-        <span className="inline-flex items-center gap-1.5 rounded-full border border-secondary/25 bg-secondary/10 px-3.5 py-1 text-[11px] font-bold uppercase tracking-widest text-secondary shadow-sm">
+        <span className="inline-flex items-center gap-1.5 rounded-full border border-blue-400/30 bg-blue-500/10 px-3.5 py-1 text-[11px] font-bold uppercase tracking-widest text-primary shadow-sm">
           The Prince Advantage
         </span>
 
         <h2 className="mt-3 text-balance text-2xl font-black tracking-tight text-primary sm:text-3xl">
           Excellence Engineered Across{" "}
-          <span className="text-secondary">Every Dimension</span>
+          <span className="text-gradient-royal">Every Dimension</span>
         </h2>
 
         <p className="mx-auto mt-2.5 max-w-xl text-pretty text-sm font-medium leading-relaxed text-slate-600">

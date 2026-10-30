@@ -65,20 +65,26 @@ function CounterItem({ value, suffix, label }) {
   return (
     <div
       ref={elementRef}
-      className="flex flex-col items-center justify-center text-center p-2 sm:p-3.5 rounded-xl sm:rounded-2xl bg-white/[0.07] hover:bg-white/[0.12] border border-white/15 hover:border-gold/40 backdrop-blur-md shadow-md shadow-black/20 transition-all duration-300 hover:-translate-y-0.5"
+      className="group relative flex flex-col items-center justify-center text-center p-2.5 sm:p-4 rounded-xl sm:rounded-2xl bg-gradient-to-b from-white/[0.10] via-white/[0.05] to-transparent hover:from-white/[0.15] hover:to-white/[0.08] border border-blue-400/25 hover:border-blue-300/60 backdrop-blur-xl shadow-[0_8px_24px_rgba(2,9,23,0.35)] hover:shadow-[0_0_30px_rgba(37,99,235,0.35)] transition-all duration-300 hover:-translate-y-0.5"
     >
+      {/* Top subtle border glint */}
+      <div
+        aria-hidden="true"
+        className="pointer-events-none absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-blue-300/60 to-transparent"
+      />
+
       {/* Animated Number */}
-      <div className="text-xl sm:text-2xl lg:text-3xl font-extrabold tracking-tight text-gold font-sans leading-none drop-shadow-sm">
+      <div className="text-xl sm:text-2xl lg:text-3xl font-extrabold tracking-tight text-white font-sans leading-none drop-shadow-[0_2px_12px_rgba(37,99,235,0.6)]">
         {displayValue}
         {suffix && (
-          <span className="text-secondary ml-0.5 text-xs sm:text-base lg:text-lg font-bold">
+          <span className="text-blue-300 ml-0.5 text-xs sm:text-base lg:text-lg font-bold">
             {suffix}
           </span>
         )}
       </div>
 
       {/* Label */}
-      <div className="mt-1 text-[10px] sm:text-xs lg:text-sm font-bold uppercase tracking-wide text-white/95 leading-tight">
+      <div className="mt-1 text-[10px] sm:text-xs lg:text-sm font-bold uppercase tracking-wide text-blue-100/90 leading-tight">
         {label}
       </div>
     </div>
@@ -89,21 +95,29 @@ export default function StatsStrip() {
   return (
     <section
       aria-label="The Scale of Prince Academy"
-      className="relative w-full bg-primary border-y border-gold/20 shadow-xl overflow-hidden select-none"
+      className="relative w-full bg-gradient-to-r from-[#072255] via-[#0D449E] to-[#072255] border-y border-blue-400/35 shadow-[0_12px_40px_rgba(7,34,85,0.4)] overflow-hidden select-none"
     >
-      {/* Subtle ambient lighting glows matching theme */}
+      {/* Royal Blue & Gold Ambient Lighting Glows */}
       <div
         aria-hidden="true"
-        className="pointer-events-none absolute -left-16 -top-16 h-36 w-36 rounded-full bg-gold/10 blur-2xl"
+        className="pointer-events-none absolute -left-20 -top-20 h-44 w-44 rounded-full bg-blue-500/25 blur-3xl"
       />
       <div
         aria-hidden="true"
-        className="pointer-events-none absolute -right-16 -bottom-16 h-36 w-36 rounded-full bg-secondary/15 blur-2xl"
+        className="pointer-events-none absolute right-1/4 -top-10 h-36 w-60 rounded-full bg-amber-400/20 blur-3xl animate-pulse-glow-gold"
+      />
+      <div
+        aria-hidden="true"
+        className="pointer-events-none absolute left-1/2 -bottom-16 -translate-x-1/2 h-36 w-80 rounded-full bg-cyan-400/20 blur-3xl"
+      />
+      <div
+        aria-hidden="true"
+        className="pointer-events-none absolute -right-20 -bottom-20 h-44 w-44 rounded-full bg-blue-600/30 blur-3xl"
       />
 
-      <div className="relative mx-auto max-w-5xl px-3 sm:px-6 lg:px-8 py-2.5 sm:py-3.5">
-        {/* Title */}
-        <p className="text-[10px] sm:text-xs font-black uppercase tracking-[0.16em] text-gold text-center mb-2 drop-shadow-sm">
+      <div className="relative mx-auto max-w-5xl px-3 sm:px-6 lg:px-8 py-3 sm:py-4">
+        {/* Title with Royal Sapphire Glint */}
+        <p className="text-[10px] sm:text-xs font-black uppercase tracking-[0.2em] text-blue-200 text-center mb-2.5 drop-shadow-[0_1px_8px_rgba(37,99,235,0.5)]">
           The Scale of Prince Academy
         </p>
 
