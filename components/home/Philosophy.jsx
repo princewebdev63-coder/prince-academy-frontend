@@ -129,7 +129,7 @@ export default function Philosophy() {
           <h2 className="font-serif text-3xl font-bold leading-tight tracking-tight text-white sm:text-5xl lg:text-6xl">
             More Than Academics.
             <br className="hidden sm:inline" />{" "}
-            <span className="font-serif font-normal italic bg-gradient-to-r from-yellow-500 to-primary-500 drop-shadow-[0_0_25px_rgba(37,99,235,0.5)]">
+            <span className="font-serif block font-normal italic bg-gradient-to-r from-yellow-500 to-primary-500 drop-shadow-[0_0_25px_rgba(37,99,235,0.5)]">
               A Foundation
             </span>{" "}
             for Life.
@@ -171,7 +171,7 @@ export default function Philosophy() {
                 </p>
 
                 <p className="mt-2 text-[11px] font-semibold uppercase tracking-wider text-white/70">
-                  — Prince Academy Vision
+                 Prince Academy Vision
                 </p>
               </div>
 
