@@ -172,25 +172,29 @@ export default function ResultStateSection() {
 
   return (
     <section className="relative overflow-hidden bg-gradient-to-b from-[#F4F8FE] via-[#EBF3FD] to-[#F4F8FE] pt-0 pb-12 sm:pt-14 sm:pb-16 md:pt-12 md:pb-16 select-none">
-      {/* Background Photo: Single full image spanning behind the header */}
+      {/* Background Photo: Clean Image with gentle bottom glow only */}
       <div
         aria-hidden="true"
-        className="pointer-events-none absolute inset-x-0 top-0 h-[410px] sm:h-[440px] md:h-[420px] overflow-hidden select-none opacity-90"
+        className="pointer-events-none absolute inset-x-0 top-0 h-[410px] sm:h-[440px] md:h-[420px] overflow-hidden select-none"
         style={{
           WebkitMaskImage:
-            "linear-gradient(to bottom, black 70%, transparent 100%)",
+            "linear-gradient(to bottom, black 65%, transparent 100%)",
           maskImage:
-            "linear-gradient(to bottom, black 70%, transparent 100%)",
+            "linear-gradient(to bottom, black 65%, transparent 100%)",
         }}
       >
         <img
           src={HEADER_BG.leftPhoto}
           alt=""
-          className="h-full w-full object-cover object-[center_top] sm:object-[center_35%] transform-gpu"
+          className="h-full w-full object-cover object-[center_top] sm:object-[center_35%] transform-gpu opacity-85"
           onError={(e) => {
             e.currentTarget.style.display = "none";
           }}
         />
+
+        {/* Soft Bottom Ambient Glow & Transition */}
+        <div className="absolute inset-x-0 bottom-0 h-44 bg-gradient-to-t from-[#F4F8FE] via-[#F4F8FE]/60 to-transparent" />
+        <div className="absolute inset-x-0 bottom-0 h-32 bg-[radial-gradient(ellipse_75%_50%_at_50%_100%,rgba(37,99,235,0.12),transparent_70%)]" />
       </div>
 
       {/* Section Header */}
@@ -251,8 +255,8 @@ export default function ResultStateSection() {
               100% { transform: scale(1.32); opacity: 0; }
             }
             @keyframes activeAura {
-              0%, 100% { box-shadow: 0 10px 25px -4px rgba(10,61,145,0.45), 0 0 0 4px rgba(120,182,245,0.35); }
-              50% { box-shadow: 0 14px 30px -4px rgba(10,61,145,0.6), 0 0 0 8px rgba(120,182,245,0.18); }
+              0%, 100% { box-shadow: 0 8px 24px -2px rgba(4,58,128,0.35); }
+              50% { box-shadow: 0 12px 28px -2px rgba(4,58,128,0.45); }
             }
           `}</style>
 
@@ -295,24 +299,19 @@ export default function ResultStateSection() {
                     {/* Ripple Radar Wave on Inactive Tabs to prompt click */}
                     {!on && (
                       <span
-                        className="pointer-events-none absolute h-14 w-14 sm:h-[60px] sm:w-[60px] rounded-full border-2 border-secondary"
+                        className="pointer-events-none absolute h-14 w-14 sm:h-[60px] sm:w-[60px] rounded-full border-2 border-blue-400/40"
                         style={{
                           animation: `tabRipple 2.8s cubic-bezier(0, 0.2, 0.8, 1) ${i * 0.9}s infinite`,
                         }}
                       />
                     )}
 
-                    {/* Active Tab Glow Ring */}
-                    {on && (
-                      <span className="pointer-events-none absolute -inset-1 rounded-full bg-secondary/25 blur-xs animate-pulse" />
-                    )}
-
                     {/* Main Interactive Disc */}
                     <span
                       className={`relative z-10 grid h-14 w-14 sm:h-[60px] sm:w-[60px] place-items-center rounded-full transition-all duration-300 transform-gpu ${
                         on
-                          ? "bg-primary border-2 border-secondary text-primary-foreground scale-105"
-                          : "bg-white/95 border border-border text-primary shadow-md shadow-primary/5 hover:border-secondary hover:bg-light-blue hover:text-secondary-hover hover:scale-108 hover:shadow-lg hover:shadow-secondary/25"
+                          ? "bg-[#043A80] border-2 border-[#043A80] text-white scale-105 shadow-[0_8px_20px_rgba(4,58,128,0.35)]"
+                          : "bg-white border border-blue-200 text-[#043A80] shadow-sm hover:border-[#043A80] hover:bg-blue-50/90 hover:scale-105 hover:shadow-md hover:shadow-blue-900/10"
                       }`}
                       style={
                         on
@@ -321,32 +320,27 @@ export default function ResultStateSection() {
                       }
                     >
                       <Icon
-                        className={`h-6 w-6 sm:h-7 sm:w-7 transition-transform duration-300 group-hover:scale-115 ${
-                          on ? "text-primary-foreground scale-105" : "text-primary"
+                        className={`h-6 w-6 sm:h-7 sm:w-7 transition-all duration-300 ${
+                          on
+                            ? "text-white scale-105 drop-shadow-[0_2px_4px_rgba(0,0,0,0.3)]"
+                            : "text-[#043A80] group-hover:scale-110 group-hover:text-blue-700"
                         }`}
                       />
                     </span>
                   </div>
 
-                  {/* Title & Active Indicator (Primary Font) */}
+                  {/* Title & Subtitle */}
                   <div className="flex flex-col items-center">
                     <b
-                      className={`mt-1 font-sans text-xs sm:text-sm md:text-[15px] font-extrabold leading-tight transition-colors group-hover:text-primary max-w-[110px] sm:max-w-none text-center ${
-                        on ? "text-primary" : "text-primary/80"
+                      className={`mt-1 font-sans text-xs sm:text-sm md:text-[15px] font-extrabold leading-tight transition-colors max-w-[110px] sm:max-w-none text-center ${
+                        on ? "text-[#043A80]" : "text-slate-600 group-hover:text-[#043A80]"
                       }`}
                     >
                       {key}
                     </b>
-
-                    {/* Active Indicator Bar pointing to content */}
-                    {on ? (
-                      <span className="mt-1 h-1 w-6 sm:w-7 rounded-full bg-secondary shadow-[0_0_8px_var(--secondary)] transition-all" />
-                    ) : (
-                      <span className="mt-1 h-1 w-2 rounded-full bg-transparent group-hover:bg-secondary/40 transition-all" />
-                    )}
                   </div>
 
-                  <small className="hidden font-sans text-[11px] font-medium leading-tight text-primary/70 md:block transition-colors group-hover:text-primary">
+                  <small className="hidden font-sans text-[11px] font-medium leading-tight text-slate-500 md:block transition-colors group-hover:text-[#043A80]">
                     {sub[0]}
                     <br />
                     {sub[1]}
@@ -400,16 +394,16 @@ export default function ResultStateSection() {
             </div>
 
             {/* Column 2: Features (Center) */}
-            <div className="w-full lg:w-[36%] border-t lg:border-t-0 lg:border-x border-light-blue py-5 lg:py-0 lg:px-6 flex flex-col justify-center">
-              <ul className="divide-y divide-light-blue">
+            <div className="w-full lg:w-[36%] border-t lg:border-t-0 lg:border-x border-blue-100 py-5 lg:py-0 lg:px-6 flex flex-col justify-center">
+              <ul className="divide-y divide-blue-50">
                 {p.features.map(([Icon, title, desc]) => (
-                  <li key={title} className="flex items-center gap-3 py-2.5 first:pt-0 last:pb-0 group">
-                    <span className="grid h-9 w-9 sm:h-10 sm:w-10 shrink-0 place-items-center rounded-full border border-secondary/30 bg-light-blue text-primary group-hover:bg-secondary group-hover:text-white transition-all shadow-2xs">
+                  <li key={title} className="flex items-center gap-3 py-2.5 first:pt-0 last:pb-0 group cursor-default">
+                    <span className="grid h-9 w-9 sm:h-10 sm:w-10 shrink-0 place-items-center rounded-full border border-blue-200 bg-blue-50/70 text-[#043A80] transition-all duration-300 group-hover:border-[#043A80] group-hover:bg-[#043A80] group-hover:text-white group-hover:scale-105 shadow-2xs">
                       <Icon className="h-4 w-4 sm:h-4.5 sm:w-4.5 stroke-[1.8]" />
                     </span>
                     <div className="min-w-0">
-                      <h4 className="font-sans text-[13.5px] font-bold leading-snug text-primary">{title}</h4>
-                      <p className="font-sans mt-0.5 text-[11.5px] sm:text-[12px] leading-snug text-foreground/70">{desc}</p>
+                      <h4 className="font-sans text-[13.5px] font-bold leading-snug text-[#043A80] transition-colors group-hover:text-blue-700">{title}</h4>
+                      <p className="font-sans mt-0.5 text-[11.5px] sm:text-[12px] leading-snug text-slate-600">{desc}</p>
                     </div>
                   </li>
                 ))}
@@ -425,10 +419,10 @@ export default function ResultStateSection() {
                     <button
                       key={x.chip}
                       onClick={() => setSlide(i)}
-                      className={`whitespace-nowrap rounded-full px-3 py-1 font-sans text-[11.5px] font-bold transition-all ${
+                      className={`whitespace-nowrap rounded-full px-3.5 py-1.5 font-sans text-[11.5px] font-bold transition-all cursor-pointer ${
                         i === slide
-                          ? "bg-primary text-primary-foreground shadow-sm ring-2 ring-secondary/30"
-                          : "border border-border bg-white text-foreground/75 hover:border-secondary hover:text-primary"
+                          ? "bg-[#043A80] text-white shadow-md shadow-blue-900/20 ring-2 ring-amber-400/40 border border-transparent"
+                          : "border border-slate-300 bg-white text-slate-700 hover:border-[#043A80] hover:text-[#043A80] hover:bg-blue-50/60 shadow-2xs"
                       }`}
                     >
                       {x.chip}
@@ -439,14 +433,14 @@ export default function ResultStateSection() {
                   <button
                     aria-label="Previous slide"
                     onClick={() => move(-1)}
-                    className="grid h-7 w-7 place-items-center rounded-full border border-border bg-white text-foreground/75 transition hover:border-secondary hover:text-primary"
+                    className="grid h-7 w-7 place-items-center rounded-full border border-slate-300 bg-white text-slate-700 transition-all hover:border-[#043A80] hover:bg-[#043A80] hover:text-white hover:scale-105 active:scale-95 shadow-2xs cursor-pointer"
                   >
                     <ChevronLeft className="h-3.5 w-3.5" />
                   </button>
                   <button
                     aria-label="Next slide"
                     onClick={() => move(1)}
-                    className="grid h-7 w-7 place-items-center rounded-full border border-border bg-white text-foreground/75 transition hover:border-secondary hover:text-primary"
+                    className="grid h-7 w-7 place-items-center rounded-full border border-slate-300 bg-white text-slate-700 transition-all hover:border-[#043A80] hover:bg-[#043A80] hover:text-white hover:scale-105 active:scale-95 shadow-2xs cursor-pointer"
                   >
                     <ChevronRight className="h-3.5 w-3.5" />
                   </button>
@@ -456,11 +450,11 @@ export default function ResultStateSection() {
               {/* Showcase Banner Box with Royal Sapphire Sheen */}
               <div
                 key={`${active}-${slide}`}
-                className="flex flex-row items-center overflow-hidden rounded-2xl border border-blue-300/40 bg-gradient-to-br from-white via-[#EBF3FD] to-[#DCE8FC]/70 p-3 sm:p-3.5 gap-3 sm:gap-3.5 transition-all shadow-[0_4px_25px_rgba(10,61,145,0.08),0_0_15px_rgba(59,130,246,0.1)]"
+                className="flex flex-row items-center overflow-hidden rounded-2xl border border-blue-200/80 bg-gradient-to-br from-white via-[#F0F5FD] to-[#E3EDFD]/80 p-3 sm:p-3.5 gap-3 sm:gap-3.5 transition-all shadow-[0_4px_25px_rgba(10,61,145,0.06),0_0_15px_rgba(59,130,246,0.08)] hover:shadow-[0_8px_30px_rgba(10,61,145,0.12)] hover:border-blue-300"
               >
                 {/* Visual / Image (Same side-by-side layout on mobile and desktop) */}
                 {s.image ? (
-                  <div className="relative w-[105px] sm:w-[125px] shrink-0 self-stretch min-h-[110px] sm:min-h-[125px] rounded-xl overflow-hidden bg-white/70 border border-border">
+                  <div className="relative w-[105px] sm:w-[125px] shrink-0 self-stretch min-h-[110px] sm:min-h-[125px] rounded-xl overflow-hidden bg-white/70 border border-blue-200">
                     <img
                       src={s.image}
                       alt={s.title}
@@ -468,8 +462,8 @@ export default function ResultStateSection() {
                     />
                   </div>
                 ) : (
-                  <div className="grid w-[105px] sm:w-[125px] shrink-0 self-stretch min-h-[110px] sm:min-h-[125px] place-items-center rounded-xl bg-white/80 border border-secondary/30">
-                    <span className="grid h-10 w-10 sm:h-12 sm:w-12 place-items-center rounded-full bg-primary text-secondary ring-4 ring-secondary/25 shadow-md">
+                  <div className="grid w-[105px] sm:w-[125px] shrink-0 self-stretch min-h-[110px] sm:min-h-[125px] place-items-center rounded-xl bg-white/80 border border-blue-200">
+                    <span className="grid h-10 w-10 sm:h-12 sm:w-12 place-items-center rounded-full bg-[#043A80] text-amber-400 ring-4 ring-amber-400/25 shadow-md">
                       <s.Icon className="h-5 w-5 sm:h-6 sm:w-6" />
                     </span>
                   </div>
@@ -477,13 +471,13 @@ export default function ResultStateSection() {
 
                 {/* Content */}
                 <div className="flex-1 min-w-0 flex flex-col justify-center">
-                  <h5 className="mb-2 font-sans text-[13.5px] sm:text-[14.5px] font-bold leading-tight text-primary break-words">
+                  <h5 className="mb-2 font-sans text-[13.5px] sm:text-[14.5px] font-bold leading-tight text-[#043A80] break-words">
                     {s.title}
                   </h5>
                   <ul className="space-y-1.5">
                     {s.points.map((pt) => (
-                      <li key={pt} className="flex items-center gap-2 font-sans text-[11.5px] sm:text-[12px] font-medium text-foreground/85">
-                        <span className="grid h-4 w-4 shrink-0 place-items-center rounded-full bg-light-blue text-primary border border-secondary/35">
+                      <li key={pt} className="flex items-center gap-2 font-sans text-[11.5px] sm:text-[12px] font-medium text-slate-700">
+                        <span className="grid h-4 w-4 shrink-0 place-items-center rounded-full bg-blue-100 text-[#043A80] border border-blue-300/40">
                           <Check className="h-2.5 w-2.5 stroke-[2.5]" />
                         </span>
                         <span className="leading-snug break-words">{pt}</span>
@@ -492,7 +486,7 @@ export default function ResultStateSection() {
                   </ul>
                   <a
                     href="/results"
-                    className="mt-2.5 inline-flex items-center gap-1.5 font-sans text-[11.5px] sm:text-xs font-bold text-primary transition-colors hover:text-secondary"
+                    className="mt-2.5 inline-flex items-center gap-1.5 font-sans text-[11.5px] sm:text-xs font-bold text-[#043A80] transition-all hover:text-amber-600 hover:translate-x-0.5"
                   >
                     <span>{s.link}</span>
                     <ArrowRight className="h-3 w-3 shrink-0" />
@@ -507,8 +501,8 @@ export default function ResultStateSection() {
                     key={x.chip}
                     aria-label={x.chip}
                     onClick={() => setSlide(i)}
-                    className={`h-1.5 rounded-full transition-all ${
-                      i === slide ? "w-4 bg-secondary" : "w-1.5 bg-border"
+                    className={`h-1.5 rounded-full transition-all cursor-pointer ${
+                      i === slide ? "w-5 bg-[#043A80]" : "w-1.5 bg-slate-300 hover:bg-slate-400"
                     }`}
                   />
                 ))}

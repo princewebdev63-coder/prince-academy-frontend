@@ -207,7 +207,7 @@ export default function CampusFacilities() {
             <div>
               <h2
                 id="campus-heading"
-                className="text-3xl font-extrabold leading-tight tracking-tight sm:text-4xl lg:text-[42px]"
+                className="text-3xl font-extrabold text-primary leading-tight tracking-tight sm:text-4xl lg:text-[42px]"
               >
                 Campus{" "}
                 <span className="text-secondary">&</span>{" "}

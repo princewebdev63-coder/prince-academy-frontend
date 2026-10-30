@@ -1,4 +1,3 @@
-
 "use client";
 
 import { useEffect, useRef } from "react";
@@ -6,7 +5,7 @@ import { Caveat } from "next/font/google";
 
 const visionFont = Caveat({
   subsets: ["latin"],
-  weight: ["500", "600"],
+  weight: ["600", "700"],
   display: "swap",
 });
 
@@ -24,7 +23,7 @@ export default function VisionPrinceAcademy() {
     const container = containerRef.current;
     const progressBar = progressRef.current;
 
-    if (!container || !progressBar) return;
+    if (!container) return;
 
     const words = wordSpansRef.current;
     let frameId = null;
@@ -33,84 +32,81 @@ export default function VisionPrinceAcademy() {
       frameId = null;
 
       const rect = container.getBoundingClientRect();
-      const viewportHeight = window.innerHeight;
+      const viewportHeight =
+        window.innerHeight || document.documentElement.clientHeight || 700;
 
-      // Progress follows the complete section's viewport journey.
-      const totalTravel = viewportHeight + rect.height;
+      // Robust progress for both mobile and desktop:
+      // Starts as section enters viewport (92% of screen)
+      // Completes smoothly across the scroll journey
+      const startOffset = viewportHeight * 0.92;
+      const endOffset = viewportHeight * 0.15;
+      const totalTravel = Math.max(1, startOffset - endOffset + rect.height * 0.4);
 
-      const rawProgress =
-        (viewportHeight - rect.top) / totalTravel;
+      const scrolled = startOffset - rect.top;
+      const progress = Math.max(0, Math.min(1, scrolled / totalTravel));
 
-      const progress = Math.max(
-        0,
-        Math.min(1, rawProgress)
-      );
+      const words = wordSpansRef.current;
+      if (!words || words.length === 0) return;
 
       const totalWords = words.length;
-      const spread = 0.95;
-      const transitionSize = 0.09;
+      const spread = 0.85;
+      const transitionSize = 0.08;
 
       words.forEach((span, index) => {
         if (!span) return;
 
-        const wordStart =
-          (index / Math.max(totalWords - 1, 1)) * spread;
+        const wordStart = (index / Math.max(totalWords - 1, 1)) * spread;
 
         const wordProgress = Math.max(
           0,
-          Math.min(
-            1,
-            (progress - wordStart) / transitionSize
-          )
+          Math.min(1, (progress - wordStart) / transitionSize)
         );
 
-        // Gradual, readable word highlighting.
-        const opacity = 0.58 + 0.42 * wordProgress;
+        // Inactive: clearly visible slate-500 rgb(100, 116, 139) with 0.45 opacity
+        // Active: Deep, bold signature Royal Navy #043A80 rgb(4, 58, 128) with 1.0 opacity
+        const opacity = (0.45 + 0.55 * wordProgress).toFixed(3);
 
-        const red = Math.round(213 + 42 * wordProgress);
-        const green = Math.round(228 + 27 * wordProgress);
-        const blue = Math.round(240 + 15 * wordProgress);
+        const red = Math.round(100 - (100 - 4) * wordProgress);
+        const green = Math.round(116 - (116 - 58) * wordProgress);
+        const blue = Math.round(139 - (139 - 128) * wordProgress);
 
-        span.style.opacity = opacity.toFixed(3);
-        span.style.color =
-          `rgb(${red}, ${green}, ${blue})`;
+        span.style.opacity = opacity;
+        span.style.color = `rgb(${red}, ${green}, ${blue})`;
+        span.style.fontWeight = wordProgress > 0.5 ? "700" : "600";
       });
 
-      progressBar.style.transform =
-        `scaleX(${progress})`;
+      if (progressBar) {
+        progressBar.style.transform = `scaleX(${progress})`;
+      }
     };
 
     const scheduleUpdate = () => {
       if (frameId !== null) return;
-
       frameId = window.requestAnimationFrame(updateScroll);
     };
 
-    // Initial render and responsive layout changes.
     updateScroll();
 
-    window.addEventListener("scroll", scheduleUpdate, {
-      passive: true,
-    });
+    // Mobile touch and document scroll listeners for 100% reliable mobile animation
+    window.addEventListener("scroll", scheduleUpdate, { passive: true });
+    window.addEventListener("touchmove", scheduleUpdate, { passive: true });
+    document.addEventListener("scroll", scheduleUpdate, { passive: true });
+    window.addEventListener("resize", scheduleUpdate, { passive: true });
 
-    window.addEventListener("resize", scheduleUpdate, {
-      passive: true,
-    });
-
-    // Recalculate if font loading or responsive layout
-    // changes the section height.
-    let resizeObserver;
-
-    if (typeof ResizeObserver !== "undefined") {
-      resizeObserver = new ResizeObserver(scheduleUpdate);
-      resizeObserver.observe(container);
+    let observer = null;
+    if (typeof IntersectionObserver !== "undefined") {
+      observer = new IntersectionObserver(() => {
+        scheduleUpdate();
+      });
+      observer.observe(container);
     }
 
     return () => {
       window.removeEventListener("scroll", scheduleUpdate);
+      window.removeEventListener("touchmove", scheduleUpdate);
+      document.removeEventListener("scroll", scheduleUpdate);
       window.removeEventListener("resize", scheduleUpdate);
-
-      resizeObserver?.disconnect();
+      observer?.disconnect();
 
       if (frameId !== null) {
         window.cancelAnimationFrame(frameId);
@@ -122,51 +118,46 @@ export default function VisionPrinceAcademy() {
     <section
       ref={containerRef}
       aria-labelledby="prince-vision-heading"
-      className="relative isolate overflow-hidden bg-gradient-to-br from-[#072255] via-[#0D449E] to-[#072255] px-5 py-10 text-white sm:px-8 sm:py-14 lg:px-12 lg:py-16 shadow-[0_0_50px_rgba(37,99,235,0.2)]"
+      className="relative isolate overflow-hidden bg-white px-4 py-10 sm:py-14 lg:py-16 select-none border-t border-blue-200/50"
     >
-      {/* Steel-blue glow */}
+      {/* Subtle Warm Gold Glow Halo centered behind quote */}
       <div
         aria-hidden="true"
-        className="pointer-events-none absolute -right-32 -top-20 -z-10 h-80 w-80 rounded-full bg-secondary/20 blur-[110px]"
+        className="pointer-events-none absolute left-1/2 top-1/2 -z-10 h-64 w-[500px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-amber-400/15 blur-[100px]"
       />
 
+      {/* Soft Sapphire Ambient Glow */}
       <div
         aria-hidden="true"
-        className="pointer-events-none absolute -bottom-36 -left-20 -z-10 h-72 w-72 rounded-full bg-primary/40 blur-[100px]"
+        className="pointer-events-none absolute -left-20 top-1/3 -z-10 h-64 w-64 rounded-full bg-blue-500/10 blur-[100px]"
       />
-
-      {/* Warm Golden Glow */}
       <div
         aria-hidden="true"
-        className="pointer-events-none absolute left-1/2 top-1/2 -z-10 h-72 w-72 -translate-x-1/2 -translate-y-1/2 rounded-full bg-amber-400/22 blur-[100px] animate-pulse-glow-gold"
+        className="pointer-events-none absolute -right-20 bottom-1/3 -z-10 h-64 w-64 rounded-full bg-cyan-400/10 blur-[100px]"
       />
 
-      <div className="relative mx-auto max-w-5xl">
-        {/* Heading */}
-        <div className="mb-5 flex items-center justify-center sm:mb-6">
-          <h2
+      <div className="relative mx-auto w-full max-w-4xl">
+        {/* Eyebrow Badge */}
+        <div className="mb-4 flex items-center justify-center sm:mb-5">
+          <span
             id="prince-vision-heading"
-            className="text-sm font-bold uppercase tracking-[0.25em] text-gold sm:text-base"
+            className="inline-flex items-center gap-2 px-3.5 py-1 text-sm font-black uppercase tracking-[0.25em] text-primary "
           >
+            
             Our Vision
-          </h2>
+          </span>
         </div>
 
-        {/* Accessible text */}
+        {/* Accessible text for screen readers */}
         <p className="sr-only">{VISION_TEXT}</p>
 
-        {/* Animated signature text */}
-        <div className="relative mx-auto max-w-4xl">
-          <span
-            aria-hidden="true"
-            className="pointer-events-none absolute -left-1 -top-6 font-serif text-5xl leading-none text-gold/35 sm:-left-6 sm:-top-8 sm:text-6xl"
-          >
-            “
-          </span>
+        {/* Animated handwriting text: Free-floating on white background - NO BOX */}
+        <div className="relative mx-auto max-w-3xl px-2 text-center sm:px-6">
+         
 
           <p
             aria-hidden="true"
-            className={`${visionFont.className} relative text-center text-[28px] font-semibold leading-[1.4] tracking-[0.005em] sm:text-[34px] sm:leading-[1.4] lg:text-[40px] lg:leading-[1.42]`}
+            className={`${visionFont.className} relative text-center text-[22px] font-semibold leading-[1.42] tracking-wide sm:text-[28px] sm:leading-[1.45] lg:text-[34px] lg:leading-[1.48]`}
           >
             {WORDS.map((word, index) => (
               <span key={`${word}-${index}`}>
@@ -174,10 +165,11 @@ export default function VisionPrinceAcademy() {
                   ref={(element) => {
                     wordSpansRef.current[index] = element;
                   }}
-                  className="inline"
+                  className="inline will-change-transform"
                   style={{
-                    opacity: 0.58,
-                    color: "#D5E4F0",
+                    opacity: 0.45,
+                    color: "rgb(100, 116, 139)",
+                    fontWeight: "600",
                   }}
                 >
                   {word}
@@ -187,30 +179,20 @@ export default function VisionPrinceAcademy() {
           </p>
         </div>
 
-        {/* Gold scroll indicator */}
-        <div
-          className="mx-auto mt-6 h-px w-24 overflow-hidden bg-white/20 sm:mt-7 sm:w-32"
-          aria-hidden="true"
-        >
-          <div
-            ref={progressRef}
-            className="h-full w-full origin-left bg-gold"
-            style={{ transform: "scaleX(0)" }}
-          />
-        </div>
+        
 
         {/* Footer */}
         <div className="mt-4 text-center sm:mt-5">
-          <p className="text-[10px] font-semibold uppercase tracking-[0.2em] text-white/75 sm:text-xs">
+          <p className="text-[10.5px] font-bold uppercase tracking-[0.22em] text-[#043A80]/85 sm:text-[11.5px]">
             Knowledge
-            <span className="mx-2 text-gold">•</span>
+            <span className="mx-2 text-amber-500 text-xs font-bold"> | </span>
             Confidence
-            <span className="mx-2 text-gold">•</span>
+            <span className="mx-2 text-amber-500 text-xs font-bold"> | </span>
             Character
           </p>
 
-          <p className="mt-2 text-[10px] font-medium tracking-[0.16em] text-white/50">
-            PRINCE ACADEMY · SIKAR
+          <p className="mt-1.5 text-[9.5px] font-extrabold tracking-[0.2em] text-slate-500 sm:text-[10px]">
+            PRINCE ACADEMY, SIKAR
           </p>
         </div>
       </div>

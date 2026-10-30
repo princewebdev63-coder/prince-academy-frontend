@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Button from "@/components/comman/Button";
 import {
   Crown,
@@ -95,11 +95,20 @@ const NODE_POSITIONS = [
 export default function Philosophy() {
   const [activeIndex, setActiveIndex] = useState(0);
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isPaused, setIsPaused] = useState(false);
 
   const activePillar = PILLARS[activeIndex];
 
-  // Orbit Rotation
-  const rotation = -activeIndex * 90;
+  // Auto-advance active pillar in sync with the rotating wheel (every 6 seconds)
+  useEffect(() => {
+    if (isPaused) return;
+
+    const interval = setInterval(() => {
+      setActiveIndex((prev) => (prev + 1) % PILLARS.length);
+    }, 6000);
+
+    return () => clearInterval(interval);
+  }, [isPaused]);
 
   const cyclePillars = () => {
     setActiveIndex((prev) => (prev + 1) % PILLARS.length);
@@ -135,13 +144,9 @@ export default function Philosophy() {
             for Life.
           </h2>
 
-          <div className="my-4 flex items-center justify-center gap-3">
-            <span className="h-px w-14 bg-gradient-to-r from-transparent to-blue-400" />
-            <span className="h-2 w-2 rounded-full bg-blue-400 shadow-[0_0_8px_#60A5FA]" />
-            <span className="h-px w-14 bg-gradient-to-l from-transparent to-blue-400" />
-          </div>
+      
 
-          <p className="mx-auto max-w-2xl px-2 text-sm font-light leading-relaxed text-white/85 sm:text-base">
+          <p className="mx-auto max-w-2xl px-2 mt-2 text-sm font-light leading-relaxed text-white/85 sm:text-base">
             At{" "}
             <span className="font-semibold text-white">
               Prince Academy
@@ -179,20 +184,58 @@ export default function Philosophy() {
           </div>
 
           {/* Orbit Graphic */}
-          <div className="relative my-4 flex h-[340px] w-full max-w-[340px] items-center justify-center sm:my-8 sm:h-[460px] sm:max-w-[460px] md:h-[520px] md:max-w-[520px]">
+          <div
+            onMouseEnter={() => setIsPaused(true)}
+            onMouseLeave={() => setIsPaused(false)}
+            className="relative my-4 flex h-[340px] w-full max-w-[340px] items-center justify-center sm:my-8 sm:h-[460px] sm:max-w-[460px] md:h-[520px] md:max-w-[520px]"
+          >
+            {/* Continuous Infinite Rotation Keyframes */}
+            <style>{`
+              @keyframes orbitSpinInfinite {
+                from {
+                  transform: translate(-50%, -50%) rotate(0deg);
+                }
+                to {
+                  transform: translate(-50%, -50%) rotate(360deg);
+                }
+              }
+
+              @keyframes iconCounterSpin {
+                from {
+                  transform: rotate(0deg);
+                }
+                to {
+                  transform: rotate(-360deg);
+                }
+              }
+
+              .orbit-infinite-spin {
+                animation: orbitSpinInfinite 24s linear infinite;
+                will-change: transform;
+              }
+
+              .orbit-infinite-spin.is-paused,
+              .orbit-infinite-spin:hover,
+              .orbit-infinite-spin:hover .orbit-icon-counter,
+              .orbit-infinite-spin.is-paused .orbit-icon-counter {
+                animation-play-state: paused;
+              }
+
+              .orbit-icon-counter {
+                animation: iconCounterSpin 24s linear infinite;
+                will-change: transform;
+              }
+            `}</style>
 
             {/* Ambient Glow */}
             <div className="pointer-events-none absolute inset-0 scale-125 rounded-full bg-[radial-gradient(circle_at_center,rgba(255,193,7,0.18)_0%,transparent_70%)]" />
 
-            {/* Outer Dashed Orbit */}
+            {/* Outer Dashed Orbit with Continuous Infinite Rotation */}
             <div
-              className="absolute left-1/2 top-1/2 z-10 h-[260px] w-[260px] rounded-full border-2 border-dashed border-[#FFC107]/50 sm:h-[380px] sm:w-[380px] md:h-[430px] md:w-[430px]"
-              style={{
-                transform: `translate(-50%, -50%) rotate(${rotation}deg)`,
-                transition: "transform 700ms ease-out",
-              }}
+              className={`orbit-infinite-spin ${
+                isPaused ? "is-paused" : ""
+              } absolute left-1/2 top-1/2 z-10 h-[260px] w-[260px] rounded-full border-2 border-dashed border-[#FFC107]/50 sm:h-[380px] sm:w-[380px] md:h-[430px] md:w-[430px]`}
             >
-
               {/* Orbit Icons */}
               {PILLARS.map((pillar, i) => {
                 const isActive = i === activeIndex;
@@ -206,17 +249,14 @@ export default function Philosophy() {
                     onClick={() => setActiveIndex(i)}
                     aria-label={`Select ${pillar.title}`}
                     aria-pressed={isActive}
-                    className="absolute z-30 rounded-full focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#FFC107] focus-visible:ring-offset-2 focus-visible:ring-offset-[#072456]"
+                    className="absolute z-30 -translate-x-1/2 -translate-y-1/2 rounded-full focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#FFC107] focus-visible:ring-offset-2 focus-visible:ring-offset-[#072456]"
                     style={{
                       left: pos.left,
                       top: pos.top,
-                      transform: `translate(-50%, -50%) rotate(${-rotation}deg)`,
-                      transition: "transform 700ms ease-out",
                     }}
                   >
-
                     <span
-                      className={`grid h-12 w-12 place-items-center rounded-full transition-colors duration-300 sm:h-16 sm:w-16 md:h-[72px] md:w-[72px] ${
+                      className={`orbit-icon-counter grid h-12 w-12 place-items-center rounded-full transition-colors duration-300 sm:h-16 sm:w-16 md:h-[72px] md:w-[72px] ${
                         isActive
                           ? "scale-110 border-2 border-[#FFC107] bg-gradient-to-br from-[#0F3B7E] to-[#061B3A] text-[#FFC107] shadow-[0_0_25px_rgba(255,193,7,0.55)] ring-4 ring-[#FFC107]/25"
                           : "border border-white/30 bg-[#34547D]/90 text-white shadow-lg backdrop-blur-md hover:bg-[#46658D]"
@@ -224,7 +264,6 @@ export default function Philosophy() {
                     >
                       <IconComponent className="h-5 w-5 stroke-[2] sm:h-7 sm:w-7" />
                     </span>
-
                   </button>
                 );
               })}
@@ -265,68 +304,58 @@ export default function Philosophy() {
             </span>
           </div>
 
-          {/* Active Pillar Card */}
-          <div className="relative mx-auto w-full max-w-4xl">
-
-            {/* Rotating Golden Border */}
-            <div className="pointer-events-none absolute -inset-[2px] overflow-hidden rounded-[27px]">
-
+          {/* Active Pillar Card (Pauses auto-rotation on hover) */}
+          <div
+            onMouseEnter={() => setIsPaused(true)}
+            onMouseLeave={() => setIsPaused(false)}
+            className="relative mx-auto w-full max-w-4xl"
+          >
+            {/* Active Rotating Golden Border */}
+            <div className="pointer-events-none absolute -inset-[2px] overflow-hidden rounded-[26px]">
               <div className="gold-border-spin" />
-
             </div>
 
             {/* Soft Background Glow */}
             <div className="pointer-events-none absolute -inset-2 rounded-[36px] bg-amber-400/10 blur-[35px]" />
 
-            {/* Main Card */}
-            <div
-              key={activePillar.id}
-              className="relative z-10 m-[2px] overflow-hidden rounded-[22px] bg-[#0B3175]/95 p-6 shadow-[0_6px_18px_rgba(7,34,85,0.20)] backdrop-blur-2xl transition-all duration-300 sm:p-8 md:p-10"
-            >
+            {/* Main Card - Completely solid opaque background so the golden animation behind is 100% hidden from inside and only shows as border */}
+            <div className="relative z-10 m-[2px] overflow-hidden rounded-[24px] bg-[#0B3175] p-6 shadow-[0_12px_35px_rgba(7,34,85,0.45)] backdrop-blur-2xl sm:p-8 md:p-10">
+              {/* Inner Content that updates smoothly on state change without exposing the background */}
+              <div key={activePillar.id} className="animate-fade-in">
+                {/* Watermark */}
+                <div className="pointer-events-none absolute -bottom-6 -right-3 select-none font-serif text-8xl font-black text-white/[0.06] sm:text-9xl">
+                  {activePillar.id}
+                </div>
 
-              {/* Watermark */}
-              <div className="pointer-events-none absolute -bottom-6 -right-3 select-none font-serif text-8xl font-black text-white/[0.06] sm:text-9xl">
-                {activePillar.id}
-              </div>
+                <div className="relative z-10 flex flex-col items-start justify-between gap-6 md:flex-row md:items-center">
+                  <div className="flex-1">
+                    <div className="mb-3 flex items-center gap-3">
+                      <span className="rounded-full border border-blue-400/40 bg-gradient-to-r from-blue-600 to-primary px-3.5 py-1 text-xs font-extrabold uppercase tracking-widest text-white shadow-[0_0_12px_rgba(37,99,235,0.5)]">
+                        {activePillar.badge}
+                      </span>
+                    </div>
 
-              <div className="relative z-10 flex flex-col items-start justify-between gap-6 md:flex-row md:items-center">
+                    <h3 className="mb-3 font-serif text-2xl font-bold tracking-tight text-white sm:text-3xl md:text-4xl">
+                      {activePillar.title}
+                    </h3>
 
-                <div className="flex-1">
-
-                  <div className="mb-3 flex items-center gap-3">
-
-                    <span className="rounded-full border border-blue-400/40 bg-gradient-to-r from-blue-600 to-primary px-3.5 py-1 text-xs font-extrabold uppercase tracking-widest text-white shadow-[0_0_12px_rgba(37,99,235,0.5)]">
-                      {activePillar.badge}
-                    </span>
-
-                  
-
+                    <p className="max-w-2xl text-sm font-normal leading-relaxed text-white/90 sm:text-base">
+                      {activePillar.desc}
+                    </p>
                   </div>
 
-                  <h3 className="mb-3 font-serif text-2xl font-bold tracking-tight text-white sm:text-3xl md:text-4xl">
-                    {activePillar.title}
-                  </h3>
-
-                  <p className="max-w-2xl text-sm font-normal leading-relaxed text-white/90 sm:text-base">
-                    {activePillar.desc}
-                  </p>
-
+                  <div className="w-full border-t border-white/15 pt-4 md:w-auto md:border-t-0 md:pt-0">
+                    <Button
+                      onClick={() => setIsModalOpen(true)}
+                      variant="navy"
+                      size="md"
+                      className="group w-full font-bold md:w-auto"
+                    >
+                      <span>Know More</span>
+                      <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
+                    </Button>
+                  </div>
                 </div>
-
-                <div className="w-full border-t border-white/15 pt-4 md:w-auto md:border-t-0 md:pt-0">
-
-                  <Button
-                    onClick={() => setIsModalOpen(true)}
-                    variant="navy"
-                    size="md"
-                    className="group w-full font-bold md:w-auto"
-                  >
-                    <span>Know More</span>
-                    <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
-                  </Button>
-
-                </div>
-
               </div>
             </div>
           </div>

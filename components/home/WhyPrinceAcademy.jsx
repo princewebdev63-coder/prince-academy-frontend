@@ -192,12 +192,18 @@ function Spotlight({ step, onChange }) {
   }, [step]);
 
   return (
-    <div className="glow-card-rotating rounded-[22px] border border-blue-400/40 bg-gradient-to-b from-[#0F3A8A] to-[#0B2D6D] p-1 shadow-[0_0_35px_rgba(37,99,235,0.3)] backdrop-blur-xl lg:col-span-5">
+    <div className="relative rounded-[22px] p-[2px] shadow-[0_0_35px_rgba(37,99,235,0.3)] lg:col-span-5 overflow-hidden">
+      {/* Active Rotating Golden Border - Strictly at perimeter */}
+      <div className="pointer-events-none absolute -inset-[100%] overflow-hidden">
+        <div className="gold-border-spin" />
+      </div>
+
+      {/* Main Inner Card - 100% Solid Opaque Background so the rotating gradient NEVER leaks inside */}
       <div
         id="journey-panel"
         role="tabpanel"
         aria-live="polite"
-        className="flex h-full flex-col justify-between gap-4 rounded-[18.5px] bg-[#0A2E6D]/90 p-5 border border-blue-400/20"
+        className="relative z-10 flex h-full flex-col justify-between gap-4 rounded-[20px] bg-[#0A2E6D] p-5 border border-blue-400/20"
       >
         <div ref={detailRef} className="flex flex-col gap-3">
           <div className="flex items-center gap-3">
@@ -242,13 +248,13 @@ function Spotlight({ step, onChange }) {
 function JourneyRail({ step, onChange }) {
   return (
     <div role="tablist" aria-label="Prince Academy journey" className="relative mt-6 lg:mt-8">
-      {/* Track + Royal Sapphire Progress */}
+      {/* Track + Gradient Progress Line (Crisp, no shadow blur) */}
       <div
         aria-hidden="true"
-        className="absolute left-[6.25%] right-[6.25%] top-[17px] h-0.5 rounded bg-blue-950/60 sm:top-[21px]"
+        className="absolute left-[6.25%] right-[6.25%] top-[17px] h-1 rounded-full bg-gradient-to-r from-blue-600/30 via-cyan-500/25 to-amber-400/30 sm:top-[21px]"
       >
         <div
-          className="h-full rounded bg-gradient-to-r from-blue-600 via-blue-400 to-cyan-300 shadow-[0_0_12px_#3B82F6] transition-[width] duration-500 motion-reduce:transition-none"
+          className="h-full rounded-full bg-gradient-to-r from-blue-500 via-cyan-400 to-amber-300 transition-[width] duration-500 motion-reduce:transition-none"
           style={{ width: `${(step / (features.length - 1)) * 100}%` }}
         />
       </div>
@@ -270,12 +276,12 @@ function JourneyRail({ step, onChange }) {
               className="group flex flex-col items-center gap-2 focus-visible:outline-none"
             >
               <span
-                className={`flex h-9 w-9 items-center justify-center rounded-full border transition-all duration-300 group-focus-visible:ring-2 group-focus-visible:ring-blue-400 motion-reduce:transition-none sm:h-11 sm:w-11 ${
+                className={`flex h-9 w-9 items-center justify-center rounded-full border transition-all duration-300 group-focus-visible:ring-2 group-focus-visible:ring-amber-400 motion-reduce:transition-none sm:h-11 sm:w-11 ${
                   on
-                    ? "scale-110 border-blue-300 bg-gradient-to-br from-[#1656BF] to-[#0A3D91] text-white shadow-[0_0_0_5px_rgba(59,130,246,0.35),0_0_24px_rgba(37,99,235,0.7)]"
+                    ? "scale-110 border-2 border-amber-300 bg-gradient-to-br from-[#1656BF] via-[#0A3D91] to-[#072255] text-amber-300 shadow-[0_0_10px_rgba(250,204,21,0.45)]"
                     : done
-                      ? "border-blue-400/70 bg-[#0A3D91] text-blue-100"
-                      : "border-blue-400/30 bg-[#072255] text-white/60 group-hover:border-blue-300 group-hover:text-white"
+                      ? "border-amber-400/50 bg-[#0A3D91] text-amber-300 shadow-[0_0_6px_rgba(250,204,21,0.2)]"
+                      : "border-blue-400/30 bg-[#072255] text-white/70 shadow-[0_0_5px_rgba(250,204,21,0.12)] group-hover:border-amber-300 group-hover:text-amber-300 group-hover:shadow-[0_0_8px_rgba(250,204,21,0.3)]"
                 }`}
               >
                 <Icon size={17} aria-hidden="true" />
@@ -283,7 +289,9 @@ function JourneyRail({ step, onChange }) {
 
               <span
                 className={`hidden text-center text-xs leading-4 lg:block ${
-                  on ? "font-bold text-white drop-shadow-[0_0_8px_rgba(59,130,246,0.6)]" : "text-white/60"
+                  on
+                    ? "font-bold text-amber-300 drop-shadow-[0_0_6px_rgba(245,158,11,0.4)]"
+                    : "text-white/70 group-hover:text-amber-200"
                 }`}
               >
                 {short}
@@ -319,17 +327,25 @@ export default function WhyPrinceAcademyJourney() {
         {/* Header row */}
         <div className="flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
           <div className="max-w-2xl">
-            <span className="inline-flex items-center gap-2.5 text-xs font-bold uppercase tracking-[0.2em] text-blue-300 drop-shadow-[0_0_10px_rgba(59,130,246,0.5)]">
+            <span className="inline-flex items-center gap-2.5 text-xs font-bold uppercase tracking-[0.2em] text-yellow-300 drop-shadow-[0_0_10px_rgba(59,130,246,0.5)]">
               Why Prince Academy
             </span>
 
             <h2
               id="why-prince-heading"
-              className="mt-2.5 text-3xl font-extrabold leading-[1.1] tracking-tight text-white sm:text-4xl lg:text-[42px]"
+              className="mt-2.5 text-3xl font-extrabold leading-[1.15] tracking-tight text-white sm:text-4xl lg:text-[42px]"
             >
-              Your Ambition.{" "} <br />
-              <span className="text-gradient-royal">
-                Our Commitment.
+              Your Ambition. <br className="hidden sm:inline" />
+              <span className="relative inline-block mt-1 sm:mt-1.5">
+                <span
+                  aria-hidden="true"
+                  className="pointer-events-none absolute -inset-1 rounded-2xl bg-amber-400/25 blur-md"
+                />
+                <span className="relative inline-flex items-center rounded-xl sm:rounded-2xl border border-amber-400/40 bg-gradient-to-r from-[#0D3B85]/95 via-[#134CA1]/90 to-[#0A2F6E]/95 px-3 py-0.5 sm:px-4 sm:py-1 shadow-[0_4px_20px_rgba(7,34,85,0.5),inset_0_1px_2px_rgba(255,255,255,0.25)] backdrop-blur-md">
+                  <span className="bg-gradient-to-r from-[#FFF0BD] via-[#FFD54F] to-[#FFC107] bg-clip-text font-black text-transparent drop-shadow-[0_2px_10px_rgba(255,193,7,0.4)]">
+                    Our Commitment.
+                  </span>
+                </span>
               </span>
             </h2>
 

@@ -25,12 +25,21 @@
 
 @theme {
   --color-primary: #043A80;
+  --color-primary-hover: #032A5E;
+  --color-primary-foreground: #FFFFFF;
+
+  --color-secondary: #0A66C2;
+  --color-secondary-hover: #084E96;
+  --color-light-blue: #EFF6FF;
+
   --color-navy: #13293D;
   --color-background: #F5F8FF;
   --color-foreground: #13293D;
 
   --color-gold: #FFC107;
   --color-gold-light: #FFF1A8;
+
+  --color-border: #DCE5F1;
 
   --font-sans: Arial, Helvetica, sans-serif;
 }
@@ -265,6 +274,45 @@ body {
 
 .animate-gallery-fade {
   animation: galleryFade 0.5s ease forwards;
+}
+
+/* Vertical Infinite Marquee Animations */
+@keyframes princeGalleryUp {
+  0% {
+    transform: translateY(0);
+  }
+  100% {
+    transform: translateY(-50%);
+  }
+}
+
+@keyframes princeGalleryDown {
+  0% {
+    transform: translateY(-50%);
+  }
+  100% {
+    transform: translateY(0);
+  }
+}
+
+.prince-campus-gallery-track {
+  display: flex;
+  flex-direction: column;
+  will-change: transform;
+}
+
+.prince-gallery-up {
+  animation: princeGalleryUp var(--gallery-duration, 32s) linear infinite;
+}
+
+.prince-gallery-down {
+  animation: princeGalleryDown var(--gallery-duration, 36s) linear infinite;
+}
+
+.prince-campus-gallery-track:hover,
+.prince-gallery-track-hover-pause:hover .prince-gallery-up,
+.prince-gallery-track-hover-pause:hover .prince-gallery-down {
+  animation-play-state: paused;
 }
 
 /* =========================================================
