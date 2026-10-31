@@ -329,6 +329,43 @@ body {
   }
 }
 
+@keyframes royalBlueBorderSpin {
+  from {
+    transform: translate(-50%, -50%) rotate(0deg);
+  }
+  to {
+    transform: translate(-50%, -50%) rotate(360deg);
+  }
+}
+
+.royal-blue-border-spin {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+
+  width: 300%;
+  height: 300%;
+
+  background: conic-gradient(
+    from 0deg,
+    transparent 0deg,
+    transparent 240deg,
+    #043A80 270deg,
+    #0A66C2 295deg,
+    #38BDF8 320deg,
+    #043A80 345deg,
+    transparent 360deg
+  );
+
+  transform: translate(-50%, -50%);
+  transform-origin: center center;
+
+  animation: royalBlueBorderSpin 2.5s linear infinite;
+
+  will-change: transform;
+  pointer-events: none;
+}
+
 .gold-border-spin {
   position: absolute;
   top: 50%;
@@ -353,6 +390,7 @@ body {
   animation: goldBorderSpin 2.5s linear infinite;
 
   will-change: transform;
+  pointer-events: none;
 }
 
 /* =========================================================

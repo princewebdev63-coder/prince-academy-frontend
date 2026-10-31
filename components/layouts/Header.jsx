@@ -18,7 +18,7 @@ const LINKS = [
 const TOUR_URL =
   "https://tour.princeeduhub.com/princt34/prince-academy/";
 
-const LOGO_SRC = "/images/prince-academy-logo.png";
+const LOGO_SRC = "/logo2.png";
 
 function isActiveRoute(pathname, href) {
   if (href === "/") return pathname === "/";
@@ -184,7 +184,7 @@ export default function Header() {
           {/* Left Announcement Message */}
           <div className="flex items-center gap-2.5 overflow-hidden text-ellipsis whitespace-nowrap">
             <span className="inline-flex items-center gap-1 rounded-full bg-amber-400 px-2.5 py-0.5 text-[10px] sm:text-[11px] font-black uppercase tracking-wider text-[#072255] shadow-xs">
-              <Sparkles size={11} className="animate-spin-slow" /> Admissions 2026-27
+               Admissions 2026-27
             </span>
             <span className="hidden sm:inline font-medium text-blue-100">
               CBSE Affiliated Day-Boarding &amp; Residential School · Sikar (Raj.)

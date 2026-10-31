@@ -7,9 +7,11 @@ import FAQSection from "@/components/home/FAQSection";
 import WhyPrinceAcademy from "@/components/home/WhyPrinceAcademy";
 import VisionPrinceAcademy from "@/components/home/VisionPrinceAcademy";
 import CampusGallery from "@/components/home/CampusGallery";
+import BlogScrollTunnel from "@/components/home/BlogScrollTunnel";
 import ResultStateSection from "@/components/home/ResultStateSection";
 import Philosophy  from "@/components/home/Philosophy";
 import TextTicker from "@/components/home/TextTicker";
+import HomeVideos from "@/components/home/Homevideo";
 
 export default function Home() {
   return (
@@ -24,8 +26,10 @@ export default function Home() {
       <ResultStateSection/>
       <VisionPrinceAcademy/>
       <CampusGallery/>
+      <BlogScrollTunnel />
+      <HomeVideos/>
       {/* <StickyScrollReveal /> */}
-      {/* <FAQSection /> */}
+      <FAQSection />
     </main>
   );
 }

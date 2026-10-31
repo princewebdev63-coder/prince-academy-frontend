@@ -18,22 +18,8 @@ import {
 } from "react-icons/fa";
 
 const TOUR_URL = "https://tour.princeeduhub.com/princt34/old-campus/";
-const LOGO_SRC = "/images/prince-academy-logo.png";
+const LOGO_SRC = "/logo.png";
 const CURRENT_YEAR = 2026;
-
-/*
-  Dark navy logo ko dark footer par visible banane ke liye:
-  1) 4 chhote white drop-shadows = clean white "sticker" outline
-  2) uske baad ek bada soft dark shadow = depth / floating effect
-*/
-const LOGO_FILTER = [
-  "drop-shadow(1px 0 0 rgba(255,255,255,0.65))",
-  "drop-shadow(-1px 0 0 rgba(255,255,255,0.65))",
-  "drop-shadow(0 1px 0 rgba(255,255,255,0.65))",
-  "drop-shadow(0 -1px 0 rgba(255,255,255,0.65))",
-  "drop-shadow(0 10px 20px rgba(0,0,0,0.55))",
-  "drop-shadow(0 0 18px rgba(255,255,255,0.12))",
-].join(" ");
 
 const QUICK_LINKS = [
   { label: "Home", href: "/" },
@@ -117,7 +103,6 @@ export default function Footer() {
                     height={106}
                     priority
                     className="relative h-20 w-auto object-contain sm:h-24"
-                    style={{ filter: LOGO_FILTER }}
                   />
                 </Link>
               </div>

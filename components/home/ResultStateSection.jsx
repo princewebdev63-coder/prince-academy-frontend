@@ -1,511 +1,496 @@
 "use client";
 
 import { useState } from "react";
-import Button from "@/components/comman/Button";
 import {
+  Crown,
   GraduationCap,
   Trophy,
-  Volleyball,
+  Medal,
   Users,
   BookOpen,
   TrendingUp,
   Star,
-  Target,
-  FlaskConical,
-  Medal,
-  Theater,
-  HeartPulse,
-  Check,
   ArrowRight,
   ChevronLeft,
   ChevronRight,
-  Crown,
+  Check,
 } from "lucide-react";
 
-/* ------------------------------------------------------------------ */
-/* Background & Showcase Images (Easily customizable)                  */
-/* ------------------------------------------------------------------ */
-const HEADER_BG = {
-  // Left: Real Prince Academy students in uniform studying together
-  leftPhoto: "/images/hero-poster.jpg",
-  // Right: Real Prince Academy campus building facade
-  rightPhoto: "/images/Defence Website 01.webp",
-};
-
-const TOPPERS_IMG = "/images/result4.webp";
-
-const PILLARS = [
+const pillarsData = [
   {
-    key: "Academics",
-    sub: ["Strong Foundations.", "Exceptional Results."],
-    Icon: GraduationCap,
-    n: "01",
-    title: "Strong Foundations. Exceptional Results.",
-    text: "We focus on conceptual clarity, disciplined learning and continuous support to help students achieve outstanding results in CBSE Class 10 and 12, while building a strong academic foundation for the future.",
+    id: "academics",
+    number: "01",
+    icon: GraduationCap,
+    title: "Academics",
+    tagline: "Strong Foundations.\nExceptional Results.",
+    headline: "Academics",
+    subtitle: "Strong Foundations. Exceptional Results.",
+    description:
+      "Focused conceptual clarity, rigorous CBSE board preparation and continuous mentoring for top results in Class 10 & 12.",
     cta: "Explore Academics",
+    href: "/curriculum",
     features: [
-      [Users, "Experienced Faculty", "Expert teachers with personalised guidance"],
-      [BookOpen, "Structured Academic Program", "Concept-based learning and regular assessment"],
-      [TrendingUp, "Doubt Support & Mentoring", "Continuous academic support for better performance"],
-      [Star, "Consistent Track Record", "Outstanding board results over the years"],
-    ],
-    slides: [
       {
-        chip: "Class 10 Results",
-        title: "Consistent Excellence in Class 10",
-        image: TOPPERS_IMG,
-        link: "View Detailed Results",
-        points: [
-          "Pass Percentage: 100%",
-          "650+ Students Scored 90%+",
-          "150+ Students Scored 95%+",
-        ],
+        icon: Users,
+        title: "Experienced Faculty",
+        description: "Personalised mentoring by top educators",
       },
       {
-        chip: "Class 12 Results",
-        title: "Consistent Excellence in Class 12",
-        image: TOPPERS_IMG,
-        link: "View Detailed Results",
-        points: [
-          "Pass Percentage: 100%",
-          "520+ Students Scored 90%+",
-          "State & District Board Merits",
-        ],
+        icon: BookOpen,
+        title: "Structured Curriculum",
+        description: "Concept clarity & regular assessments",
+      },
+      {
+        icon: TrendingUp,
+        title: "Doubt Support",
+        description: "Daily 1-on-1 problem-solving sessions",
+      },
+      {
+        icon: Star,
+        title: "Consistent Track Record",
+        description: "100% board results year after year",
       },
     ],
   },
   {
-    key: "Competitive Schooling",
-    sub: ["Beyond the Classroom.", "Ahead of the Curve."],
-    Icon: Trophy,
-    n: "02",
-    title: "Beyond the Classroom. Ahead of the Curve.",
-    text: "Early preparation for Olympiads, JEE, NEET and other competitive exams, built into the school day so students stay ahead without extra pressure.",
-    cta: "Explore Competitive Programs",
+    id: "competitive",
+    number: "02",
+    icon: Trophy,
+    title: "Competitive Schooling",
+    tagline: "Beyond the Classroom.\nAhead of the Curve.",
+    headline: "Competitive Schooling",
+    subtitle: "Beyond the Classroom. Ahead of the Curve.",
+    description:
+      "Integrated coaching for IIT-JEE, NEET, NDA & Olympiads alongside CBSE schooling for balanced, stress-free success.",
+    cta: "Explore Programs",
+    href: "/competitive",
     features: [
-      [Target, "Integrated Exam Preparation", "Foundation for JEE, NEET and NTSE from Class 6"],
-      [FlaskConical, "Olympiad Training", "Subject-wise practice with expert mentors"],
-      [TrendingUp, "Regular Mock Tests", "All-India style tests with performance analysis"],
-      [Medal, "Scholarship Support", "Rewards & encouragement for top performers"],
-    ],
-    slides: [
       {
-        chip: "Olympiads",
-        title: "National & Global Olympiad Ranks",
-        Icon: Trophy,
-        link: "See Achievements",
-        points: [
-          "AIR 1 in National Science Olympiad",
-          "50+ Gold Medals at State & National level",
-          "Personalized Olympiad Mentorship",
-        ],
+        icon: Trophy,
+        title: "Targeted Coaching",
+        description: "Specialised modules & daily practice sets",
       },
       {
-        chip: "JEE / NEET Foundation",
-        title: "Early Foundation for JEE & NEET",
-        Icon: Target,
-        link: "See Achievements",
-        points: [
-          "Concepts taught by Kota & Delhi experts",
-          "Weekly Mock Tests & Error Analysis",
-          "Top Selections Year after Year",
-        ],
+        icon: BookOpen,
+        title: "Advanced Problem Solving",
+        description: "In-depth analytics & All-India test series",
+      },
+      {
+        icon: TrendingUp,
+        title: "Olympiad Mentorship",
+        description: "Focused training for NTSE, KVPY & Olympiads",
+      },
+      {
+        icon: Star,
+        title: "Proven Top Ranks",
+        description: "Consistent All-India Ranks in JEE & NEET",
       },
     ],
   },
   {
-    key: "Sports & Activities",
-    sub: ["Explore. Participate.", "Excel."],
-    Icon: Volleyball,
-    n: "03",
-    title: "Explore. Participate. Excel.",
-    text: "Sports, arts and clubs give every student a place to build confidence, teamwork and leadership, because growth does not stop at the classroom door.",
-    cta: "Explore Activities",
+    id: "sports",
+    number: "03",
+    icon: Medal,
+    title: "Sports & Activities",
+    tagline: "Explore. Participate.\nExcel.",
+    headline: "Sports & Activities",
+    subtitle: "Explore. Participate. Excel.",
+    description:
+      "Olympic-grade sports grounds, NIS coaches and creative clubs developing fitness, character and leadership.",
+    cta: "Explore Sports",
+    href: "/facilities",
     features: [
-      [Volleyball, "Olympic Standard Sports", "Trained national coaches for team & individual sports"],
-      [Theater, "Arts & Cultural Clubs", "Music, dance, drama, debate and fine arts"],
-      [Users, "Leadership Programs", "House system, student council and outdoor camps"],
-      [HeartPulse, "Health & Wellbeing", "Daily physical fitness, yoga and mental wellness"],
-    ],
-    slides: [
       {
-        chip: "Sports Champions",
-        title: "Champions On & Off the Field",
-        Icon: Medal,
-        link: "See Sports Facilities",
-        points: [
-          "State & National Level Championships",
-          "Dedicated 25-Bigha Sports Complex",
-          "Professional Coaching in 15+ Sports",
-        ],
+        icon: Medal,
+        title: "Olympic Infrastructure",
+        description: "Synthetic tracks, shooting range & swimming",
       },
       {
-        chip: "Clubs & Arts",
-        title: "Creativity & Personality Development",
-        Icon: Theater,
-        link: "See Activities",
-        points: [
-          "Annual Cultural Fest & Competitions",
-          "Public Speaking & Model UN Clubs",
-          "Holistic Character Building",
-        ],
+        icon: Users,
+        title: "Certified NIS Coaches",
+        description: "Expert training across 15+ disciplines",
+      },
+      {
+        icon: TrendingUp,
+        title: "National Medals",
+        description: "Champions at SGFI & CBSE Nationals",
+      },
+      {
+        icon: Star,
+        title: "Arts & Leadership",
+        description: "Yoga, martial arts, debate & music clubs",
       },
     ],
   },
 ];
 
-export default function ResultStateSection() {
-  const [active, setActive] = useState(0);
-  const [slide, setSlide] = useState(0);
+const resultSlides = [
+  {
+    tabIndex: 0,
+    title: "Consistent Excellence in Class 10",
+    stats: [
+      "Pass Percentage: 100%",
+      "650+ Students Scored 90%+",
+      "150+ Students Scored 95%+",
+    ],
+  },
+  {
+    tabIndex: 1,
+    title: "Outstanding Results in Class 12",
+    stats: [
+      "100% Board Examination Results",
+      "500+ Students Scored 90%+",
+      "100+ Students Scored 95%+",
+    ],
+  },
+  {
+    tabIndex: 0,
+    title: "CBSE & Olympiad Toppers",
+    stats: [
+      "Top All-India CBSE Rankings",
+      "State Rank 1 & District Toppers",
+      "100% College Admissions Guidance",
+    ],
+  },
+];
 
-  const p = PILLARS[active];
-  const s = p.slides[slide];
+export default function ThreePillars() {
+  const [activePillarIndex, setActivePillarIndex] = useState(0);
+  const [activeResultSlide, setActiveResultSlide] = useState(0);
 
-  const pick = (i) => {
-    setActive(i);
-    setSlide(0);
+  const currentPillar = pillarsData[activePillarIndex];
+  const currentSlide = resultSlides[activeResultSlide];
+
+  const handleNextSlide = () => {
+    setActiveResultSlide((prev) => (prev + 1) % resultSlides.length);
   };
 
-  const move = (d) => {
-    setSlide((slide + d + p.slides.length) % p.slides.length);
+  const handlePrevSlide = () => {
+    setActiveResultSlide(
+      (prev) => (prev - 1 + resultSlides.length) % resultSlides.length
+    );
   };
 
   return (
-    <section className="relative overflow-hidden bg-gradient-to-b from-[#F4F8FE] via-[#EBF3FD] to-[#F4F8FE] pt-0 pb-12 sm:pt-14 sm:pb-16 md:pt-12 md:pb-16 select-none">
-      {/* Background Photo: Clean Image with gentle bottom glow only */}
+    <section className="relative isolate w-full overflow-hidden bg-gradient-to-b from-[#F4F8FE] via-[#EAF2FC] to-[#F4F8FE] py-12 text-[#04285E] sm:py-16 lg:py-20">
+      {/* Matching Light Theme Ambient Glows as in HeroPlus & FAQSection */}
       <div
         aria-hidden="true"
-        className="pointer-events-none absolute inset-x-0 top-0 h-[410px] sm:h-[440px] md:h-[420px] overflow-hidden select-none"
-        style={{
-          WebkitMaskImage:
-            "linear-gradient(to bottom, black 65%, transparent 100%)",
-          maskImage:
-            "linear-gradient(to bottom, black 65%, transparent 100%)",
-        }}
+        className="pointer-events-none absolute inset-0 -z-10 overflow-hidden"
       >
-        <img
-          src={HEADER_BG.leftPhoto}
-          alt=""
-          className="h-full w-full object-cover object-[center_top] sm:object-[center_35%] transform-gpu opacity-85"
-          onError={(e) => {
-            e.currentTarget.style.display = "none";
+        {/* Soft daylight top-radial glow */}
+        <div
+          className="absolute inset-0 opacity-70"
+          style={{
+            background:
+              "radial-gradient(120% 75% at 50% 0%, #FFFFFF 0%, #F0F6FE 40%, #EAF2FC 75%, #F4F8FE 100%)",
           }}
         />
-
-        {/* Soft Bottom Ambient Glow & Transition */}
-        <div className="absolute inset-x-0 bottom-0 h-44 bg-gradient-to-t from-[#F4F8FE] via-[#F4F8FE]/60 to-transparent" />
-        <div className="absolute inset-x-0 bottom-0 h-32 bg-[radial-gradient(ellipse_75%_50%_at_50%_100%,rgba(37,99,235,0.12),transparent_70%)]" />
+        {/* Soft Blue Left Orb (matches HeroPlus -left-20) */}
+        <div className="pointer-events-none absolute -left-20 top-1/4 -z-10 h-80 w-80 rounded-full bg-blue-500/12 blur-3xl" />
+        {/* Soft Warm Yellow Orb (matches HeroPlus -right-20) */}
+        <div className="pointer-events-none absolute -right-20 bottom-10 -z-10 h-96 w-96 rounded-full bg-gradient-to-br from-amber-400/25 to-yellow-500/20 blur-3xl" />
+        {/* Soft Center Sky Aura */}
+        <div className="pointer-events-none absolute left-1/2 top-10 -translate-x-1/2 -z-10 h-64 w-[600px] rounded-full bg-blue-400/10 blur-[100px]" />
       </div>
 
-      {/* Section Header */}
-      <header className="relative z-10 mx-auto max-w-[740px] px-4 pt-4 sm:pt-2 text-center">
-        {/* Subtle Warm Gold Glow Halo */}
-        <div aria-hidden="true" className="pointer-events-none absolute left-1/2 top-4 -translate-x-1/2 -z-10 h-36 w-72 rounded-full bg-amber-400/20 blur-3xl animate-pulse-glow-gold" />
+      {/* Main Container */}
+      <div className="relative z-10 mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+        {/* Top Header Section */}
+        <header className="mx-auto max-w-3xl text-center">
+          
 
-        {/* Frosted Glass Overlay Card with Royal Blue Glow */}
-        <div className="rounded-2xl sm:rounded-3xl border border-blue-400/35 bg-white/45 sm:bg-white/55 p-5 sm:p-6 md:p-6 backdrop-blur-xl shadow-[0_12px_40px_rgba(10,61,145,0.12),0_0_25px_rgba(59,130,246,0.15)]">
-          {/* Crown Icon from Reference Design */}
-          <div className="flex justify-center mb-2">
-            <Crown className="h-5 w-5 sm:h-6 sm:w-6 text-amber-500 drop-shadow-[0_0_12px_rgba(245,158,11,0.65)] stroke-[2]" />
-          </div>
-
-          {/* Eyebrow */}
-          <div className="flex items-center justify-center gap-3 mb-2.5">
-            <span className="h-px w-10 sm:w-12 bg-blue-400/60" />
-            <span className="text-[11px] sm:text-[11.5px] font-extrabold tracking-[0.24em] text-primary uppercase">
-              OUR THREE PILLARS
+          {/* Badge With Yellow Hairlines */}
+          <div className="mt-2.5 flex items-center justify-center gap-3.5 sm:gap-4">
+          
+            <span className="text-[11px] font-bold uppercase tracking-[0.24em] text-[#04285E] sm:text-[13px]">
+              Our Three Pillars
             </span>
-            <span className="h-px w-10 sm:w-12 bg-blue-400/60" />
+            
           </div>
 
-          {/* Main Heading with Royal Blue Gradient */}
-          <h2 className="font-sans text-2xl sm:text-3xl md:text-[34px] lg:text-[38px] font-extrabold text-primary tracking-tight leading-[1.2]">
+          {/* Heading */}
+          <h2 className="mt-3.5 font-serif text-3xl font-bold leading-[1.12] tracking-tight text-[#04285E] sm:text-5xl lg:text-[54px]">
             A Well-Rounded Education
-            <br className="hidden sm:inline" />{" "}
-            <span className="font-bold text-primary">for a </span>
-            <span className="italic font-bold text-gradient-royal drop-shadow-[0_0_20px_rgba(37,99,235,0.25)]">Brighter Future</span>
+            <br />
+            for a{" "}
+            <span className="font-serif italic font-normal text-yellow-500">
+              Brighter Future
+            </span>
           </h2>
 
           {/* Subtitle */}
-          <p className="mt-2.5 sm:mt-3 text-[13px] sm:text-[13.5px] font-medium leading-relaxed text-primary/80 max-w-[580px] mx-auto">
-            At Prince Academy, we integrate strong academics, competitive learning and a wide range of
-            co-curricular opportunities to help every student discover their potential and achieve more.
+          <p className="mx-auto mt-3.5 max-w-2xl text-xs leading-relaxed text-slate-600 sm:text-[14.5px] sm:leading-6">
+            At Prince Academy, we integrate strong academics, competitive
+            learning and a wide range of co-curricular opportunities to help
+            every student discover their potential and achieve more.
           </p>
-        </div>
-      </header>
+        </header>
 
-      {/* Arched Stage Mound Behind Tabs */}
-      <div className="relative mx-auto mt-4 md:mt-5 max-w-[1120px] px-0 md:px-4">
-        <div className="relative overflow-hidden rounded-t-[70px] sm:rounded-t-[170px] lg:rounded-t-[220px] border-t border-blue-300/50 bg-gradient-to-b from-blue-100/90 via-background/60 to-transparent pt-6 sm:pt-9 md:pt-7 pb-16 sm:pb-12 md:pb-4 px-2 sm:px-4 shadow-[0_-10px_35px_rgba(37,99,235,0.18),0_15px_35px_rgba(10,61,145,0.12)] md:shadow-[0_-12px_45px_-10px_rgba(37,99,235,0.2),0_20px_50px_-15px_rgba(10,61,145,0.12)]">
-          {/* Subtle angled radial divider lines */}
-          <div aria-hidden="true" className="pointer-events-none absolute inset-0">
-            <div className="absolute left-[33.3%] top-4 bottom-0 w-px bg-border -rotate-[10deg] origin-top opacity-60 hidden md:block" />
-            <div className="absolute right-[33.3%] top-4 bottom-0 w-px bg-border rotate-[10deg] origin-top opacity-60 hidden md:block" />
+        {/* Three Pillars Curved Arc / Circle Section */}
+        <div className="relative mx-auto mt-8 sm:mt-12 lg:mt-16 w-full max-w-[1160px] lg:max-w-[1180px] xl:max-w-[1200px] px-2.5 sm:px-4 lg:px-0">
+          {/* Responsive SVG Circle Arch - Wider desktop arch with line running through icon badge centers and tucking cleanly behind the card */}
+          <div
+            aria-hidden="true"
+            className="pointer-events-none absolute inset-x-0 top-0 h-[210px] sm:h-[240px] lg:h-[270px] xl:h-[285px] w-full overflow-hidden"
+          >
+            <svg
+              viewBox="0 0 1000 270"
+              preserveAspectRatio="none"
+              className="h-full w-full"
+            >
+              <defs>
+                <linearGradient id="archFill" x1="0" y1="0" x2="0" y2="1">
+                  <stop offset="0%" stopColor="#FFFFFF" stopOpacity="0.95" />
+                  <stop offset="60%" stopColor="#EAF2FC" stopOpacity="0.8" />
+                  <stop offset="100%" stopColor="#FFFFFF" stopOpacity="1" />
+                </linearGradient>
+              </defs>
+              {/* Filled Dome Canopy */}
+              <path
+                d="M 15 166 Q 500 -70 985 166 L 985 270 L 15 270 Z"
+                fill="url(#archFill)"
+              />
+              {/* Elegant Arch Curve Line - Wider desktop span, ends tuck cleanly behind the lower white card */}
+              <path
+                d="M 15 166 Q 500 -70 985 166"
+                fill="none"
+                stroke="#93C5FD"
+                strokeWidth="2"
+              />
+            </svg>
           </div>
 
-          {/* Keyframes for Clickable Button Animation */}
-          <style>{`
-            @keyframes tabFloat {
-              0%, 100% { transform: translateY(0px); }
-              50% { transform: translateY(-4px); }
-            }
-            @keyframes tabRipple {
-              0% { transform: scale(0.95); opacity: 0.75; }
-              70% { transform: scale(1.32); opacity: 0; }
-              100% { transform: scale(1.32); opacity: 0; }
-            }
-            @keyframes activeAura {
-              0%, 100% { box-shadow: 0 8px 24px -2px rgba(4,58,128,0.35); }
-              50% { box-shadow: 0 12px 28px -2px rgba(4,58,128,0.45); }
-            }
-          `}</style>
+          {/* 3 Pillars Grid - Centered & Aligned on the Arch line (Title only, no description, no indicator line) */}
+          <div className="relative z-10 mx-auto grid max-w-[1060px] grid-cols-3 px-1 sm:px-4 pt-2.5 sm:pt-3 pb-2 sm:pb-3">
+            {pillarsData.map((pillar, index) => {
+              const Icon = pillar.icon;
+              const isActive = activePillarIndex === index;
 
-          {/* 3 Pillar Tabs */}
-          <div
-            role="tablist"
-            aria-label="Our three pillars"
-            className="relative z-10 grid grid-cols-3 max-w-[880px] mx-auto gap-2"
-          >
-            {PILLARS.map(({ key, sub, Icon }, i) => {
-              const on = i === active;
               return (
                 <button
-                  key={key}
-                  role="tab"
-                  id={`pillar-tab-${i}`}
-                  aria-selected={on}
-                  aria-controls="pillar-panel"
-                  tabIndex={on ? 0 : -1}
-                  onClick={() => pick(i)}
-                  onKeyDown={(e) => {
-                    const d = { ArrowRight: 1, ArrowLeft: -1 }[e.key];
-                    if (d) {
-                      const next = (i + d + 3) % 3;
-                      pick(next);
-                      document.getElementById(`pillar-tab-${next}`)?.focus();
-                    }
-                  }}
-                  className="group flex flex-col items-center gap-1.5 px-2 py-1.5 text-center transition-all duration-300 focus:outline-none cursor-pointer select-none active:scale-95"
+                  key={pillar.id}
+                  type="button"
+                  onClick={() => setActivePillarIndex(index)}
+                  className={`group relative flex flex-col items-center px-1 text-center cursor-pointer transition-transform duration-200 sm:px-3 focus:outline-none ${
+                    index === 1 ? "mt-0" : "mt-9 sm:mt-12 lg:mt-14"
+                  }`}
                 >
-                  {/* Icon Circle Container with Interactive Click Animations */}
+                  {/* Circular Icon Badge - Aligned with and sitting on top of the Circle Line */}
                   <div
-                    className="relative flex items-center justify-center"
-                    style={{
-                      animation: on
-                        ? "none"
-                        : `tabFloat 3.2s ease-in-out ${i * 0.45}s infinite`,
-                    }}
+                    className={`relative z-20 flex h-[52px] w-[52px] items-center justify-center rounded-full border-2 transition-all duration-300 sm:h-[66px] sm:w-[66px] lg:h-[76px] lg:w-[76px] ${
+                      isActive
+                        ? "border-yellow-500 bg-[#04285E] text-white shadow-[0_10px_30px_rgba(4,40,94,0.3)] scale-105 ring-4 ring-yellow-400/25"
+                        : "border-yellow-400/80 bg-white text-yellow-500 shadow-xs group-hover:border-[#04285E] group-hover:text-[#04285E] group-hover:scale-105"
+                    }`}
                   >
-                    {/* Ripple Radar Wave on Inactive Tabs to prompt click */}
-                    {!on && (
-                      <span
-                        className="pointer-events-none absolute h-14 w-14 sm:h-[60px] sm:w-[60px] rounded-full border-2 border-blue-400/40"
-                        style={{
-                          animation: `tabRipple 2.8s cubic-bezier(0, 0.2, 0.8, 1) ${i * 0.9}s infinite`,
-                        }}
-                      />
-                    )}
-
-                    {/* Main Interactive Disc */}
-                    <span
-                      className={`relative z-10 grid h-14 w-14 sm:h-[60px] sm:w-[60px] place-items-center rounded-full transition-all duration-300 transform-gpu ${
-                        on
-                          ? "bg-[#043A80] border-2 border-[#043A80] text-white scale-105 shadow-[0_8px_20px_rgba(4,58,128,0.35)]"
-                          : "bg-white border border-blue-200 text-[#043A80] shadow-sm hover:border-[#043A80] hover:bg-blue-50/90 hover:scale-105 hover:shadow-md hover:shadow-blue-900/10"
-                      }`}
-                      style={
-                        on
-                          ? { animation: "activeAura 2.5s ease-in-out infinite" }
-                          : undefined
-                      }
-                    >
-                      <Icon
-                        className={`h-6 w-6 sm:h-7 sm:w-7 transition-all duration-300 ${
-                          on
-                            ? "text-white scale-105 drop-shadow-[0_2px_4px_rgba(0,0,0,0.3)]"
-                            : "text-[#043A80] group-hover:scale-110 group-hover:text-blue-700"
-                        }`}
-                      />
-                    </span>
+                    <Icon
+                      size={22}
+                      strokeWidth={1.8}
+                      className="sm:h-7 sm:w-7 lg:h-8 lg:w-8"
+                    />
                   </div>
 
-                  {/* Title & Subtitle */}
-                  <div className="flex flex-col items-center">
-                    <b
-                      className={`mt-1 font-sans text-xs sm:text-sm md:text-[15px] font-extrabold leading-tight transition-colors max-w-[110px] sm:max-w-none text-center ${
-                        on ? "text-[#043A80]" : "text-slate-600 group-hover:text-[#043A80]"
-                      }`}
-                    >
-                      {key}
-                    </b>
-                  </div>
-
-                  <small className="hidden font-sans text-[11px] font-medium leading-tight text-slate-500 md:block transition-colors group-hover:text-[#043A80]">
-                    {sub[0]}
-                    <br />
-                    {sub[1]}
-                  </small>
+                  {/* Pillar Title Only */}
+                  <h3
+                    className={`mt-2 font-serif text-[13px] font-bold leading-tight transition-colors sm:mt-2.5 sm:text-[17px] lg:text-[19px] ${
+                      isActive
+                        ? "text-[#04285E]"
+                        : "text-[#04285E]/85 group-hover:text-[#04285E]"
+                    }`}
+                  >
+                    {pillar.title}
+                  </h3>
                 </button>
               );
             })}
           </div>
-        </div>
-      </div>
 
-      {/* Master Bottom Floating Card with Royal Glow */}
-      <div className="relative z-20 mx-auto -mt-4 md:-mt-3 max-w-[1140px] px-3.5 sm:px-6 md:px-4">
-        <div
-          key={active}
-          id="pillar-panel"
-          role="tabpanel"
-          aria-labelledby={`pillar-tab-${active}`}
-          className="animate-[fadeUp_.4s_ease] rounded-2xl sm:rounded-3xl md:rounded-[24px] border border-blue-200/90 bg-white/95 backdrop-blur-xl p-4 sm:p-6 lg:p-7 shadow-[0_12px_45px_-10px_rgba(10,61,145,0.14),0_0_25px_rgba(59,130,246,0.10)]"
-        >
-          <div className="flex flex-col lg:flex-row lg:items-stretch gap-8 lg:gap-0">
-            {/* Column 1: Intro (Left) */}
-            <div className="flex flex-col justify-between w-full lg:w-[28%] lg:pr-6">
-              <div>
-                <div className="flex items-center gap-2.5 mb-1.5">
-                  <span className="font-sans text-base font-extrabold text-secondary">{p.n}</span>
-                  <span className="h-[1.5px] w-7 bg-secondary/70" />
-                </div>
-                <h3 className="font-sans text-2xl sm:text-3xl font-extrabold tracking-tight text-primary mb-2">
-                  {p.key}
-                </h3>
-                <div className="font-sans font-bold text-base leading-snug text-primary sm:text-[16px] mb-2">
-                  {p.sub[0]}
-                  <br />
-                  {p.sub[1]}
-                </div>
-                <p className="font-sans text-[12.5px] sm:text-[13px] leading-relaxed text-foreground/80">
-                  {p.text}
-                </p>
-              </div>
-              <div className="mt-4 pt-1">
-                <Button
-                  variant="primary"
-                  size="sm"
-                  className="rounded-full shadow-md shadow-primary/25 font-bold hover:scale-[1.02] text-xs sm:text-sm px-4 py-2"
-                >
-                  <span>{p.cta}</span>
-                  <ArrowRight className="h-4 w-4" />
-                </Button>
-              </div>
-            </div>
-
-            {/* Column 2: Features (Center) */}
-            <div className="w-full lg:w-[36%] border-t lg:border-t-0 lg:border-x border-blue-100 py-5 lg:py-0 lg:px-6 flex flex-col justify-center">
-              <ul className="divide-y divide-blue-50">
-                {p.features.map(([Icon, title, desc]) => (
-                  <li key={title} className="flex items-center gap-3 py-2.5 first:pt-0 last:pb-0 group cursor-default">
-                    <span className="grid h-9 w-9 sm:h-10 sm:w-10 shrink-0 place-items-center rounded-full border border-blue-200 bg-blue-50/70 text-[#043A80] transition-all duration-300 group-hover:border-[#043A80] group-hover:bg-[#043A80] group-hover:text-white group-hover:scale-105 shadow-2xs">
-                      <Icon className="h-4 w-4 sm:h-4.5 sm:w-4.5 stroke-[1.8]" />
+          {/* Bottom Floating Card (The 3-Column Showcase) - Sleek, Compact Height, Wider Box */}
+          <div className="relative z-20 -mt-2 sm:-mt-3 lg:-mt-4 rounded-[24px] sm:rounded-[32px] border border-blue-200/90 bg-white/95 p-4 sm:p-5 lg:p-6 shadow-[0_20px_70px_rgba(4,40,94,0.08)] backdrop-blur-xl">
+            <div className="grid grid-cols-1 gap-5 lg:grid-cols-[1fr_1.1fr_1.75fr] lg:gap-5 xl:gap-6">
+              {/* Column 1: Left Content */}
+              <div className="flex flex-col justify-between border-b border-blue-100 pb-4 lg:border-b-0 lg:border-r lg:pb-0 lg:pr-5">
+                <div>
+                  {/* Yellow Number Badge */}
+                  <div className="flex items-center gap-2.5">
+                    <span className="font-serif text-xl font-bold text-yellow-500 sm:text-2xl">
+                      {currentPillar.number}
                     </span>
-                    <div className="min-w-0">
-                      <h4 className="font-sans text-[13.5px] font-bold leading-snug text-[#043A80] transition-colors group-hover:text-blue-700">{title}</h4>
-                      <p className="font-sans mt-0.5 text-[11.5px] sm:text-[12px] leading-snug text-slate-600">{desc}</p>
-                    </div>
-                  </li>
-                ))}
-              </ul>
-            </div>
+                    <span className="h-0.5 w-10 bg-yellow-500" />
+                  </div>
 
-            {/* Column 3: Showcase / Results (Right) */}
-            <div className="w-full lg:w-[36%] flex flex-col justify-between pl-0 lg:pl-6 pt-2 lg:pt-0">
-              {/* Filter Chips & Navigation */}
-              <div className="mb-2.5 flex items-center justify-between gap-2">
-                <div className="flex items-center gap-1.5 overflow-x-auto [scrollbar-width:none]">
-                  {p.slides.map((x, i) => (
+                  {/* Headline */}
+                  <h3 className="mt-2 font-serif text-2xl font-bold leading-tight tracking-tight text-[#04285E] sm:text-3xl">
+                    {currentPillar.headline}
+                  </h3>
+
+                  {/* Subtitle */}
+                  <h4 className="mt-1 font-serif text-sm font-bold leading-snug text-[#0B2545] sm:text-base">
+                    {currentPillar.subtitle}
+                  </h4>
+
+                  <div className="mt-2 h-0.5 w-12 bg-yellow-500" />
+
+                  {/* Shortened Description */}
+                  <p className="mt-2 text-xs leading-relaxed text-slate-600 sm:text-[13px]">
+                    {currentPillar.description}
+                  </p>
+                </div>
+
+                {/* Primary Royal Blue CTA Button */}
+                <a
+                  href={currentPillar.href}
+                  className="mt-4 inline-flex w-fit items-center justify-center gap-2 rounded-full bg-[#04285E] text-white hover:bg-[#063C8A] px-6 py-2.5 text-xs sm:text-[13px] font-bold shadow-md shadow-[#04285E]/20 transition-all duration-300 hover:scale-105 hover:shadow-lg hover:shadow-[#04285E]/30 active:scale-95 cursor-pointer"
+                >
+                  {currentPillar.cta}
+                  <ArrowRight size={15} />
+                </a>
+              </div>
+
+              {/* Column 2: Center Feature Rows - Compact Gap */}
+              <div className="flex flex-col justify-center gap-2.5 sm:gap-3 border-b border-blue-100 pb-4 lg:border-b-0 lg:border-r lg:pb-0 lg:px-3">
+                {currentPillar.features.map((feature) => {
+                  const Icon = feature.icon;
+
+                  return (
+                    <div
+                      key={feature.title}
+                      className="flex items-center gap-3"
+                    >
+                      {/* Circular Yellow-tinted Icon */}
+                      <div className="flex h-9 w-9 sm:h-10 sm:w-10 shrink-0 items-center justify-center rounded-full border border-yellow-200 bg-yellow-50 text-yellow-500 shadow-2xs">
+                        <Icon size={18} strokeWidth={1.8} />
+                      </div>
+
+                      {/* Feature Text */}
+                      <div>
+                        <h5 className="font-bold text-[13px] sm:text-[14px] leading-tight text-[#04285E]">
+                          {feature.title}
+                        </h5>
+                        <p className="mt-0.5 text-[11px] sm:text-[12px] leading-tight text-slate-500">
+                          {feature.description}
+                        </p>
+                      </div>
+                    </div>
+                  );
+                })}
+              </div>
+
+              {/* Column 3: Right Results Showcase Banner */}
+              <div className="min-w-0 flex flex-col justify-between">
+                {/* Top Row: Sub-tabs and Nav Arrows */}
+                <div className="flex flex-wrap items-center justify-between gap-2.5">
+                  {/* Results Sub-Tabs */}
+                  <div className="flex items-center gap-2">
                     <button
-                      key={x.chip}
-                      onClick={() => setSlide(i)}
-                      className={`whitespace-nowrap rounded-full px-3.5 py-1.5 font-sans text-[11.5px] font-bold transition-all cursor-pointer ${
-                        i === slide
-                          ? "bg-[#043A80] text-white shadow-md shadow-blue-900/20 ring-2 ring-amber-400/40 border border-transparent"
-                          : "border border-slate-300 bg-white text-slate-700 hover:border-[#043A80] hover:text-[#043A80] hover:bg-blue-50/60 shadow-2xs"
+                      type="button"
+                      onClick={() => setActiveResultSlide(0)}
+                      className={`rounded-full px-3.5 py-1.5 text-xs font-semibold transition-all duration-200 cursor-pointer sm:px-4 sm:text-[12px] ${
+                        activeResultSlide === 0
+                          ? "bg-[#04285E] text-white shadow-xs"
+                          : "bg-[#EAF2FC] text-[#04285E] hover:bg-[#DCEBFC]"
                       }`}
                     >
-                      {x.chip}
+                      Class 10 Results
                     </button>
+                    <button
+                      type="button"
+                      onClick={() => setActiveResultSlide(1)}
+                      className={`rounded-full px-3.5 py-1.5 text-xs font-semibold transition-all duration-200 cursor-pointer sm:px-4 sm:text-[12px] ${
+                        activeResultSlide === 1
+                          ? "bg-[#04285E] text-white shadow-xs"
+                          : "bg-[#EAF2FC] text-[#04285E] hover:bg-[#DCEBFC]"
+                      }`}
+                    >
+                      Class 12 Results
+                    </button>
+                  </div>
+
+                  {/* Left / Right Nav Arrows */}
+                  <div className="flex items-center gap-1.5">
+                    <button
+                      type="button"
+                      onClick={handlePrevSlide}
+                      aria-label="Previous result"
+                      className="flex h-7 w-7 items-center justify-center rounded-full border border-blue-200 text-[#04285E] transition hover:border-[#04285E] hover:bg-[#EAF2FC] cursor-pointer"
+                    >
+                      <ChevronLeft size={15} />
+                    </button>
+                    <button
+                      type="button"
+                      onClick={handleNextSlide}
+                      aria-label="Next result"
+                      className="flex h-7 w-7 items-center justify-center rounded-full border border-blue-200 text-[#04285E] transition hover:border-[#04285E] hover:bg-[#EAF2FC] cursor-pointer"
+                    >
+                      <ChevronRight size={15} />
+                    </button>
+                  </div>
+                </div>
+
+                {/* Showcase Banner Card */}
+                <div className="mt-2 relative overflow-hidden rounded-xl border border-yellow-200/80 bg-gradient-to-br from-[#FFFDF8] via-[#FFFBEB] to-[#FEF3C7] p-3 sm:p-3.5 shadow-xs">
+                  <div className="flex flex-col sm:flex-row items-center gap-3 sm:gap-4">
+                    {/* Left: 3 Achiever Students Image */}
+                    <div className="relative w-full sm:w-[46%] shrink-0 h-[140px] sm:h-[155px] overflow-hidden rounded-lg bg-yellow-100/40 shadow-xs">
+                      <img
+                        src="/images/pillar-students.jpg"
+                        alt="Prince Academy achiever students"
+                        className="h-full w-full object-cover object-center"
+                      />
+                    </div>
+
+                    {/* Right: Results Content */}
+                    <div className="flex-1 w-full min-w-0">
+                      <h4 className="font-serif text-sm font-bold leading-tight text-[#04285E] sm:text-[16px]">
+                        {currentSlide.title}
+                      </h4>
+
+                      {/* Yellow Hairline */}
+                      <div className="my-1.5 h-0.5 w-8 bg-yellow-500" />
+
+                      {/* Stat Checkmarks */}
+                      <div className="space-y-1.5">
+                        {currentSlide.stats.map((stat) => (
+                          <div key={stat} className="flex items-center gap-2">
+                            <span className="flex h-3.5 w-3.5 shrink-0 items-center justify-center rounded-full bg-yellow-500 text-white shadow-2xs">
+                              <Check size={10} strokeWidth={3} />
+                            </span>
+                            <span className="text-[11.5px] font-semibold text-slate-700 sm:text-[12px]">
+                              {stat}
+                            </span>
+                          </div>
+                        ))}
+                      </div>
+
+                      {/* View Detailed Results Link */}
+                      <a
+                        href="/results"
+                        className="mt-2.5 inline-flex items-center gap-1.5 text-[11.5px] font-bold text-[#04285E] transition hover:text-yellow-600 underline decoration-blue-200 underline-offset-4 hover:decoration-yellow-500"
+                      >
+                        View Detailed Results
+                        <ArrowRight size={13} />
+                      </a>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Pagination Dots at Bottom */}
+                <div className="mt-2.5 flex items-center justify-center gap-1.5">
+                  {resultSlides.map((_, idx) => (
+                    <button
+                      key={idx}
+                      type="button"
+                      onClick={() => setActiveResultSlide(idx)}
+                      aria-label={`Go to result slide ${idx + 1}`}
+                      className={`h-1.5 rounded-full transition-all duration-300 cursor-pointer ${
+                        activeResultSlide === idx
+                          ? "w-5 bg-yellow-500"
+                          : "w-1.5 bg-blue-200 hover:bg-yellow-400"
+                      }`}
+                    />
                   ))}
                 </div>
-                <div className="flex items-center gap-1.5 shrink-0">
-                  <button
-                    aria-label="Previous slide"
-                    onClick={() => move(-1)}
-                    className="grid h-7 w-7 place-items-center rounded-full border border-slate-300 bg-white text-slate-700 transition-all hover:border-[#043A80] hover:bg-[#043A80] hover:text-white hover:scale-105 active:scale-95 shadow-2xs cursor-pointer"
-                  >
-                    <ChevronLeft className="h-3.5 w-3.5" />
-                  </button>
-                  <button
-                    aria-label="Next slide"
-                    onClick={() => move(1)}
-                    className="grid h-7 w-7 place-items-center rounded-full border border-slate-300 bg-white text-slate-700 transition-all hover:border-[#043A80] hover:bg-[#043A80] hover:text-white hover:scale-105 active:scale-95 shadow-2xs cursor-pointer"
-                  >
-                    <ChevronRight className="h-3.5 w-3.5" />
-                  </button>
-                </div>
-              </div>
-
-              {/* Showcase Banner Box with Royal Sapphire Sheen */}
-              <div
-                key={`${active}-${slide}`}
-                className="flex flex-row items-center overflow-hidden rounded-2xl border border-blue-200/80 bg-gradient-to-br from-white via-[#F0F5FD] to-[#E3EDFD]/80 p-3 sm:p-3.5 gap-3 sm:gap-3.5 transition-all shadow-[0_4px_25px_rgba(10,61,145,0.06),0_0_15px_rgba(59,130,246,0.08)] hover:shadow-[0_8px_30px_rgba(10,61,145,0.12)] hover:border-blue-300"
-              >
-                {/* Visual / Image (Same side-by-side layout on mobile and desktop) */}
-                {s.image ? (
-                  <div className="relative w-[105px] sm:w-[125px] shrink-0 self-stretch min-h-[110px] sm:min-h-[125px] rounded-xl overflow-hidden bg-white/70 border border-blue-200">
-                    <img
-                      src={s.image}
-                      alt={s.title}
-                      className="h-full w-full object-cover object-center"
-                    />
-                  </div>
-                ) : (
-                  <div className="grid w-[105px] sm:w-[125px] shrink-0 self-stretch min-h-[110px] sm:min-h-[125px] place-items-center rounded-xl bg-white/80 border border-blue-200">
-                    <span className="grid h-10 w-10 sm:h-12 sm:w-12 place-items-center rounded-full bg-[#043A80] text-amber-400 ring-4 ring-amber-400/25 shadow-md">
-                      <s.Icon className="h-5 w-5 sm:h-6 sm:w-6" />
-                    </span>
-                  </div>
-                )}
-
-                {/* Content */}
-                <div className="flex-1 min-w-0 flex flex-col justify-center">
-                  <h5 className="mb-2 font-sans text-[13.5px] sm:text-[14.5px] font-bold leading-tight text-[#043A80] break-words">
-                    {s.title}
-                  </h5>
-                  <ul className="space-y-1.5">
-                    {s.points.map((pt) => (
-                      <li key={pt} className="flex items-center gap-2 font-sans text-[11.5px] sm:text-[12px] font-medium text-slate-700">
-                        <span className="grid h-4 w-4 shrink-0 place-items-center rounded-full bg-blue-100 text-[#043A80] border border-blue-300/40">
-                          <Check className="h-2.5 w-2.5 stroke-[2.5]" />
-                        </span>
-                        <span className="leading-snug break-words">{pt}</span>
-                      </li>
-                    ))}
-                  </ul>
-                  <a
-                    href="/results"
-                    className="mt-2.5 inline-flex items-center gap-1.5 font-sans text-[11.5px] sm:text-xs font-bold text-[#043A80] transition-all hover:text-amber-600 hover:translate-x-0.5"
-                  >
-                    <span>{s.link}</span>
-                    <ArrowRight className="h-3 w-3 shrink-0" />
-                  </a>
-                </div>
-              </div>
-
-              {/* Dots */}
-              <div className="flex justify-center items-center gap-1.5 pt-2">
-                {p.slides.map((x, i) => (
-                  <button
-                    key={x.chip}
-                    aria-label={x.chip}
-                    onClick={() => setSlide(i)}
-                    className={`h-1.5 rounded-full transition-all cursor-pointer ${
-                      i === slide ? "w-5 bg-[#043A80]" : "w-1.5 bg-slate-300 hover:bg-slate-400"
-                    }`}
-                  />
-                ))}
               </div>
             </div>
           </div>

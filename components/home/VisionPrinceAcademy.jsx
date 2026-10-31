@@ -137,14 +137,14 @@ export default function VisionPrinceAcademy() {
       />
 
       <div className="relative mx-auto w-full max-w-4xl">
-        {/* Eyebrow Badge */}
+        {/* Eyebrow Badge with Gold Text and Primary Underline */}
         <div className="mb-4 flex items-center justify-center sm:mb-5">
           <span
             id="prince-vision-heading"
-            className="inline-flex items-center gap-2 px-3.5 py-1 text-sm font-black uppercase tracking-[0.25em] text-primary "
+            className="relative inline-flex flex-col items-center px-1 text-sm lg:text-base font-black uppercase tracking-[0.25em] text-yellow-500"
           >
-            
             Our Vision
+            
           </span>
         </div>
 
